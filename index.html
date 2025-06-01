@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Διπλωματική Εργασία: Ιαπωνική Λαϊκή Κουλτούρα & Manga</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Shippori+Mincho:wght@400;700;800&family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif; 
+            background-color: #F8F9FA; 
+            color: #212529; 
+        }
+        .font-shippori {
+            font-family: 'Shippori Mincho', serif;
+        }
+        .font-mplus-rounded {
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+        }
+        .manga-panel {
+            background-color: #FFFFFF;
+            border: 1px solid #DEE2E6; 
+            border-radius: 0.75rem; 
+            padding: 2rem; 
+            margin-bottom: 2.5rem; 
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05); 
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            overflow: hidden; 
+        }
+        .manga-panel:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+        .panel-color-1 { background-color: #FFF0F5; border-left: 5px solid #DB7093; }
+        .panel-color-2 { background-color: #E6F3FF; border-left: 5px solid #87CEEB; }
+        .panel-color-3 { background-color: #E0F2F1; border-left: 5px solid #4DB6AC; }
+        .panel-color-4 { background-color: #FFF9C4; border-left: 5px solid #FFD700; }
+
+        .manga-panel-title { 
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1.75rem; 
+            font-weight: 700;
+            color: #343A40; 
+            margin-bottom: 1rem; 
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #E53E3E; 
+            display: inline-block;
+        }
+        .manga-title {
+            font-family: 'Shippori Mincho', serif; 
+            font-weight: 800; 
+            font-size: 2.75rem; 
+            line-height: 1.2;
+            color: #E53E3E; 
+            text-shadow: 1px 1px #495057;
+        }
+        .manga-subtitle {
+            font-family: 'M PLUS Rounded 1c', sans-serif; 
+            font-size: 1.4rem; 
+            color: #4A55A2; 
+        }
+
+        /* Navbar Styles */
+        #navbar {
+            background-color: #FFFFFF;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+            position: fixed;
+            width: 100%;
+            z-index: 50;
+            top: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            opacity: 0;
+            transform: translateY(-100%);
+            overflow: hidden; 
+            height: 70px; 
+        }
+        #navbar .container {
+            position: relative;
+            z-index: 10; 
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-title { 
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1.8rem; 
+            font-weight: 700;
+            color: #D9534F; 
+            text-decoration: none;
+        }
+         @media (max-width: 768px) {
+            .nav-title { font-size: 1.5rem; }
+         }
+
+        .nav-link {
+            font-family: 'M PLUS Rounded 1c', sans-serif; 
+            transition: color 0.3s ease, transform 0.2s ease, background-color 0.3s ease;
+            font-weight: 700;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            color: #4A5568; 
+        }
+        .nav-link:hover {
+            color: #FFFFFF; 
+            background-color: #E53E3E;
+            transform: translateY(-2px);
+        }
+        
+        /* Sakura Petals Animation */
+        .sakura-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; 
+            overflow: hidden; 
+        }
+        .sakura-petal {
+            position: absolute;
+            background-color: rgba(255, 183, 197, 0.8); 
+            border-radius: 50% 0 50% 0; 
+            animation: fall linear infinite;
+            opacity: 0;
+            box-shadow: 0 0 5px rgba(255, 183, 197, 0.5);
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-20px) translateX(0px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                 opacity: 0.8;
+            }
+            100% {
+                transform: translateY(80px) translateX(var(--sway)) rotate(var(--rotation)); 
+                opacity: 0;
+            }
+        }
+        .sakura-petal:nth-child(1) { width: 10px; height: 15px; left: 10%; animation-duration: 10s; animation-delay: 0s; --sway: 30px; --rotation: 360deg; }
+        .sakura-petal:nth-child(2) { width: 8px; height: 12px; left: 20%; animation-duration: 12s; animation-delay: -5s; --sway: -25px; --rotation: 450deg; }
+        .sakura-petal:nth-child(3) { width: 12px; height: 18px; left: 30%; animation-duration: 8s; animation-delay: -2s; --sway: 20px; --rotation: 270deg; }
+        .sakura-petal:nth-child(4) { width: 9px; height: 14px; left: 40%; animation-duration: 15s; animation-delay: -10s; --sway: -35px; --rotation: 540deg; }
+        .sakura-petal:nth-child(5) { width: 11px; height: 16px; left: 50%; animation-duration: 9s; animation-delay: -7s; --sway: 25px; --rotation: 300deg; }
+        .sakura-petal:nth-child(6) { width: 7px; height: 10px; left: 60%; animation-duration: 13s; animation-delay: -3s; --sway: -20px; --rotation: 600deg; }
+        .sakura-petal:nth-child(7) { width: 10px; height: 15px; left: 70%; animation-duration: 11s; animation-delay: -8s; --sway: 30px; --rotation: 400deg; }
+        .sakura-petal:nth-child(8) { width: 8px; height: 13px; left: 80%; animation-duration: 14s; animation-delay: -1s; --sway: -30px; --rotation: 480deg; }
+        .sakura-petal:nth-child(9) { width: 12px; height: 17px; left: 90%; animation-duration: 7s; animation-delay: -6s; --sway: 20px; --rotation: 330deg; }
+
+        .section-title {
+            font-family: 'Shippori Mincho', serif; 
+            font-weight: 800; 
+            font-size: 2.5rem; 
+            margin-bottom: 3rem; 
+            padding-bottom: 0.75rem;
+            border-bottom: 4px solid #E53E3E; 
+            display: inline-block; 
+        }
+        .scroll-indicator { animation: bounce 2s infinite; }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-18px); } 
+            60% { transform: translateY(-9px); }
+        }
+        .parallax-bg {
+            background-attachment: fixed; 
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        img.responsive-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+        }
+        .img-wrap-left { float: left; margin-right: 2rem; margin-bottom: 1rem; max-width: 45%; }
+        .img-wrap-right { float: right; margin-left: 2rem; margin-bottom: 1rem; max-width: 45%; }
+        .img-centered-block { display: block; margin-left: auto; margin-right: auto; margin-bottom: 1.5rem; max-width: 60%; }
+        .clear-both { clear: both; }
+        .fade-in-panel { opacity: 0; transform: translateY(25px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .fade-in-panel.visible { opacity: 1; transform: translateY(0); }
+        .text-content { font-family: 'Inter', sans-serif; font-size: 1.125rem; line-height: 1.8; color: #343A40; }
+        .text-content-jp-accent { font-family: 'M PLUS Rounded 1c', sans-serif; }
+        section { padding-top: 90px; margin-top: -90px; }
+        header#hero + main section:first-of-type { padding-top: 1.5rem; margin-top: 0; }
+        .manga-panel ul { list-style-position: inside; margin-left: 0.5rem; }
+        .manga-panel ul li { margin-bottom: 0.5rem; }
+        @media (max-width: 768px) {
+            .img-wrap-left, .img-wrap-right, .img-centered-block { float: none; max-width: 90%; margin-left: auto; margin-right: auto; margin-bottom: 1.5rem; }
+            .manga-title { font-size: 2rem; }
+            .manga-subtitle { font-size: 1.2rem; }
+            .section-title { font-size: 2rem; margin-bottom: 2rem;}
+            .manga-panel-title { font-size: 1.5rem; }
+            .text-content { font-size: 1rem; } 
+            .nav-link { font-size: 0.75rem; padding: 0.3rem 0.5rem;} 
+            #navbar .container .space-x-1 { margin-left: 0.1rem; margin-right: 0.1rem;} 
+            #navbar { height: 60px; } 
+             @keyframes fall { 
+                0% { transform: translateY(-20px) translateX(0px) rotate(0deg); opacity: 0; }
+                10% { opacity: 1; }
+                90% { opacity: 0.8; }
+                100% { transform: translateY(70px) translateX(var(--sway)) rotate(var(--rotation)); opacity: 0; }
+            }
+        }
+        .sub-panel { background-color: #F8F9FA; border: 1px dashed #ADB5BD; border-radius: 0.5rem; padding: 1rem; margin-top: 1rem; margin-bottom: 1rem; }
+        .sub-panel-title { font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 700; color: #E53E3E; margin-bottom: 0.5rem; font-size: 1.25rem; }
+
+        /* Gemini Modal Styles */
+        .modal {
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            display: none; 
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 30px; 
+            border: 1px solid #888;
+            width: 90%; 
+            max-width: 700px; 
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .close-button {
+            color: #aaa;
+            position: absolute; 
+            top: 15px; 
+            right: 20px; 
+            font-size: 32px; 
+            font-weight: bold;
+            line-height: 1;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .gemini-button {
+            background-color: #D9534F;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
+            margin-top: 1rem;
+        }
+        .gemini-button:hover {
+            background-color: #C9302C;
+        }
+        #geminiResponseArea, #challengeAnalysisResponseArea { 
+            margin-top: 1.5rem;
+            padding: 1.5rem; 
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 0.375rem;
+            min-height: 150px; 
+            max-height: 50vh; 
+            overflow-y: auto; 
+            font-size: 1.125rem; /* Increased font size for modal text (same as .text-content) */
+            line-height: 1.8;   /* Adjusted line height for modal text (same as .text-content) */
+        }
+        #geminiResponseArea h1, #challengeAnalysisResponseArea h1,
+        #geminiResponseArea h2, #challengeAnalysisResponseArea h2,
+        #geminiResponseArea h3, #challengeAnalysisResponseArea h3,
+        #geminiResponseArea h4, #challengeAnalysisResponseArea h4,
+        #geminiResponseArea h5, #challengeAnalysisResponseArea h5,
+        #geminiResponseArea h6, #challengeAnalysisResponseArea h6 {
+            font-family: 'Shippori Mincho', serif;
+            color: #D9534F;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700; /* Ensure headings are bold */
+        }
+        #geminiResponseArea h1, #challengeAnalysisResponseArea h1 { font-size: 1.6em; } /* Adjusted heading sizes within modal */
+        #geminiResponseArea h2, #challengeAnalysisResponseArea h2 { font-size: 1.4em; }
+        #geminiResponseArea h3, #challengeAnalysisResponseArea h3 { font-size: 1.25em; }
+        #geminiResponseArea h4, #challengeAnalysisResponseArea h4 { font-size: 1.1em; }
+        #geminiResponseArea strong, #challengeAnalysisResponseArea strong { font-weight: 700; }
+        #geminiResponseArea em, #challengeAnalysisResponseArea em { font-style: italic; }
+
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3; 
+            border-top: 4px solid #D9534F; 
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 1rem auto;
+            display: none; 
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <nav id="navbar">
+        <div class="sakura-container">
+            <div class="sakura-petal"></div>
+            <div class="sakura-petal"></div>
+            <div class="sakura-petal"></div>
+            <div class="sakura-petal"></div>
+            <div class="sakura-petal"></div>
+            <div class="sakura-petal"></div>
+            <div class="sakura-petal"></div>
+            <div class="sakura-petal"></div>
+            <div class="sakura-petal"></div>
+        </div>
+        <div class="container mx-auto px-4 md:px-6"> 
+            <a href="#hero" class="nav-title">研究</a> 
+            <div class="space-x-1 sm:space-x-2 md:space-x-4"> 
+                <a href="#introduction" class="nav-link">Εισαγωγή</a>
+                <a href="#world-of-manga" class="nav-link">Manga</a>
+                <a href="#art-of-translation" class="nav-link">Μετάφραση</a>
+                <a href="#research-methodology" class="nav-link">Έρευνα</a>
+                <a href="#results-discussion" class="nav-link">Αποτελέσματα</a>
+                <a href="#conclusion" class="nav-link">Συμπεράσματα</a>
+                <a href="#author" class="nav-link">Συγγραφέας</a>
+            </div>
+        </div>
+    </nav>
+
+    <header id="hero" class="min-h-screen flex flex-col items-center justify-center text-center bg-cover bg-center parallax-bg" 
+            style="background-image: url('https://i.imgur.com/SgIDkMc.jpeg');" 
+            onerror="this.style.backgroundImage='url(\'https://placehold.co/1920x1080/A7C7E7/333333?text=Ιαπωνικό+Τοπίο+Manga\')'">
+        <div class="bg-black bg-opacity-75 p-6 md:p-12 rounded-xl">
+            <h1 class="manga-title text-white leading-tight">ΙΑΠΩΝΙΚΗ ΛΑΪΚΗ ΚΟΥΛΤΟΥΡΑ ΚΑΙ ΔΥΤΙΚΟ ΚΟΙΝΟ:</h1>
+            <h2 class="manga-title text-white mb-4 leading-tight">ΜΕΤΑΦΡΑΖΟΝΤΑΣ ΑΓΓΛΙΚΑ SCANLATED MANGA ΣΤΑ ΕΛΛΗΝΙΚΑ</h2>
+            <p class="manga-subtitle text-gray-100 mb-2">Διπλωματική Εργασία</p>
+            <p class="text-xl md:text-2xl font-mplus-rounded text-gray-50 font-semibold">Αθανάσιος Βασιλειάδης</p>
+        </div>
+        <div class="absolute bottom-12 scroll-indicator">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-12 h-12 text-white">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
+            </svg>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 md:px-6 py-12 mt-4">
+
+        <section id="introduction" class="mb-20"> 
+            <div class="text-center"> <h2 class="section-title mb-12">序章 - Εισαγωγή</h2>
+            </div>
+            <div class="manga-panel fade-in-panel panel-color-1">
+                <div class="md:flex md:gap-10 items-center">
+                    <img src="https://i.imgur.com/mBdhgnF.jpeg" 
+                         alt="[Εικόνα με κοπέλα που διαβάζει manga σε ένα ατμοσφαιρικό δωμάτιο]" 
+                         class="responsive-img shadow-lg md:w-2/5 mb-6 md:mb-0 img-wrap-left"
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/EADDCA/333333?text=Ταξίδι+Manga';">
+                    <div class="text-content leading-relaxed">
+                        <p class="mb-5">
+                            Τα manga (漫画), τα ιαπωνικά κόμικς, έχουν εξελιχθεί σε ένα παγκόσμιο πολιτιστικό φαινόμενο, γοητεύοντας κοινό πέρα από τα σύνορα της Ιαπωνίας. Η παρούσα διπλωματική εργασία εμβαθύνει στον συναρπαστικό κόσμο των manga και την πορεία τους προς το δυτικό κοινό, με ιδιαίτερη έμφαση στις προκλήσεις και τις ιδιαιτερότητες της μετάφρασης των αγγλικών "scanlations" (ανεπίσημες μεταφράσεις από φαν) στην ελληνική γλώσσα.
+                        </p>
+                        <p>
+                            Η έρευνα εξετάζει την ταυτότητα και την ιστορία των manga, την πρόσληψή τους από το κοινό, τον κρίσιμο ρόλο του μεταφραστή και τις πρακτικές δυσκολίες που ανακύπτουν. Στόχος είναι η διερεύνηση των στρατηγικών που μπορούν να υιοθετηθούν για τη δημιουργία ποιοτικών ελληνικών μεταφράσεων manga, ικανών να κεντρίσουν το ενδιαφέρον των Ελλήνων αναγνωστών και να προωθήσουν την περαιτέρω εξερεύνηση αυτού του πολυδιάστατου μέσου, καλύπτοντας το σημαντικό κενό που παρατηρείται στην ελληνική αγορά.
+                        </p>
+                    </div>
+                </div>
+                <div class="clear-both"></div>
+            </div>
+        </section>
+
+        <section id="world-of-manga" class="mb-20">
+            <div class="text-center">
+                <h2 class="section-title mb-12">漫画の世界 - Ο Κόσμος των Manga</h2>
+            </div>
+            <div class="manga-panel fade-in-panel panel-color-2">
+                <h3 class="manga-panel-title">Τι Είναι τα Manga; Ορισμός και Βασικά Χαρακτηριστικά</h3>
+                <div class="md:flex md:gap-8 items-start">
+                    <div class="md:w-3/5 text-content">
+                        <p class="mb-4">Ο ιαπωνικός όρος "manga" (漫画) κυριολεκτικά σημαίνει "ιδιότροπες" ή "αυθόρμητες εικόνες". Στην Ιαπωνία, περιγράφει κάθε μορφή κόμικ και καρτούν, ενώ διεθνώς αναφέρεται αποκλειστικά στα ιαπωνικά κόμικς. Συνήθως τυπώνονται ασπρόμαυρα, αρχικά σε περιοδικά και κατόπιν σε συγκεντρωτικούς τόμους (tankōbon).</p>
+                        <p class="mb-4">Ένα από τα πιο αναγνωρίσιμα χαρακτηριστικά τους είναι η ανάγνωση από δεξιά προς τα αριστερά, ακολουθώντας την παραδοσιακή ιαπωνική γραφή. Άλλα διακριτικά στοιχεία περιλαμβάνουν την αφηγηματική συνοχή με συγκεκριμένη αρχή, μέση και τέλος, τον κεντρικό ρόλο του δημιουργού (mangaka) που συχνά διατηρεί τα πνευματικά δικαιώματα του έργου του, και ένα ιδιαίτερο εικαστικό ύφος (μεγάλα εκφραστικά μάτια, ποικιλία στυλ από ρεαλιστικό έως εξαιρετικά καρτουνίστικο).</p>
+                    </div>
+                    <div class="md:w-2/5 mt-4 md:mt-0">
+                        <img src="https://i.imgur.com/MCnTAla.png" 
+                             alt="[Εικόνα σελίδας manga με ασπρόμαυρα καρέ και ιαπωνικούς χαρακτήρες]" 
+                             class="responsive-img shadow-md mx-auto"
+                             onerror="this.onerror=null; this.src='https://placehold.co/400x300/D1E8E2/333333?text=Σελίδα+Manga+RTL';">
+                    </div>
+                </div>
+            </div>
+
+            <div class="manga-panel fade-in-panel panel-color-3 mt-10">
+                <h3 class="manga-panel-title">Manpu και Οπτική Αφήγηση</h3>
+                <div class="md:flex md:gap-8 items-center">
+                     <img src="https://animeartmagazine.com/wp-content/uploads/2022/02/dcf2f6ea5c924b6cf7611a3f15762e8f.webp" 
+                         alt="[Εικόνα που εξηγεί τα σύμβολα manpu με παραδείγματα από manga]" 
+                         class="responsive-img shadow-md md:w-2/5 mb-6 md:mb-0 img-wrap-left"
+                         onerror="this.onerror=null; this.src='https://placehold.co/400x300/FFDAB9/333333?text=Manpu+Σύμβολα';">
+                    <div class="text-content">
+                        <p class="mb-4">Τα manga χρησιμοποιούν εκτενώς τα "manpu" (漫符), οπτικά σύμβολα που αποδίδουν συναισθήματα (π.χ., σταγόνες ιδρώτα για αμηχανία, φλέβες για θυμό), ήχους (μέσω ονοματοποιιών), κίνηση και ψυχολογικές καταστάσεις. Αυτά τα σύμβολα, συχνά ενσωματωμένα καλλιτεχνικά στο σχέδιο, προσθέτουν ένα επιπλέον επίπεδο στην αφήγηση και αποτελούν αναπόσπαστο κομμάτι της "γλώσσας" των manga.</p>
+                        <p>Η "genre hybridity", δηλαδή η ανάμειξη διαφορετικών αφηγηματικών ειδών (π.χ. δράση με ρομαντισμό, κωμωδία με δράμα), είναι επίσης συχνό φαινόμενο, καθιστώντας πολλά manga πολυεπίπεδα και απρόβλεπτα.</p>
+                    </div>
+                </div>
+                 <div class="clear-both"></div>
+            </div>
+            
+            <div class="manga-panel fade-in-panel panel-color-4 mt-10">
+                <h3 class="manga-panel-title">Ιστορική Διαδρομή των Manga</h3>
+                <div class="text-content">
+                    <p class="mb-4">Οι ρίζες των manga ανιχνεύονται αιώνες πριν. Πρώιμες μορφές αφηγηματικής τέχνης περιλαμβάνουν σχέδια σε δοκούς ναών (περ. 700 μ.Χ.) και τους διάσημους κυλίνδρους με εικόνες ζώων που μιμούνται ανθρώπινες δραστηριότητες, γνωστούς ως "Chōjū-jinbutsu-giga" (鳥獣人物戯画 – Παρωδίες Ανθρώπων και Ζώων), που αποδίδονται στον μοναχό Toba Sōjō (12ος αιώνας) και θεωρούνται από πολλούς ως οι πρόγονοι των manga.</p>
+                    <div class="md:flex md:gap-8 items-start">
+                        <div class="md:w-1/2">
+                             <img src="https://en.seigensha.com/wp-content/uploads/978-4-86152-280-2_009-1-1.jpg" 
+                                 alt="[Απόσπασμα από τον κύλινδρο Chōjū-giga που δείχνει ζώα σε ανθρώπινες δραστηριότητες]" 
+                                 class="responsive-img shadow-md mb-4 mx-auto"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/400x250/E0E0E0/333333?text=Chōjū-giga';">
+                            <p class="mb-4">Κατά την περίοδο Edo (1603-1868), η τεχνική της ξυλογραφίας άνθισε, οδηγώντας στη δημιουργία των "ukiyo-e" (浮世絵 – "εικόνες του επιπλέοντος κόσμου"), που απεικόνιζαν σκηνές της καθημερινής ζωής, τοπία και ηθοποιούς. Ο διάσημος καλλιτέχνης Hokusai χρησιμοποίησε για πρώτη φορά τον όρο "manga" στους τόμους σκίτσων του "Hokusai Manga" (1814-1834), αν και με διαφορετική έννοια από τη σημερινή.</p>
+                        </div>
+                        <div class="md:w-1/2">
+                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Great_Wave_off_Kanagawa2.jpg/800px-Great_Wave_off_Kanagawa2.jpg" 
+                                 alt="[Εικόνα από το διάσημο ukiyo-e έργο 'Το Μεγάλο Κύμα της Καναγκάουα' του Χοκουσάι]" 
+                                 class="responsive-img shadow-md mb-4 mx-auto"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/400x300/C9C9FF/333333?text=Ukiyo-e+Έμπνευση';">
+                            <p class="mb-4">Το άνοιγμα της Ιαπωνίας στη Δύση στα τέλη του 19ου αιώνα έφερε επιρροές από τα δυτικά κόμικς. Ωστόσο, οι Ιάπωνες καλλιτέχνες διατήρησαν στοιχεία της δικής τους παράδοσης. Ο Β' Παγκόσμιος Πόλεμος είχε σημαντικό αντίκτυπο, με τα manga να χρησιμοποιούνται αρχικά για προπαγάνδα και αργότερα να αντικατοπτρίζουν τις ανησυχίες της εποχής (π.χ., σχέση ανθρώπου-τεχνολογίας, αντιπολεμικά μηνύματα).</p>
+                        </div>
+                    </div>
+                    <p>Η μεταπολεμική περίοδος σηματοδότησε την "χρυσή εποχή" των manga. Καθιερώθηκαν συμβάσεις όπως η ασπρόμαυρη εκτύπωση (λόγω οικονομικών περιορισμών αρχικά), η έκδοση σε εβδομαδιαία περιοδικά και η συλλογή δημοφιλών σειρών σε τόμους tankōbon. Η βιομηχανία άνθισε παράλληλα με την ιαπωνική οικονομία, και τα manga άρχισαν να αναγνωρίζονται ως σημαντική μορφή ψυχαγωγίας και τέχνης, οδηγώντας συχνά σε προσαρμογές anime, ταινίες και παιχνίδια.</p>
+                </div>
+            </div>
+
+            <div class="manga-panel fade-in-panel panel-color-1 mt-10">
+                <h3 class="manga-panel-title">Δημογραφικές Κατηγορίες και Εμβληματικά Έργα</h3>
+                <div class="md:flex md:gap-8 items-start">
+                    <div class="md:w-3/5 text-content">
+                        <p class="mb-4">Τα manga κατηγοριοποιούνται κυρίως με βάση το φύλο και την ηλικία του κοινού στο οποίο απευθύνονται, αν και οι διαχωριστικές γραμμές συχνά είναι ρευστές:</p>
+                        <ul class="list-disc mb-4 space-y-1">
+                            <li><strong>Kodomomuke (子供向け):</strong> Για μικρά παιδιά (π.χ., <em>Doraemon</em> του Fujiko F. Fujio). Με ηθικοδιδακτικό χαρακτήρα, χαριτωμένους χαρακτήρες και απλές ιστορίες.</li>
+                            <li><strong>Shōnen (少年):</strong> Για νεαρά αγόρια (π.χ., <em>One Piece</em> του Eiichiro Oda, <em>Naruto</em> του Masashi Kishimoto, <em>Attack on Titan</em> του Hajime Isayama). Επικεντρώνονται στη δράση, την περιπέτεια, τη φιλία και την αυτοβελτίωση.</li>
+                            <li><strong>Shōjo (少女):</strong> Για νεαρά κορίτσια (π.χ., <em>Fruits Basket</em> της Natsuki Takaya, <em>Sailor Moon</em> της Naoko Takeuchi). Δίνουν έμφαση στις διαπροσωπικές σχέσεις, τον ρομαντισμό και την συναισθηματική ανάπτυξη.</li>
+                            <li><strong>Seinen (青年):</strong> Για νεαρούς άνδρες (18+) (π.χ., <em>Berserk</em> του Kentaro Miura, <em>Monster</em> του Naoki Urasawa, <em>Vinland Saga</em> του Makoto Yukimura). Πιο ώριμες και σύνθετες θεματολογίες, ψυχολογικό βάθος, συχνά με πιο ρεαλιστική ή σκοτεινή ατμόσφαιρα.</li>
+                            <li><strong>Josei (女性):</strong> Για νεαρές γυναίκες (18+) (π.χ., <em>Nodame Cantabile</em> της Tomoko Ninomiya, <em>Paradise Kiss</em> της Ai Yazawa, <em>NANA</em> της Ai Yazawa). Εξερευνούν ρεαλιστικές σχέσεις, την καθημερινότητα και τις επαγγελματικές φιλοδοξίες.</li>
+                        </ul>
+                    </div>
+                    <div class="md:w-2/5 mt-4 md:mt-0">
+                        <img src="https://static.beebom.com/wp-content/uploads/2023/06/featured-new.jpg?w=750&quality=75" 
+                             alt="[Εικόνα με διάφορους χαρακτήρες anime/manga που αντιπροσωπεύουν διαφορετικά δημογραφικά είδη]" 
+                             class="responsive-img shadow-md mb-6"
+                             onerror="this.onerror=null; this.src='https://placehold.co/400x200/BEE3DB/333333?text=Δημογραφικές+Ομάδες';">
+                        <img src="https://cor-cdn-static.bibliocommons.com/list_jacket_covers/live/1937276259.png" 
+                             alt="[Εικόνα κολάζ με εξώφυλλα διάσημων manga]" 
+                             class="responsive-img shadow-md"
+                             onerror="this.onerror=null; this.src='https://placehold.co/400x250/F8BBD0/333333?text=Διάσημα+Manga';">
+                    </div>
+                </div>
+            </div>
+            <div class="manga-panel fade-in-panel panel-color-2 mt-10">
+                <h3 class="manga-panel-title">Πρόσληψη των Manga στην Ελλάδα και Διεθνώς</h3>
+                <p class="text-content leading-relaxed">Τα manga έχουν κατακτήσει μια σημαντική θέση στην παγκόσμια ποπ κουλτούρα, με την αγορά των anime να παίζει καθοριστικό ρόλο στη διάδοσή τους. Σε χώρες της Ευρώπης όπως η Ιταλία, η Γαλλία και η Γερμανία, υπάρχει μια ανεπτυγμένη αγορά επίσημων μεταφράσεων manga. Αντίθετα, στην Ελλάδα, παρά το αυξανόμενο ενδιαφέρον, παρατηρείται ένα σημαντικό κενό τόσο στις επίσημες εκδόσεις όσο και στις ανεπίσημες μεταφράσεις από φαν (scanlations). Οι ελάχιστες προσπάθειες που γίνονται συχνά χαρακτηρίζονται από ασυνέχεια. Αυτή η έλλειψη ελληνικού μεταφρασμένου περιεχομένου και η περιορισμένη έρευνα πάνω στις μεταφραστικές προκλήσεις από τα Ιαπωνικά (μέσω Αγγλικών) στα Ελληνικά αποτέλεσαν βασικό κίνητρο για την παρούσα διπλωματική εργασία.</p>
+            </div>
+            <div class="text-center mt-10">
+                <button id="exploreMangaBtn" class="gemini-button text-lg">✨ Εξερεύνησε Βαθύτερα τα Manga ✨</button>
+            </div>
+        </section>
+
+        <section id="art-of-translation" class="mb-20">
+             <div class="text-center">
+                <h2 class="section-title mb-12">翻訳の技術 - Η Τέχνη της Μετάφρασης</h2>
+            </div>
+            <div class="manga-panel fade-in-panel panel-color-3">
+                 <h3 class="manga-panel-title">Ο Μεταφραστής ως Πολιτισμικός Διαμεσολαβητής</h3>
+                 <img src="https://www.japan.go.jp/kizuna/_src/7997194/manga_translation_service_01.jpg?v=1743005535161" 
+                         alt="[Εικόνα που συμβολίζει τη μετάφραση manga ως γέφυρα πολιτισμών]" 
+                         class="responsive-img shadow-md img-centered-block max-w-xl" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/500x350/A0D2DB/333333?text=Γέφυρα+Πολιτισμών';">
+                <div class="text-content mt-6">
+                    <p class="mb-4">Η μετάφραση λογοτεχνικών έργων, και ειδικότερα των manga, υπερβαίνει την απλή γλωσσική μεταφορά. Ο μεταφραστής καλείται να λειτουργήσει ως "διαμεσολαβητής μεταξύ πολιτισμών" (Bassnett 2011), μεταφέροντας όχι μόνο λέξεις αλλά και τις πολιτισμικές ιδιαιτερότητες, τις κοινωνικές νόρμες και τις αισθητικές αξίες που ενσωματώνονται στο πρωτότυπο. Στα manga, με την πλούσια εικονογραφία και τις συχνές αναφορές στην ιαπωνική κουλτούρα, ο ρόλος αυτός καθίσταται ακόμη πιο κρίσιμος.</p>
+                    <p>Η ποιότητα της μετάφρασης επηρεάζει άμεσα την πρόσληψη του έργου, την κατανόηση των νοημάτων και την αισθητική απόλαυση από το ξένο κοινό. Ο μεταφραστής μελετά τους χαρακτήρες, τις αντιδράσεις τους και την ψυχολογία τους, ώστε να αποδώσει την αμεσότητα του διαλόγου και την πρόθεση του δημιουργού. Όπως σημειώνει ο Schodt (2012), όσο καλά κι αν μεταφραστεί ένα manga, παραμένει ένα ιαπωνικό πολιτισμικό προϊόν που μπορεί αρχικά να ξενίσει όσους δεν είναι εξοικειωμένοι, απαιτώντας την εκμάθηση ενός νέου "οπτικού και γραπτού λεξιλογίου".</p>
+                </div>
+                 <div class="clear-both"></div>
+            </div>
+
+            <div class="manga-panel fade-in-panel panel-color-4 mt-10">
+                <h3 class="manga-panel-title">Scanlation: Η Ανεπίσημη Μετάφραση από τους Fans</h3>
+                 <img src="https://www.insidescanlation.com/images/spotlight/speedscan_onb.png" 
+                      alt="[Εικόνα που απεικονίζει τη διαδικασία του scanlation σε υπολογιστή]" 
+                      class="responsive-img shadow-md mb-6 mx-auto block max-w-lg" 
+                      onerror="this.onerror=null; this.src='https://placehold.co/500x350/FEEAFA/333333?text=Scanlation+Διαδικασία';">
+                <div class="text-content">
+                    <p class="mb-4">Το "scanlating" (συνδυασμός των λέξεων scan και translating) είναι η διαδικασία κατά την οποία φαν ενός manga αποκτούν το πρωτότυπο (συνήθως στα ιαπωνικά), το σαρώνουν, καθαρίζουν ψηφιακά τις εικόνες, αφαιρούν το πρωτότυπο κείμενο, το μεταφράζουν και ενσωματώνουν τη μετάφραση στις "καθαρές" σελίδες. Το τελικό προϊόν διανέμεται δωρεάν online.</p>
+                    <p class="mb-4">Παρά τα ζητήματα πνευματικών δικαιωμάτων, τα scanlations είναι εξαιρετικά δημοφιλή και συχνά αποτελούν την πρώτη (ή και μοναδική) επαφή πολλών αναγνωστών εκτός Ιαπωνίας με συγκεκριμένους τίτλους. Οι λόγοι της δημοτικότητάς τους περιλαμβάνουν την ταχύτητα κυκλοφορίας (συχνά πολύ πιο γρήγορα από τις επίσημες εκδόσεις), την ευρεία διαθεσιμότητα και την κάλυψη τίτλων που δεν αδειοδοτούνται επίσημα. Η βιομηχανία των manga, αν και θεωρεί παράνομη τη δραστηριότητα, συχνά την ανέχεται ή την χρησιμοποιεί ως δείκτη δημοτικότητας για πιθανές επίσημες αδειοδοτήσεις (Lee 2009).</p>
+                </div>
+            </div>
+
+            <div class="manga-panel fade-in-panel panel-color-1 mt-10">
+                <h3 class="manga-panel-title">Πρακτικά Ζητήματα και Προκλήσεις στη Μετάφραση Manga</h3>
+                <p class="text-content leading-relaxed mb-6">Η μετάφραση manga παρουσιάζει ιδιαίτερες προκλήσεις λόγω της σύνθετης σημειωτικής τους δομής (Jüngst 2008) και των πολιτισμικών τους ιδιαιτεροτήτων. Ορισμένα βασικά ζητήματα περιλαμβάνουν:</p>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="sub-panel">
+                        <h4 class="sub-panel-title">Κατεύθυνση Ανάγνωσης & Διάταξη</h4>
+                        <p class="text-content text-sm">Η ανάγνωση από δεξιά προς τα αριστερά και η κάθετη γραφή στα ιαπωνικά επηρεάζουν τη διάταξη των καρέ και των πλαισίων ομιλίας. Η προσαρμογή σε οριζόντιο κείμενο και η τοποθέτηση στα συχνά στενά πλαίσια απαιτεί προσοχή.</p>
+                        <button class="gemini-button text-xs mt-2 analyze-challenge-btn" data-challenge="Κατεύθυνση Ανάγνωσης και Διάταξη σελίδας manga">✨ Ανάλυση</button>
+                    </div>
+                     <div class="sub-panel">
+                        <h4 class="sub-panel-title">Τυπογραφία (Typeface)</h4>
+                        <p class="text-content text-sm">Η επιλογή γραμματοσειράς είναι σημαντική. Μεγαλύτερες, έντονες γραμματοσειρές χρησιμοποιούνται συχνά για να δηλώσουν ένταση φωνής (Forceville et al. 2010).</p>
+                        <button class="gemini-button text-xs mt-2 analyze-challenge-btn" data-challenge="Επιλογή Τυπογραφίας και Γραμματοσειρών σε manga">✨ Ανάλυση</button>
+                    </div>
+                    <div class="sub-panel">
+                        <h4 class="sub-panel-title">Ονοματοποιίες & Μιμητικές Λέξεις</h4>
+                        <p class="text-content text-sm">Η ιαπωνική γλώσσα διαθέτει πληθώρα ονοματοποιητικών (giseigo, giongo) και μιμητικών λέξεων (gitaigo). Αυτές συχνά ενσωματώνονται καλλιτεχνικά στο σχέδιο. Η μετάφρασή τους είναι δύσκολη.</p>
+                         <button class="gemini-button text-xs mt-2 analyze-challenge-btn" data-challenge="Μετάφραση Ονοματοποιιών και Μιμητικών Λέξεων (gitaigo) σε manga">✨ Ανάλυση</button>
+                    </div>
+                    <div class="sub-panel">
+                        <h4 class="sub-panel-title">Πολιτισμικά Στοιχεία</h4>
+                        <p class="text-content text-sm">Οι τιμητικές προσφωνήσεις (-san, -kun) δηλώνουν σχέσεις. Άλλα στοιχεία (φαγητά, έθιμα) μπορεί να χρειάζονται επεξήγηση.</p>
+                        <button class="gemini-button text-xs mt-2 analyze-challenge-btn" data-challenge="Μετάφραση Πολιτισμικών Στοιχείων και Τιμητικών Προσφωνήσεων (keigo) σε manga">✨ Ανάλυση</button>
+                    </div>
+                    <div class="sub-panel">
+                        <h4 class="sub-panel-title">Μεταφραστικές Σημειώσεις</h4>
+                        <p class="text-content text-sm">Συχνά χρησιμοποιούνται για επεξήγηση πολιτισμικών αναφορών ή γλωσσικών ιδιωματισμών. Οι αναγνώστες scanlations τις εκτιμούν (Fabbretti 2016).</p>
+                         <button class="gemini-button text-xs mt-2 analyze-challenge-btn" data-challenge="Χρήση και Αποτελεσματικότητα Μεταφραστικών Σημειώσεων σε manga">✨ Ανάλυση</button>
+                    </div>
+                    <div class="sub-panel">
+                        <h4 class="sub-panel-title">Στρατηγικές Μετάφρασης</h4>
+                        <p class="text-content text-sm">Οι μεταφραστές επιλέγουν μεταξύ ξενισμού (foreignization) και οικειοποίησης (domestication). Στα manga, οι φαν συχνά προτιμούν τον ξενισμό (Sell 2011).</p>
+                        <button class="gemini-button text-xs mt-2 analyze-challenge-btn" data-challenge="Στρατηγικές Μετάφρασης manga: Ξενισμός έναντι Οικειοποίησης">✨ Ανάλυση</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="research-methodology" class="mb-20">
+            <div class="text-center">
+                <h2 class="section-title mb-12">研究方法 - Η Έρευνα: Μεθοδολογικά Ζητήματα</h2>
+            </div>
+            <div class="manga-panel fade-in-panel panel-color-2">
+                <h3 class="manga-panel-title">Στόχοι και Ερευνητικά Ερωτήματα</h3>
+                <img src="https://www.ssbm.ch/wp-content/uploads/2021/11/5f3504fc6ea38f001ec0f8b5.jpg" 
+                         alt="[Εικόνα γραφήματος που απεικονίζει την ερευνητική μεθοδολογία]" 
+                         class="responsive-img shadow-md img-centered-block max-w-lg" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/500x300/B9E4C9/333333?text=Μεθοδολογία+Έρευνας';">
+                <div class="text-content mt-6">
+                    <p class="mb-4">Η παρούσα έρευνα αποσκοπούσε στον εντοπισμό των κύριων μεταφραστικών προκλήσεων κατά τη μεταφορά αγγλικών scanlated manga στα ελληνικά και στην πρόταση μεθόδων για την αντιμετώπισή τους. Βασικά ερευνητικά ερωτήματα ήταν:</p>
+                    <ul class="list-disc mb-4 space-y-1">
+                        <li>Ποιες είναι οι κύριες θεματικές κατηγορίες προκλήσεων στη μετάφραση αγγλικών scanlated manga στα ελληνικά;</li>
+                        <li>Ποιες μέθοδοι μπορούν να χρησιμοποιηθούν για την αντιμετώπιση αυτών των προκλήσεων;</li>
+                        <li>Εκτιμώνται αυτές οι μέθοδοι από το ελληνικό αναγνωστικό κοινό και γιατί;</li>
+                        <li>Μπορεί η παραγωγή ελληνικών scanlated manga να κεντρίσει το ενδιαφέρον των αναγνωστών;</li>
+                        <li>Ενθαρρύνει η παραγωγή αυτή τους αναγνώστες να εξερευνήσουν περαιτέρω τα manga;</li>
+                    </ul>
+                </div>
+                <div class="clear-both"></div>
+            </div>
+            <div class="manga-panel fade-in-panel panel-color-3 mt-10">
+                <h3 class="manga-panel-title">Διαδικασία Έρευνας και Ανάλυση Δεδομένων</h3>
+                <div class="text-content">
+                    <p class="mb-4">Για την έρευνα, επιλέχθηκαν και μεταφράστηκαν στα ελληνικά πέντε αποσπάσματα από αγγλικά scanlated manga, καλύπτοντας όλες τις κύριες δημογραφικές κατηγορίες: <em>Doraemon</em> (kodomomuke), <em>Demon Slayer: Kimetsu no Yaiba</em> (shonen), <em>Fruits Basket</em> (shojo), <em>Monster</em> (seinen), και <em>NANA</em> (josei). Η επεξεργασία των εικόνων και η ενσωμάτωση της ελληνικής μετάφρασης έγινε με το πρόγραμμα Adobe Photoshop.</p>
+                    <p class="mb-4">Η ανάλυση των μεταφραστικών προκλήσεων βασίστηκε στη μέθοδο της θεματικής ανάλυσης. Οι προκλήσεις κατηγοριοποιήθηκαν σε δύο ευρείες θεματικές ενότητες: γλωσσικά ζητήματα και πολιτισμικά ζητήματα. Για τη συλλογή της άποψης των αναγνωστών, διανεμήθηκε ανώνυμο ηλεκτρονικό ερωτηματολόγιο (μέσω Google Forms) σε 38 Έλληνες αναγνώστες, οι οποίοι πρώτα διάβασαν τα μεταφρασμένα αποσπάσματα. Οι απαντήσεις τους αναλύθηκαν ποσοτικά.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="results-discussion" class="mb-20">
+            <div class="text-center">
+                <h2 class="section-title mb-12">結果と考察 - Αποτελέσματα και Συζήτηση</h2>
+            </div>
+            <div class="manga-panel fade-in-panel panel-color-4">
+                <h3 class="manga-panel-title">Κύριες Μεταφραστικές Προκλήσεις που Εντοπίστηκαν</h3>
+                 <img src="https://atlasti.com/media/pages/research-hub/finding-research-topic/031ca917f7-1739281450/research-topic.png" 
+                         alt="[Εικόνα που συμβολίζει την εύρεση και ανάλυση ερευνητικών ευρημάτων]" 
+                         class="responsive-img shadow-md md:w-2/5 mb-6 md:mb-0 img-wrap-right"
+                         onerror="this.onerror=null; this.src='https://placehold.co/500x300/F7C5CC/333333?text=Αποτελέσματα+Ερωτηματολογίου';">
+                <div class="text-content">
+                    <p class="mb-4">Η διαδικασία μετάφρασης ανέδειξε συγκεκριμένες προκλήσεις, οι οποίες κατηγοριοποιήθηκαν ως εξής:</p>
+                    <div class="sub-panel mb-4">
+                        <h4 class="sub-panel-title">Γλωσσικά Ζητήματα:</h4>
+                        <ul class="list-disc space-y-1 text-sm">
+                            <li><strong>Απόδοση έντονων στιγμών:</strong> Η δυσκολία μεταφοράς της έντασης (φωνές, εκρήξεις, συναισθηματική φόρτιση) χωρίς ήχο και κίνηση. Η λύση που υιοθετήθηκε ήταν η χρήση έντονης γραφής, μεγαλύτερου μεγέθους γραμματοσειράς και κατάλληλων σημείων στίξης.</li>
+                            <li><strong>Ονοματοποιίες και ήχοι (SFX):</strong> Οι ιαπωνικές ηχομιμητικές λέξεις (giseigo, giongo, gitaigo) συχνά αφήνονται αμετάφραστες από τους Άγγλους scanlators. Η παρούσα έρευνα ακολούθησε την ίδια στρατηγική (μη μετάφραση των ιαπωνικών SFX), θεωρώντας τα αναπόσπαστο κομμάτι της αυθεντικότητας και της οπτικής αισθητικής των manga.</li>
+                            <li><strong>Κείμενο εκτός πλαισίων ομιλίας:</strong> Η διάκριση εσωτερικών σκέψεων, ψιθύρων ή αφηγηματικών σχολίων από τον κανονικό διάλογο, συχνά μέσω διαφορετικής γραμματοσειράς ή μικρότερου μεγέθους.</li>
+                        </ul>
+                    </div>
+                    <div class="sub-panel">
+                        <h4 class="sub-panel-title">Πολιτισμικά Ζητήματα:</h4>
+                        <ul class="list-disc space-y-1 text-sm">
+                            <li><strong>Τιμητικές προσφωνήσεις (Keigo):</strong> Η διαχείριση των ιαπωνικών επιθημάτων (-san, -kun, -chan, -sama κ.λπ.) που δηλώνουν την κοινωνική σχέση μεταξύ των ομιλητών. Η στρατηγική που επιλέχθηκε ήταν η μεταγραφή τους στα ελληνικά και η παροχή επεξηγηματικής σημείωσης στην πρώτη τους εμφάνιση.</li>
+                            <li><strong>Πολιτισμικά Ειδικά Στοιχεία (Real-ia):</strong> Η απόδοση ή επεξήγηση άγνωστων στο ελληνικό κοινό εθίμων, αντικειμένων, φαγητών, νομισματικών μονάδων (π.χ. γιεν) ή κοινωνικών πρακτικών. Η λύση ήταν η χρήση μεταφραστικών σημειώσεων. Παραδείγματα από την εργασία περιλαμβάνουν την έννοια του "oni", το "Japanese battledore", την αξία του γιεν, και την απεικόνιση της προσευχής σε οικιακό βωμό.</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="clear-both"></div>
+            </div>
+
+            <div class="manga-panel fade-in-panel panel-color-1 mt-10">
+                <h3 class="manga-panel-title">Ευρήματα Ερωτηματολογίου: Η Οπτική των Ελλήνων Αναγνωστών</h3>
+                <div class="text-content">
+                    <p class="mb-4">Οι απαντήσεις των 38 συμμετεχόντων στο ερωτηματολόγio έδωσαν σημαντικές ενδείξεις για την πρόσληψη των μεταφραστικών επιλογών:</p>
+                    <ul class="list-disc space-y-2">
+                        <li><strong>Τυπογραφία για Ένταση:</strong> Η συντριπτική πλειοψηφία (30 από 38 άτομα) έκρινε ότι η χρήση έντονης γραφής και μεγαλύτερου μεγέθους γραμμάτων ήταν χρήσιμη για την κατανόηση σκηνών με έντονη συναισθηματική φόρτιση.</li>
+                        <li><strong>Αμετάφραστες Ονοματοποιίες:</strong> Ένας σημαντικός αριθμός αναγνωστών δήλωσε ότι όχι μόνο κατανοεί τα αμετάφραστα ιαπωνικά ηχητικά εφέ, αλλά προτιμά και τη διατήρησή τους, θεωρώντας τα αναπόσπαστο κομμάτι της αυθεντικότητας και της αισθητικής των manga.</li>
+                        <li><strong>Τιμητικές Προσφωνήσεις:</strong> Η πλειοψηφία τάχθηκε υπέρ της μεταγραφής των τιμητικών προσφωνήσεων στα ελληνικά, εκτιμώντας ότι βοηθούν στην κατανόηση της ιαπωνικής κουλτούρας και προσδίδουν αυθεντικότητα στο κείμενο.</li>
+                        <li><strong>Μεταφραστικές Σημειώσεις:</strong> Οι σημειώσεις κρίθηκαν ως ιδιαίτερα χρήσιμες έως απαραίτητες για την κατανόηση τόσο των τιμητικών προσφωνήσεων όσο και άλλων πολιτισμικά ειδικών στοιχείων που θα παρέμεναν ασαφή.</li>
+                        <li><strong>Ροή και Φυσικότητα Μετάφρασης:</strong> Οι περισσότεροι συμμετέχοντες χαρακτήρισαν τις μεταφράσεις ως έχουσες φυσική ροή στα ελληνικά. Ωστόσο, ένα αξιόλογο ποσοστό αναγνώρισε ότι πρόκειται για μεταφρασμένο κείμενο, πιθανόν λόγω της έντονης πολιτισμικής σφραγίδας των manga που δύσκολα εξαλείφεται πλήρως.</li>
+                        <li><strong>Ενδιαφέρον για τη Συνέχεια:</strong> Το ενδιαφέρον των αναγνωστών να μάθουν τη συνέχεια των ιστοριών που διάβασαν ήταν υψηλό, γεγονός που υποδεικνύει ότι οι ποιοτικές μεταφράσεις μπορούν να δημιουργήσουν δέσμευση και επένδυση από την πλευρά του κοινού.</li>
+                        <li><strong>Πρόσβαση σε Ελληνικά Manga:</strong> Σχεδόν καθολική ήταν η άποψη (35 από 38 άτομα) ότι η πρόσβαση σε ελληνικά μεταφρασμένα manga είναι δύσκολη.</li>
+                        <li><strong>Επιθυμία για Περισσότερες Εκδόσεις:</strong> Η συντριπτική πλειοψηφία (34 από 38 άτομα) εξέφρασε την επιθυμία να δει περισσότερους εκδοτικούς οίκους να κυκλοφορούν manga μεταφρασμένα στα ελληνικά.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="conclusion" class="mb-20">
+            <div class="text-center">
+                <h2 class="section-title mb-12">結論 - Συμπεράσματα και Προοπτικές</h2>
+            </div>
+             <div class="manga-panel fade-in-panel panel-color-2">
+                <img src="https://news.cnrs.fr/sites/default/files/styles/asset_image_full/public/assets/images/sipa_00563641_000007_72dpi.jpg?itok=UjnyU9SS" 
+                         alt="[Εικόνα με ανθρώπους που διαβάζουν και συζητούν, συμβολίζοντας τη διάδοση της γνώσης και του πολιτισμού]" 
+                         class="responsive-img shadow-lg img-centered-block max-w-xl"  
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/D8BFD8/333333?text=Μέλλον+Ελληνικών+Manga';">
+                <div class="text-content text-lg leading-relaxed mt-8">
+                    <p class="mb-5">
+                       Η παρούσα διπλωματική εργασία κατέδειξε ότι η μετάφραση αγγλικών scanlated manga στα ελληνικά ενέχει συγκεκριμένες γλωσσικές και πολιτισμικές προκλήσεις. Ωστόσο, αυτές οι προκλήσεις μπορούν να αντιμετωπιστούν αποτελεσματικά μέσω της εφαρμογής κατάλληλων μεταφραστικών στρατηγικών, όπως η προσεκτική χρήση της τυπογραφίας για την απόδοση έντασης, η διατήρηση (με τις απαραίτητες επεξηγήσεις μέσω σημειώσεων) των τιμητικών προσφωνήσεων, και η παροχή σαφών μεταφραστικών σημειώσεων για πολιτισμικά ειδικά στοιχεία. Αυτές οι προσεγγίσεις εκτιμήθηκαν θετικά από το ελληνικό αναγνωστικό κοινό που συμμετείχε στην έρευνα.
+                    </p>
+                    <p class="mb-5">
+                       Η προτίμηση των αναγνωστών για διατήρηση των ιαπωνικών ονοματοποιιών υπογραμμίζει την επιθυμία για μια αυθεντική εμπειρία ανάγνωσης, η οποία σέβεται την προέλευση του μέσου. Τα ευρήματα της έρευνας υποστηρίζουν σθεναρά ότι η δημιουργία ποιοτικών ελληνικών μεταφράσεων manga όχι μόνο είναι εφικτή αλλά και επιθυμητή από ένα σημαντικό και ενθουσιώδες μέρος του αναγνωστικού κοινού στην Ελλάδα.
+                    </p>
+                    <p>
+                       Η αισθητή έλλειψη προσβάσιμων ελληνικών εκδόσεων, σε συνδυασμό με τη σαφή ζήτηση για περισσότερες προσπάθειες από εκδοτικούς οίκους, αναδεικνύει μια σημαντική ευκαιρία. Εν κατακλείδι, η επένδυση στην προσεγμένη και πολιτισμικά ευαίσθητη μετάφραση manga στα ελληνικά μπορεί να καλύψει ένα υπαρκτό κενό στην αγορά, να ικανοποιήσει τους υπάρχοντες φαν, να προσελκύσει νέους αναγνώστες και, τελικά, να συμβάλει στην ευρύτερη διάδοση και κατανόηση αυτού του συναρπαστικού και πολυεπίπεδου ιαπωνικού πολιτισμικού προϊόντος στην Ελλάδα.
+                    </p>
+                </div>
+                 <div class="clear-both"></div>
+            </div>
+        </section>
+
+        <section id="author" class="pt-16"> <div class="text-center">
+                <h2 class="section-title mb-12">著者について - Σχετικά με τον Συγγραφέα</h2>
+            </div>
+            <div class="manga-panel fade-in-panel panel-color-3 text-center">
+                <img src="https://media.licdn.com/dms/image/v2/D4D03AQFphUNkDWbSww/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1722348904690?e=2147483647&v=beta&t=ah_Y3JVxe84iCQpZqq59YXuVJSu9Dfrq9PhrwQu3dTM" 
+                     alt="[Πορτρέτο του Αθανάσιου Βασιλειάδη]" 
+                     class="responsive-img mx-auto rounded-full w-48 h-48 mb-8 shadow-xl border-4 border-white" 
+                     onerror="this.onerror=null; this.src='https://placehold.co/200x200/B2DFDB/333333?text=Αθανάσιος+Βασιλειάδης';">
+                <h3 class="font-shippori text-3xl text-indigo-700 mb-3">Αθανάσιος Βασιλειάδης</h3>
+                <p class="text-content text-xl leading-relaxed max-w-3xl mx-auto">
+                    Ο Αθανάσιος Βασιλειάδης είναι κάτοχος μεταπτυχιακού τίτλου στη Μετάφραση και Διερμηνεία από το Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών, με προπτυχιακές σπουδές στην Αγγλική Γλώσσα και Φιλολογία. Έχει ιδιαίτερη αγάπη για την ιαπωνική κουλτούρα, τα anime και τα manga, στοιχεία που αποτέλεσαν έμπνευση για την παρούσα διπλωματική εργασία.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <div id="exploreMangaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeExploreModal">&times;</span>
+            <h3 class="manga-panel-title mb-4">Εξερεύνησε Βαθύτερα τα Manga ✨</h3>
+            <p class="text-content text-sm mb-3">Εισάγετε έναν όρο σχετικό με manga (π.χ. "shonen", "ukiyo-e", ένα όνομα mangaka ή τίτλο manga) για να μάθετε περισσότερα.</p>
+            <input type="text" id="mangaKeywordInput" class="w-full p-2 border border-gray-300 rounded-md mb-3" placeholder="Π.χ. shojo, Akira Toriyama, cultural impact...">
+            <button id="submitMangaKeyword" class="gemini-button">Αναζήτηση με Gemini</button>
+            <div id="geminiResponseLoading" class="loading-spinner"></div>
+            <div id="geminiResponseArea" class="text-content"></div> </div>
+    </div>
+
+    <div id="challengeAnalysisModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeChallengeAnalysisModal">&times;</span>
+            <h3 class="manga-panel-title mb-4" id="challengeAnalysisModalTitle">Ανάλυση Μεταφραστικής Πρόκλησης ✨</h3>
+            <div id="challengeAnalysisLoading" class="loading-spinner"></div>
+            <div id="challengeAnalysisResponseArea" class="text-content"></div> </div>
+    </div>
+
+
+    <footer class="bg-gray-900 text-gray-300 py-10 mt-20">
+        <div class="container mx-auto px-6 text-center">
+            <p class="font-mplus-rounded text-lg">&copy; 2022 Αθανάσιος Βασιλειάδης. Με επιφύλαξη παντός δικαιώματος.</p>
+            <p class="font-mplus-rounded text-md mt-2">Ιστοσελίδα σχεδιασμένη με έμπνευση από την ιαπωνική κουλτούρα.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Function to convert simple Markdown to HTML
+        function markdownToHtmlSimple(markdownText) {
+            if (!markdownText) return '';
+            let htmlText = markdownText;
+
+            htmlText = htmlText.replace(/^###### (.*$)/gim, '<h6 class="text-lg font-shippori mt-2 mb-1">$1</h6>');
+            htmlText = htmlText.replace(/^##### (.*$)/gim, '<h5 class="text-xl font-shippori mt-3 mb-1">$1</h5>');
+            htmlText = htmlText.replace(/^#### (.*$)/gim, '<h4 class="text-2xl font-shippori mt-4 mb-2">$1</h4>');
+            htmlText = htmlText.replace(/^### (.*$)/gim, '<h3 class="text-3xl font-shippori mt-4 mb-2">$1</h3>');
+            htmlText = htmlText.replace(/^## (.*$)/gim, '<h2 class="text-4xl font-shippori mt-5 mb-3">$1</h2>');
+            htmlText = htmlText.replace(/^# (.*$)/gim, '<h1 class="text-5xl font-shippori mt-6 mb-4">$1</h1>');
+
+            htmlText = htmlText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            htmlText = htmlText.replace(/__(.*?)__/g, '<strong>$1</strong>');
+
+            htmlText = htmlText.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            htmlText = htmlText.replace(/_(.*?)_/g, '<em>$1</em>');
+            
+            htmlText = htmlText.replace(/\n/g, '<br>');
+
+            return htmlText;
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId.length > 1) { // Check if targetId is not just "#"
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const navbarHeight = document.getElementById('navbar').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                } else if (targetId === "#hero") { // Special case for the main title link
+                     window.scrollTo({ top: 0, behavior: "smooth"});
+                }
+            });
+        });
+
+        // Show/Hide Navbar on Scroll
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+        const heroSection = document.getElementById('hero'); 
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > heroSection.offsetHeight - navbar.offsetHeight) { 
+                navbar.style.opacity = '1';
+                navbar.style.transform = 'translateY(0)';
+            } else {
+                navbar.style.opacity = '0';
+                navbar.style.transform = 'translateY(-100%)'; 
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; 
+        }, false);
+        
+        if (window.pageYOffset > heroSection.offsetHeight - navbar.offsetHeight) {
+            navbar.style.opacity = '1';
+            navbar.style.transform = 'translateY(0)';
+        } else {
+            navbar.style.opacity = '0';
+            navbar.style.transform = 'translateY(-100%)';
+        }
+
+        const panels = document.querySelectorAll('.fade-in-panel');
+        const observerOptions = {
+            root: null, 
+            rootMargin: '0px',
+            threshold: 0.05 
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        panels.forEach(panel => {
+            observer.observe(panel);
+        });
+
+        const exploreMangaModal = document.getElementById('exploreMangaModal');
+        const exploreMangaBtn = document.getElementById('exploreMangaBtn');
+        const closeExploreModalBtn = document.getElementById('closeExploreModal');
+        const submitMangaKeywordBtn = document.getElementById('submitMangaKeyword');
+        const mangaKeywordInput = document.getElementById('mangaKeywordInput');
+        const geminiResponseArea = document.getElementById('geminiResponseArea');
+        const geminiResponseLoading = document.getElementById('geminiResponseLoading');
+
+        const challengeAnalysisModal = document.getElementById('challengeAnalysisModal');
+        const closeChallengeAnalysisModalBtn = document.getElementById('closeChallengeAnalysisModal');
+        const challengeAnalysisModalTitle = document.getElementById('challengeAnalysisModalTitle');
+        const challengeAnalysisResponseArea = document.getElementById('challengeAnalysisResponseArea');
+        const challengeAnalysisLoading = document.getElementById('challengeAnalysisLoading'); 
+
+        const analyzeChallengeBtns = document.querySelectorAll('.analyze-challenge-btn');
+        
+        async function callGeminiAPI(promptText, responseAreaElement, loadingElement) {
+            loadingElement.style.display = 'block';
+            responseAreaElement.innerHTML = ''; 
+
+            let chatHistory = [{ role: "user", parts: [{ text: promptText }] }];
+            const payload = { contents: chatHistory };
+            const workerBaseUrl = 'https://gemini-proxy.nvasedis-cc5.workers.dev';
+                    const geminiModelPath = '/v1beta/models/gemini-2.0-flash:generateContent';
+                    const apiUrl = `${workerBaseUrl}${geminiModelPath}`; 
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Σφάλμα API: ${response.status} ${response.statusText}`);
+                }
+
+                const result = await response.json();
+                
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const rawText = result.candidates[0].content.parts[0].text;
+                    responseAreaElement.innerHTML = markdownToHtmlSimple(rawText); 
+                } else {
+                    responseAreaElement.innerHTML = "Δεν ήταν δυνατή η λήψη απάντησης ή η απάντηση ήταν κενή. Δοκιμάστε ξανά.";
+                }
+            } catch (error) {
+                responseAreaElement.innerHTML = `Παρουσιάστηκε σφάλμα: ${error.message}. Παρακαλώ δοκιμάστε ξανά.`;
+            } finally {
+                loadingElement.style.display = 'none';
+            }
+        }
+
+        if (exploreMangaBtn) {
+            exploreMangaBtn.onclick = function() {
+                exploreMangaModal.style.display = "flex";
+            }
+        }
+        if (closeExploreModalBtn) {
+            closeExploreModalBtn.onclick = function() {
+                exploreMangaModal.style.display = "none";
+                geminiResponseArea.innerHTML = ''; 
+                mangaKeywordInput.value = ''; 
+            }
+        }
+        if (submitMangaKeywordBtn) {
+            submitMangaKeywordBtn.onclick = function() {
+                const keyword = mangaKeywordInput.value.trim();
+                if (keyword) {
+                    // Updated prompt for concise and well-formatted response
+                    const prompt = `Για τον όρο σχετικό με τα manga: '${keyword}', δώσε μια σύντομη και περιεκτική επισκόπηση (περίπου 3-4 προτάσεις). Ανέφερε 2-3 βασικά παραδείγματα σχετικών manga, δημιουργών ή πολιτισμικών εννοιών. Η απάντηση να είναι στα Ελληνικά. Μορφοποίησε τις σημαντικές λέξεις-κλειδιά με **έντονη γραφή** και τυχόν ενδιάμεσους τίτλους με ## Markdown στυλ. Κάνε την απάντηση ευανάγνωστη.`;
+                    callGeminiAPI(prompt, geminiResponseArea, geminiResponseLoading);
+                } else {
+                    geminiResponseArea.innerHTML = "Παρακαλώ εισάγετε έναν όρο για αναζήτηση.";
+                }
+            }
+        }
+        
+        analyzeChallengeBtns.forEach(button => {
+            button.onclick = function() {
+                const challenge = this.dataset.challenge;
+                if (challenge) {
+                    challengeAnalysisModalTitle.textContent = `✨ Ανάλυση: ${challenge} ✨`;
+                    challengeAnalysisModal.style.display = "flex";
+                    // Updated prompt for concise and well-formatted response
+                    const prompt = `Εξήγησε σύντομα και περιεκτικά (περίπου 4-5 προτάσεις) τις κύριες προκλήσεις και τις συνήθεις στρατηγικές για την μετάφραση του εξής θέματος στα manga από τα Ιαπωνικά (μέσω Αγγλικών) στα Ελληνικά: "${challenge}". Δώσε 1-2 χαρακτηριστικά παραδείγματα. Η απάντηση να είναι στα Ελληνικά. Μορφοποίησε τις σημαντικές λέξεις-κλειδιά ή τους όρους με **έντονη γραφή** και τυχόν ενδιάμεσους τίτλους με ## Markdown στυλ. Κάνε την απάντηση ευανάγνωστη.`;
+                    callGeminiAPI(prompt, challengeAnalysisResponseArea, challengeAnalysisLoading);
+                }
+            }
+        });
+
+        if(closeChallengeAnalysisModalBtn) {
+            closeChallengeAnalysisModalBtn.onclick = function() {
+                challengeAnalysisModal.style.display = "none";
+                challengeAnalysisResponseArea.innerHTML = ''; 
+            }
+        }
+
+        window.onclick = function(event) {
+            if (event.target == exploreMangaModal) {
+                exploreMangaModal.style.display = "none";
+                geminiResponseArea.innerHTML = '';
+                mangaKeywordInput.value = '';
+            }
+            if (event.target == challengeAnalysisModal) {
+                challengeAnalysisModal.style.display = "none";
+                challengeAnalysisResponseArea.innerHTML = '';
+            }
+        }
+
+    </script>
+</body>
+</html>
