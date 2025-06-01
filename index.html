@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="el">
-<head>
+<html lang="el"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Διπλωματική Εργασία: Ιαπωνική Λαϊκή Κουλτούρα & Manga</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Shippori+Mincho:wght@400;700;800&family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -13,6 +11,8 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png"> 
     <link rel="manifest" href="site.webmanifest">
     <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Shippori+Mincho:wght@400;700;800&family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif; 
@@ -115,6 +115,35 @@
             transform: translateY(-2px);
         }
         
+        /* Language Switcher Styles */
+        .lang-switcher button {
+            background-color: transparent;
+            border: 1px solid #D9534F;
+            color: #D9534F;
+            padding: 0.3rem 0.6rem;
+            margin-left: 0.3rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            font-size: 0.8rem;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .lang-switcher button:hover, .lang-switcher button.active {
+            background-color: #D9534F;
+            color: white;
+        }
+        @media (max-width: 768px) {
+             .lang-switcher {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+             }
+             #navbar .container { /* Allow space for lang switcher on mobile */
+                padding-right: 70px; /* Adjust if needed */
+             }
+        }
+
+
         /* Sakura Petals Animation */
         .sakura-container {
             position: absolute;
@@ -206,9 +235,14 @@
             .section-title { font-size: 2rem; margin-bottom: 2rem;}
             .manga-panel-title { font-size: 1.5rem; }
             .text-content { font-size: 1rem; } 
-            .nav-link { font-size: 0.75rem; padding: 0.3rem 0.5rem;} 
-            #navbar .container .space-x-1 { margin-left: 0.1rem; margin-right: 0.1rem;} 
-            #navbar { height: 60px; } 
+            .nav-link { font-size: 0.70rem; padding: 0.3rem 0.4rem;} /* Further reduced nav link size */
+            #navbar .container .nav-links-container { /* Flex container for nav links */
+                display: flex;
+                flex-wrap: nowrap; /* Prevent wrapping on very small screens if possible */
+                overflow-x: auto; /* Allow horizontal scroll if they still overflow */
+            }
+             #navbar .container .space-x-1 { margin-left: 0.05rem; margin-right: 0.05rem;} 
+            #navbar { height: auto; min-height: 60px; padding-bottom: 5px; /* Adjust navbar height for mobile */ }
              @keyframes fall { 
                 0% { transform: translateY(-20px) translateX(0px) rotate(0deg); opacity: 0; }
                 10% { opacity: 1; }
@@ -283,8 +317,8 @@
             min-height: 150px; 
             max-height: 50vh; 
             overflow-y: auto; 
-            font-size: 1.125rem; /* Increased font size for modal text (same as .text-content) */
-            line-height: 1.8;   /* Adjusted line height for modal text (same as .text-content) */
+            font-size: 1.125rem; 
+            line-height: 1.8;   
         }
         #geminiResponseArea h1, #challengeAnalysisResponseArea h1,
         #geminiResponseArea h2, #challengeAnalysisResponseArea h2,
@@ -296,9 +330,9 @@
             color: #D9534F;
             margin-top: 1rem;
             margin-bottom: 0.5rem;
-            font-weight: 700; /* Ensure headings are bold */
+            font-weight: 700; 
         }
-        #geminiResponseArea h1, #challengeAnalysisResponseArea h1 { font-size: 1.6em; } /* Adjusted heading sizes within modal */
+        #geminiResponseArea h1, #challengeAnalysisResponseArea h1 { font-size: 1.6em; } 
         #geminiResponseArea h2, #challengeAnalysisResponseArea h2 { font-size: 1.4em; }
         #geminiResponseArea h3, #challengeAnalysisResponseArea h3 { font-size: 1.25em; }
         #geminiResponseArea h4, #challengeAnalysisResponseArea h4 { font-size: 1.1em; }
@@ -338,15 +372,22 @@
             <div class="sakura-petal"></div>
         </div>
         <div class="container mx-auto px-4 md:px-6"> 
-            <a href="#hero" class="nav-title">研究</a> 
-            <div class="space-x-1 sm:space-x-2 md:space-x-4"> 
-                <a href="#introduction" class="nav-link">Εισαγωγή</a>
-                <a href="#world-of-manga" class="nav-link">Manga</a>
-                <a href="#art-of-translation" class="nav-link">Μετάφραση</a>
-                <a href="#research-methodology" class="nav-link">Έρευνα</a>
-                <a href="#results-discussion" class="nav-link">Αποτελέσματα</a>
-                <a href="#conclusion" class="nav-link">Συμπεράσματα</a>
-                <a href="#author" class="nav-link">Συγγραφέας</a>
+            <a href="#hero" class="nav-title lang-text" data-lang-key="nav_title_main">研究</a> 
+            <div class="flex items-center">
+                <div class="nav-links-container space-x-1 sm:space-x-2 md:space-x-4"> 
+                    <a href="#introduction" class="nav-link lang-text" data-lang-key="nav_introduction">Εισαγωγή</a>
+                    <a href="#world-of-manga" class="nav-link lang-text" data-lang-key="nav_world_of_manga">Manga</a>
+                    <a href="#art-of-translation" class="nav-link lang-text" data-lang-key="nav_art_of_translation">Μετάφραση</a>
+                    <a href="#research-methodology" class="nav-link lang-text" data-lang-key="nav_research_methodology">Έρευνα</a>
+                    <a href="#results-discussion" class="nav-link lang-text" data-lang-key="nav_results_discussion">Αποτελέσματα</a>
+                    <a href="#conclusion" class="nav-link lang-text" data-lang-key="nav_conclusion">Συμπεράσματα</a>
+                    <a href="#author" class="nav-link lang-text" data-lang-key="nav_author">Συγγραφέας</a>
+                </div>
+                <div class="lang-switcher ml-2 md:ml-4">
+                    <button data-lang="el" class="active">GR</button>
+                    <button data-lang="en">EN</button>
+                    <button data-lang="ja">JP</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -355,10 +396,10 @@
             style="background-image: url('https://i.imgur.com/SgIDkMc.jpeg');" 
             onerror="this.style.backgroundImage='url(\'https://placehold.co/1920x1080/A7C7E7/333333?text=Ιαπωνικό+Τοπίο+Manga\')'">
         <div class="bg-black bg-opacity-75 p-6 md:p-12 rounded-xl">
-            <h1 class="manga-title text-white leading-tight">ΙΑΠΩΝΙΚΗ ΛΑΪΚΗ ΚΟΥΛΤΟΥΡΑ ΚΑΙ ΔΥΤΙΚΟ ΚΟΙΝΟ:</h1>
-            <h2 class="manga-title text-white mb-4 leading-tight">ΜΕΤΑΦΡΑΖΟΝΤΑΣ ΑΓΓΛΙΚΑ SCANLATED MANGA ΣΤΑ ΕΛΛΗΝΙΚΑ</h2>
-            <p class="manga-subtitle text-gray-100 mb-2">Διπλωματική Εργασία</p>
-            <p class="text-xl md:text-2xl font-mplus-rounded text-gray-50 font-semibold">Αθανάσιος Βασιλειάδης</p>
+            <h1 class="manga-title text-white leading-tight lang-text" data-lang-key="hero_title1">ΙΑΠΩΝΙΚΗ ΛΑΪΚΗ ΚΟΥΛΤΟΥΡΑ ΚΑΙ ΔΥΤΙΚΟ ΚΟΙΝΟ:</h1>
+            <h2 class="manga-title text-white mb-4 leading-tight lang-text" data-lang-key="hero_title2">ΜΕΤΑΦΡΑΖΟΝΤΑΣ ΑΓΓΛΙΚΑ SCANLATED MANGA ΣΤΑ ΕΛΛΗΝΙΚΑ</h2>
+            <p class="manga-subtitle text-gray-100 mb-2 lang-text" data-lang-key="hero_subtitle">Διπλωματική Εργασία</p>
+            <p class="text-xl md:text-2xl font-mplus-rounded text-gray-50 font-semibold lang-text" data-lang-key="hero_author_name">Αθανάσιος Βασιλειάδης</p>
         </div>
         <div class="absolute bottom-12 scroll-indicator">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-12 h-12 text-white">
@@ -370,7 +411,7 @@
     <main class="container mx-auto px-4 md:px-6 py-12 mt-4">
 
         <section id="introduction" class="mb-20"> 
-            <div class="text-center"> <h2 class="section-title mb-12">序章 - Εισαγωγή</h2>
+            <div class="text-center"> <h2 class="section-title mb-12 lang-text" data-lang-key="section_title_introduction">序章 - Εισαγωγή</h2>
             </div>
             <div class="manga-panel fade-in-panel panel-color-1">
                 <div class="md:flex md:gap-10 items-center">
@@ -379,10 +420,10 @@
                          class="responsive-img shadow-lg md:w-2/5 mb-6 md:mb-0 img-wrap-left"
                          onerror="this.onerror=null; this.src='https://placehold.co/600x400/EADDCA/333333?text=Ταξίδι+Manga';">
                     <div class="text-content leading-relaxed">
-                        <p class="mb-5">
+                        <p class="mb-5 lang-text" data-lang-key="intro_p1">
                             Τα manga (漫画), τα ιαπωνικά κόμικς, έχουν εξελιχθεί σε ένα παγκόσμιο πολιτιστικό φαινόμενο, γοητεύοντας κοινό πέρα από τα σύνορα της Ιαπωνίας. Η παρούσα διπλωματική εργασία εμβαθύνει στον συναρπαστικό κόσμο των manga και την πορεία τους προς το δυτικό κοινό, με ιδιαίτερη έμφαση στις προκλήσεις και τις ιδιαιτερότητες της μετάφρασης των αγγλικών "scanlations" (ανεπίσημες μεταφράσεις από φαν) στην ελληνική γλώσσα.
                         </p>
-                        <p>
+                        <p class="lang-text" data-lang-key="intro_p2">
                             Η έρευνα εξετάζει την ταυτότητα και την ιστορία των manga, την πρόσληψή τους από το κοινό, τον κρίσιμο ρόλο του μεταφραστή και τις πρακτικές δυσκολίες που ανακύπτουν. Στόχος είναι η διερεύνηση των στρατηγικών που μπορούν να υιοθετηθούν για τη δημιουργία ποιοτικών ελληνικών μεταφράσεων manga, ικανών να κεντρίσουν το ενδιαφέρον των Ελλήνων αναγνωστών και να προωθήσουν την περαιτέρω εξερεύνηση αυτού του πολυδιάστατου μέσου, καλύπτοντας το σημαντικό κενό που παρατηρείται στην ελληνική αγορά.
                         </p>
                     </div>
@@ -393,14 +434,14 @@
 
         <section id="world-of-manga" class="mb-20">
             <div class="text-center">
-                <h2 class="section-title mb-12">漫画の世界 - Ο Κόσμος των Manga</h2>
+                <h2 class="section-title mb-12 lang-text" data-lang-key="section_title_world_of_manga">漫画の世界 - Ο Κόσμος των Manga</h2>
             </div>
             <div class="manga-panel fade-in-panel panel-color-2">
-                <h3 class="manga-panel-title">Τι Είναι τα Manga; Ορισμός και Βασικά Χαρακτηριστικά</h3>
+                <h3 class="manga-panel-title lang-text" data-lang-key="wom_what_is_manga_title">Τι Είναι τα Manga; Ορισμός και Βασικά Χαρακτηριστικά</h3>
                 <div class="md:flex md:gap-8 items-start">
                     <div class="md:w-3/5 text-content">
-                        <p class="mb-4">Ο ιαπωνικός όρος "manga" (漫画) κυριολεκτικά σημαίνει "ιδιότροπες" ή "αυθόρμητες εικόνες". Στην Ιαπωνία, περιγράφει κάθε μορφή κόμικ και καρτούν, ενώ διεθνώς αναφέρεται αποκλειστικά στα ιαπωνικά κόμικς. Συνήθως τυπώνονται ασπρόμαυρα, αρχικά σε περιοδικά και κατόπιν σε συγκεντρωτικούς τόμους (tankōbon).</p>
-                        <p class="mb-4">Ένα από τα πιο αναγνωρίσιμα χαρακτηριστικά τους είναι η ανάγνωση από δεξιά προς τα αριστερά, ακολουθώντας την παραδοσιακή ιαπωνική γραφή. Άλλα διακριτικά στοιχεία περιλαμβάνουν την αφηγηματική συνοχή με συγκεκριμένη αρχή, μέση και τέλος, τον κεντρικό ρόλο του δημιουργού (mangaka) που συχνά διατηρεί τα πνευματικά δικαιώματα του έργου του, και ένα ιδιαίτερο εικαστικό ύφος (μεγάλα εκφραστικά μάτια, ποικιλία στυλ από ρεαλιστικό έως εξαιρετικά καρτουνίστικο).</p>
+                        <p class="mb-4 lang-text" data-lang-key="wom_what_is_manga_p1">Ο ιαπωνικός όρος "manga" (漫画) κυριολεκτικά σημαίνει "ιδιότροπες" ή "αυθόρμητες εικόνες". Στην Ιαπωνία, περιγράφει κάθε μορφή κόμικ και καρτούν, ενώ διεθνώς αναφέρεται αποκλειστικά στα ιαπωνικά κόμικς. Συνήθως τυπώνονται ασπρόμαυρα, αρχικά σε περιοδικά και κατόπιν σε συγκεντρωτικούς τόμους (tankōbon).</p>
+                        <p class="mb-4 lang-text" data-lang-key="wom_what_is_manga_p2">Ένα από τα πιο αναγνωρίσιμα χαρακτηριστικά τους είναι η ανάγνωση από δεξιά προς τα αριστερά, ακολουθώντας την παραδοσιακή ιαπωνική γραφή. Άλλα διακριτικά στοιχεία περιλαμβάνουν την αφηγηματική συνοχή με συγκεκριμένη αρχή, μέση και τέλος, τον κεντρικό ρόλο του δημιουργού (mangaka) που συχνά διατηρεί τα πνευματικά δικαιώματα του έργου του, και ένα ιδιαίτερο εικαστικό ύφος (μεγάλα εκφραστικά μάτια, ποικιλία στυλ από ρεαλιστικό έως εξαιρετικά καρτουνίστικο).</p>
                     </div>
                     <div class="md:w-2/5 mt-4 md:mt-0">
                         <img src="https://i.imgur.com/MCnTAla.png" 
@@ -412,55 +453,55 @@
             </div>
 
             <div class="manga-panel fade-in-panel panel-color-3 mt-10">
-                <h3 class="manga-panel-title">Manpu και Οπτική Αφήγηση</h3>
+                <h3 class="manga-panel-title lang-text" data-lang-key="wom_manpu_title">Manpu και Οπτική Αφήγηση</h3>
                 <div class="md:flex md:gap-8 items-center">
                      <img src="https://animeartmagazine.com/wp-content/uploads/2022/02/dcf2f6ea5c924b6cf7611a3f15762e8f.webp" 
                          alt="[Εικόνα που εξηγεί τα σύμβολα manpu με παραδείγματα από manga]" 
                          class="responsive-img shadow-md md:w-2/5 mb-6 md:mb-0 img-wrap-left"
                          onerror="this.onerror=null; this.src='https://placehold.co/400x300/FFDAB9/333333?text=Manpu+Σύμβολα';">
                     <div class="text-content">
-                        <p class="mb-4">Τα manga χρησιμοποιούν εκτενώς τα "manpu" (漫符), οπτικά σύμβολα που αποδίδουν συναισθήματα (π.χ., σταγόνες ιδρώτα για αμηχανία, φλέβες για θυμό), ήχους (μέσω ονοματοποιιών), κίνηση και ψυχολογικές καταστάσεις. Αυτά τα σύμβολα, συχνά ενσωματωμένα καλλιτεχνικά στο σχέδιο, προσθέτουν ένα επιπλέον επίπεδο στην αφήγηση και αποτελούν αναπόσπαστο κομμάτι της "γλώσσας" των manga.</p>
-                        <p>Η "genre hybridity", δηλαδή η ανάμειξη διαφορετικών αφηγηματικών ειδών (π.χ. δράση με ρομαντισμό, κωμωδία με δράμα), είναι επίσης συχνό φαινόμενο, καθιστώντας πολλά manga πολυεπίπεδα και απρόβλεπτα.</p>
+                        <p class="mb-4 lang-text" data-lang-key="wom_manpu_p1">Τα manga χρησιμοποιούν εκτενώς τα "manpu" (漫符), οπτικά σύμβολα που αποδίδουν συναισθήματα (π.χ., σταγόνες ιδρώτα για αμηχανία, φλέβες για θυμό), ήχους (μέσω ονοματοποιιών), κίνηση και ψυχολογικές καταστάσεις. Αυτά τα σύμβολα, συχνά ενσωματωμένα καλλιτεχνικά στο σχέδιο, προσθέτουν ένα επιπλέον επίπεδο στην αφήγηση και αποτελούν αναπόσπαστο κομμάτι της "γλώσσας" των manga.</p>
+                        <p class="lang-text" data-lang-key="wom_manpu_p2">Η "genre hybridity", δηλαδή η ανάμειξη διαφορετικών αφηγηματικών ειδών (π.χ. δράση με ρομαντισμό, κωμωδία με δράμα), είναι επίσης συχνό φαινόμενο, καθιστώντας πολλά manga πολυεπίπεδα και απρόβλεπτα.</p>
                     </div>
                 </div>
                  <div class="clear-both"></div>
             </div>
             
             <div class="manga-panel fade-in-panel panel-color-4 mt-10">
-                <h3 class="manga-panel-title">Ιστορική Διαδρομή των Manga</h3>
+                <h3 class="manga-panel-title lang-text" data-lang-key="wom_history_title">Ιστορική Διαδρομή των Manga</h3>
                 <div class="text-content">
-                    <p class="mb-4">Οι ρίζες των manga ανιχνεύονται αιώνες πριν. Πρώιμες μορφές αφηγηματικής τέχνης περιλαμβάνουν σχέδια σε δοκούς ναών (περ. 700 μ.Χ.) και τους διάσημους κυλίνδρους με εικόνες ζώων που μιμούνται ανθρώπινες δραστηριότητες, γνωστούς ως "Chōjū-jinbutsu-giga" (鳥獣人物戯画 – Παρωδίες Ανθρώπων και Ζώων), που αποδίδονται στον μοναχό Toba Sōjō (12ος αιώνας) και θεωρούνται από πολλούς ως οι πρόγονοι των manga.</p>
+                    <p class="mb-4 lang-text" data-lang-key="wom_history_p1">Οι ρίζες των manga ανιχνεύονται αιώνες πριν. Πρώιμες μορφές αφηγηματικής τέχνης περιλαμβάνουν σχέδια σε δοκούς ναών (περ. 700 μ.Χ.) και τους διάσημους κυλίνδρους με εικόνες ζώων που μιμούνται ανθρώπινες δραστηριότητες, γνωστούς ως "Chōjū-jinbutsu-giga" (鳥獣人物戯画 – Παρωδίες Ανθρώπων και Ζώων), που αποδίδονται στον μοναχό Toba Sōjō (12ος αιώνας) και θεωρούνται από πολλούς ως οι πρόγονοι των manga.</p>
                     <div class="md:flex md:gap-8 items-start">
                         <div class="md:w-1/2">
                              <img src="https://en.seigensha.com/wp-content/uploads/978-4-86152-280-2_009-1-1.jpg" 
                                  alt="[Απόσπασμα από τον κύλινδρο Chōjū-giga που δείχνει ζώα σε ανθρώπινες δραστηριότητες]" 
                                  class="responsive-img shadow-md mb-4 mx-auto"
                                  onerror="this.onerror=null; this.src='https://placehold.co/400x250/E0E0E0/333333?text=Chōjū-giga';">
-                            <p class="mb-4">Κατά την περίοδο Edo (1603-1868), η τεχνική της ξυλογραφίας άνθισε, οδηγώντας στη δημιουργία των "ukiyo-e" (浮世絵 – "εικόνες του επιπλέοντος κόσμου"), που απεικόνιζαν σκηνές της καθημερινής ζωής, τοπία και ηθοποιούς. Ο διάσημος καλλιτέχνης Hokusai χρησιμοποίησε για πρώτη φορά τον όρο "manga" στους τόμους σκίτσων του "Hokusai Manga" (1814-1834), αν και με διαφορετική έννοια από τη σημερινή.</p>
+                            <p class="mb-4 lang-text" data-lang-key="wom_history_p2">Κατά την περίοδο Edo (1603-1868), η τεχνική της ξυλογραφίας άνθισε, οδηγώντας στη δημιουργία των "ukiyo-e" (浮世絵 – "εικόνες του επιπλέοντος κόσμου"), που απεικόνιζαν σκηνές της καθημερινής ζωής, τοπία και ηθοποιούς. Ο διάσημος καλλιτέχνης Hokusai χρησιμοποίησε για πρώτη φορά τον όρο "manga" στους τόμους σκίτσων του "Hokusai Manga" (1814-1834), αν και με διαφορετική έννοια από τη σημερινή.</p>
                         </div>
                         <div class="md:w-1/2">
                              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Great_Wave_off_Kanagawa2.jpg/800px-Great_Wave_off_Kanagawa2.jpg" 
                                  alt="[Εικόνα από το διάσημο ukiyo-e έργο 'Το Μεγάλο Κύμα της Καναγκάουα' του Χοκουσάι]" 
                                  class="responsive-img shadow-md mb-4 mx-auto"
                                  onerror="this.onerror=null; this.src='https://placehold.co/400x300/C9C9FF/333333?text=Ukiyo-e+Έμπνευση';">
-                            <p class="mb-4">Το άνοιγμα της Ιαπωνίας στη Δύση στα τέλη του 19ου αιώνα έφερε επιρροές από τα δυτικά κόμικς. Ωστόσο, οι Ιάπωνες καλλιτέχνες διατήρησαν στοιχεία της δικής τους παράδοσης. Ο Β' Παγκόσμιος Πόλεμος είχε σημαντικό αντίκτυπο, με τα manga να χρησιμοποιούνται αρχικά για προπαγάνδα και αργότερα να αντικατοπτρίζουν τις ανησυχίες της εποχής (π.χ., σχέση ανθρώπου-τεχνολογίας, αντιπολεμικά μηνύματα).</p>
+                            <p class="mb-4 lang-text" data-lang-key="wom_history_p3">Το άνοιγμα της Ιαπωνίας στη Δύση στα τέλη του 19ου αιώνα έφερε επιρροές από τα δυτικά κόμικς. Ωστόσο, οι Ιάπωνες καλλιτέχνες διατήρησαν στοιχεία της δικής τους παράδοσης. Ο Β' Παγκόσμιος Πόλεμος είχε σημαντικό αντίκτυπο, με τα manga να χρησιμοποιούνται αρχικά για προπαγάνδα και αργότερα να αντικατοπτρίζουν τις ανησυχίες της εποχής (π.χ., σχέση ανθρώπου-τεχνολογίας, αντιπολεμικά μηνύματα).</p>
                         </div>
                     </div>
-                    <p>Η μεταπολεμική περίοδος σηματοδότησε την "χρυσή εποχή" των manga. Καθιερώθηκαν συμβάσεις όπως η ασπρόμαυρη εκτύπωση (λόγω οικονομικών περιορισμών αρχικά), η έκδοση σε εβδομαδιαία περιοδικά και η συλλογή δημοφιλών σειρών σε τόμους tankōbon. Η βιομηχανία άνθισε παράλληλα με την ιαπωνική οικονομία, και τα manga άρχισαν να αναγνωρίζονται ως σημαντική μορφή ψυχαγωγίας και τέχνης, οδηγώντας συχνά σε προσαρμογές anime, ταινίες και παιχνίδια.</p>
+                    <p class="lang-text" data-lang-key="wom_history_p4">Η μεταπολεμική περίοδος σηματοδότησε την "χρυσή εποχή" των manga. Καθιερώθηκαν συμβάσεις όπως η ασπρόμαυρη εκτύπωση (λόγω οικονομικών περιορισμών αρχικά), η έκδοση σε εβδομαδιαία περιοδικά και η συλλογή δημοφιλών σειρών σε τόμους tankōbon. Η βιομηχανία άνθισε παράλληλα με την ιαπωνική οικονομία, και τα manga άρχισαν να αναγνωρίζονται ως σημαντική μορφή ψυχαγωγίας και τέχνης, οδηγώντας συχνά σε προσαρμογές anime, ταινίες και παιχνίδια.</p>
                 </div>
             </div>
 
             <div class="manga-panel fade-in-panel panel-color-1 mt-10">
-                <h3 class="manga-panel-title">Δημογραφικές Κατηγορίες και Εμβληματικά Έργα</h3>
+                <h3 class="manga-panel-title lang-text" data-lang-key="wom_demographics_title">Δημογραφικές Κατηγορίες και Εμβληματικά Έργα</h3>
                 <div class="md:flex md:gap-8 items-start">
                     <div class="md:w-3/5 text-content">
-                        <p class="mb-4">Τα manga κατηγοριοποιούνται κυρίως με βάση το φύλο και την ηλικία του κοινού στο οποίο απευθύνονται, αν και οι διαχωριστικές γραμμές συχνά είναι ρευστές:</p>
+                        <p class="mb-4 lang-text" data-lang-key="wom_demographics_intro">Τα manga κατηγοριοποιούνται κυρίως με βάση το φύλο και την ηλικία του κοινού στο οποίο απευθύνονται, αν και οι διαχωριστικές γραμμές συχνά είναι ρευστές:</p>
                         <ul class="list-disc mb-4 space-y-1">
-                            <li><strong>Kodomomuke (子供向け):</strong> Για μικρά παιδιά (π.χ., <em>Doraemon</em> του Fujiko F. Fujio). Με ηθικοδιδακτικό χαρακτήρα, χαριτωμένους χαρακτήρες και απλές ιστορίες.</li>
-                            <li><strong>Shōnen (少年):</strong> Για νεαρά αγόρια (π.χ., <em>One Piece</em> του Eiichiro Oda, <em>Naruto</em> του Masashi Kishimoto, <em>Attack on Titan</em> του Hajime Isayama). Επικεντρώνονται στη δράση, την περιπέτεια, τη φιλία και την αυτοβελτίωση.</li>
-                            <li><strong>Shōjo (少女):</strong> Για νεαρά κορίτσια (π.χ., <em>Fruits Basket</em> της Natsuki Takaya, <em>Sailor Moon</em> της Naoko Takeuchi). Δίνουν έμφαση στις διαπροσωπικές σχέσεις, τον ρομαντισμό και την συναισθηματική ανάπτυξη.</li>
-                            <li><strong>Seinen (青年):</strong> Για νεαρούς άνδρες (18+) (π.χ., <em>Berserk</em> του Kentaro Miura, <em>Monster</em> του Naoki Urasawa, <em>Vinland Saga</em> του Makoto Yukimura). Πιο ώριμες και σύνθετες θεματολογίες, ψυχολογικό βάθος, συχνά με πιο ρεαλιστική ή σκοτεινή ατμόσφαιρα.</li>
-                            <li><strong>Josei (女性):</strong> Για νεαρές γυναίκες (18+) (π.χ., <em>Nodame Cantabile</em> της Tomoko Ninomiya, <em>Paradise Kiss</em> της Ai Yazawa, <em>NANA</em> της Ai Yazawa). Εξερευνούν ρεαλιστικές σχέσεις, την καθημερινότητα και τις επαγγελματικές φιλοδοξίες.</li>
+                            <li class="lang-text" data-lang-key="wom_demographics_kodomomuke"><strong>Kodomomuke (子供向け):</strong> Για μικρά παιδιά (π.χ., <em>Doraemon</em> του Fujiko F. Fujio). Με ηθικοδιδακτικό χαρακτήρα, χαριτωμένους χαρακτήρες και απλές ιστορίες.</li>
+                            <li class="lang-text" data-lang-key="wom_demographics_shonen"><strong>Shōnen (少年):</strong> Για νεαρά αγόρια (π.χ., <em>One Piece</em> του Eiichiro Oda, <em>Naruto</em> του Masashi Kishimoto, <em>Attack on Titan</em> του Hajime Isayama). Επικεντρώνονται στη δράση, την περιπέτεια, τη φιλία και την αυτοβελτίωση.</li>
+                            <li class="lang-text" data-lang-key="wom_demographics_shojo"><strong>Shōjo (少女):</strong> Για νεαρά κορίτσια (π.χ., <em>Fruits Basket</em> της Natsuki Takaya, <em>Sailor Moon</em> της Naoko Takeuchi). Δίνουν έμφαση στις διαπροσωπικές σχέσεις, τον ρομαντισμό και την συναισθηματική ανάπτυξη.</li>
+                            <li class="lang-text" data-lang-key="wom_demographics_seinen"><strong>Seinen (青年):</strong> Για νεαρούς άνδρες (18+) (π.χ., <em>Berserk</em> του Kentaro Miura, <em>Monster</em> του Naoki Urasawa, <em>Vinland Saga</em> του Makoto Yukimura). Πιο ώριμες και σύνθετες θεματολογίες, ψυχολογικό βάθος, συχνά με πιο ρεαλιστική ή σκοτεινή ατμόσφαιρα.</li>
+                            <li class="lang-text" data-lang-key="wom_demographics_josei"><strong>Josei (女性):</strong> Για νεαρές γυναίκες (18+) (π.χ., <em>Nodame Cantabile</em> της Tomoko Ninomiya, <em>Paradise Kiss</em> της Ai Yazawa, <em>NANA</em> της Ai Yazawa). Εξερευνούν ρεαλιστικές σχέσεις, την καθημερινότητα και τις επαγγελματικές φιλοδοξίες.</li>
                         </ul>
                     </div>
                     <div class="md:w-2/5 mt-4 md:mt-0">
@@ -476,77 +517,77 @@
                 </div>
             </div>
             <div class="manga-panel fade-in-panel panel-color-2 mt-10">
-                <h3 class="manga-panel-title">Πρόσληψη των Manga στην Ελλάδα και Διεθνώς</h3>
-                <p class="text-content leading-relaxed">Τα manga έχουν κατακτήσει μια σημαντική θέση στην παγκόσμια ποπ κουλτούρα, με την αγορά των anime να παίζει καθοριστικό ρόλο στη διάδοσή τους. Σε χώρες της Ευρώπης όπως η Ιταλία, η Γαλλία και η Γερμανία, υπάρχει μια ανεπτυγμένη αγορά επίσημων μεταφράσεων manga. Αντίθετα, στην Ελλάδα, παρά το αυξανόμενο ενδιαφέρον, παρατηρείται ένα σημαντικό κενό τόσο στις επίσημες εκδόσεις όσο και στις ανεπίσημες μεταφράσεις από φαν (scanlations). Οι ελάχιστες προσπάθειες που γίνονται συχνά χαρακτηρίζονται από ασυνέχεια. Αυτή η έλλειψη ελληνικού μεταφρασμένου περιεχομένου και η περιορισμένη έρευνα πάνω στις μεταφραστικές προκλήσεις από τα Ιαπωνικά (μέσω Αγγλικών) στα Ελληνικά αποτέλεσαν βασικό κίνητρο για την παρούσα διπλωματική εργασία.</p>
+                <h3 class="manga-panel-title lang-text" data-lang-key="wom_reception_title">Πρόσληψη των Manga στην Ελλάδα και Διεθνώς</h3>
+                <p class="text-content leading-relaxed lang-text" data-lang-key="wom_reception_p1">Τα manga έχουν κατακτήσει μια σημαντική θέση στην παγκόσμια ποπ κουλτούρα, με την αγορά των anime να παίζει καθοριστικό ρόλο στη διάδοσή τους. Σε χώρες της Ευρώπης όπως η Ιταλία, η Γαλλία και η Γερμανία, υπάρχει μια ανεπτυγμένη αγορά επίσημων μεταφράσεων manga. Αντίθετα, στην Ελλάδα, παρά το αυξανόμενο ενδιαφέρον, παρατηρείται ένα σημαντικό κενό τόσο στις επίσημες εκδόσεις όσο και στις ανεπίσημες μεταφράσεις από φαν (scanlations). Οι ελάχιστες προσπάθειες που γίνονται συχνά χαρακτηρίζονται από ασυνέχεια. Αυτή η έλλειψη ελληνικού μεταφρασμένου περιεχομένου και η περιορισμένη έρευνα πάνω στις μεταφραστικές προκλήσεις από τα Ιαπωνικά (μέσω Αγγλικών) στα Ελληνικά αποτέλεσαν βασικό κίνητρο για την παρούσα διπλωματική εργασία.</p>
             </div>
             <div class="text-center mt-10">
-                <button id="exploreMangaBtn" class="gemini-button text-lg">✨ Εξερεύνησε Βαθύτερα τα Manga ✨</button>
+                <button id="exploreMangaBtn" class="gemini-button text-lg lang-text" data-lang-key="wom_explore_btn">✨ Εξερεύνησε Βαθύτερα τα Manga ✨</button>
             </div>
         </section>
 
         <section id="art-of-translation" class="mb-20">
              <div class="text-center">
-                <h2 class="section-title mb-12">翻訳の技術 - Η Τέχνη της Μετάφρασης</h2>
+                <h2 class="section-title mb-12 lang-text" data-lang-key="section_title_art_of_translation">翻訳の技術 - Η Τέχνη της Μετάφρασης</h2>
             </div>
             <div class="manga-panel fade-in-panel panel-color-3">
-                 <h3 class="manga-panel-title">Ο Μεταφραστής ως Πολιτισμικός Διαμεσολαβητής</h3>
+                 <h3 class="manga-panel-title lang-text" data-lang-key="aot_translator_role_title">Ο Μεταφραστής ως Πολιτισμικός Διαμεσολαβητής</h3>
                  <img src="https://www.japan.go.jp/kizuna/_src/7997194/manga_translation_service_01.jpg?v=1743005535161" 
                          alt="[Εικόνα που συμβολίζει τη μετάφραση manga ως γέφυρα πολιτισμών]" 
                          class="responsive-img shadow-md img-centered-block max-w-xl" 
                          onerror="this.onerror=null; this.src='https://placehold.co/500x350/A0D2DB/333333?text=Γέφυρα+Πολιτισμών';">
                 <div class="text-content mt-6">
-                    <p class="mb-4">Η μετάφραση λογοτεχνικών έργων, και ειδικότερα των manga, υπερβαίνει την απλή γλωσσική μεταφορά. Ο μεταφραστής καλείται να λειτουργήσει ως "διαμεσολαβητής μεταξύ πολιτισμών" (Bassnett 2011), μεταφέροντας όχι μόνο λέξεις αλλά και τις πολιτισμικές ιδιαιτερότητες, τις κοινωνικές νόρμες και τις αισθητικές αξίες που ενσωματώνονται στο πρωτότυπο. Στα manga, με την πλούσια εικονογραφία και τις συχνές αναφορές στην ιαπωνική κουλτούρα, ο ρόλος αυτός καθίσταται ακόμη πιο κρίσιμος.</p>
-                    <p>Η ποιότητα της μετάφρασης επηρεάζει άμεσα την πρόσληψη του έργου, την κατανόηση των νοημάτων και την αισθητική απόλαυση από το ξένο κοινό. Ο μεταφραστής μελετά τους χαρακτήρες, τις αντιδράσεις τους και την ψυχολογία τους, ώστε να αποδώσει την αμεσότητα του διαλόγου και την πρόθεση του δημιουργού. Όπως σημειώνει ο Schodt (2012), όσο καλά κι αν μεταφραστεί ένα manga, παραμένει ένα ιαπωνικό πολιτισμικό προϊόν που μπορεί αρχικά να ξενίσει όσους δεν είναι εξοικειωμένοι, απαιτώντας την εκμάθηση ενός νέου "οπτικού και γραπτού λεξιλογίου".</p>
+                    <p class="mb-4 lang-text" data-lang-key="aot_translator_role_p1">Η μετάφραση λογοτεχνικών έργων, και ειδικότερα των manga, υπερβαίνει την απλή γλωσσική μεταφορά. Ο μεταφραστής καλείται να λειτουργήσει ως "διαμεσολαβητής μεταξύ πολιτισμών" (Bassnett 2011), μεταφέροντας όχι μόνο λέξεις αλλά και τις πολιτισμικές ιδιαιτερότητες, τις κοινωνικές νόρμες και τις αισθητικές αξίες που ενσωματώνονται στο πρωτότυπο. Στα manga, με την πλούσια εικονογραφία και τις συχνές αναφορές στην ιαπωνική κουλτούρα, ο ρόλος αυτός καθίσταται ακόμη πιο κρίσιμος.</p>
+                    <p class="lang-text" data-lang-key="aot_translator_role_p2">Η ποιότητα της μετάφρασης επηρεάζει άμεσα την πρόσληψη του έργου, την κατανόηση των νοημάτων και την αισθητική απόλαυση από το ξένο κοινό. Ο μεταφραστής μελετά τους χαρακτήρες, τις αντιδράσεις τους και την ψυχολογία τους, ώστε να αποδώσει την αμεσότητα του διαλόγου και την πρόθεση του δημιουργού. Όπως σημειώνει ο Schodt (2012), όσο καλά κι αν μεταφραστεί ένα manga, παραμένει ένα ιαπωνικό πολιτισμικό προϊόν που μπορεί αρχικά να ξενίσει όσους δεν είναι εξοικειωμένοι, απαιτώντας την εκμάθηση ενός νέου "οπτικού και γραπτού λεξιλογίου".</p>
                 </div>
                  <div class="clear-both"></div>
             </div>
 
             <div class="manga-panel fade-in-panel panel-color-4 mt-10">
-                <h3 class="manga-panel-title">Scanlation: Η Ανεπίσημη Μετάφραση από τους Fans</h3>
+                <h3 class="manga-panel-title lang-text" data-lang-key="aot_scanlation_title">Scanlation: Η Ανεπίσημη Μετάφραση από τους Fans</h3>
                  <img src="https://www.insidescanlation.com/images/spotlight/speedscan_onb.png" 
                       alt="[Εικόνα που απεικονίζει τη διαδικασία του scanlation σε υπολογιστή]" 
                       class="responsive-img shadow-md mb-6 mx-auto block max-w-lg" 
                       onerror="this.onerror=null; this.src='https://placehold.co/500x350/FEEAFA/333333?text=Scanlation+Διαδικασία';">
                 <div class="text-content">
-                    <p class="mb-4">Το "scanlating" (συνδυασμός των λέξεων scan και translating) είναι η διαδικασία κατά την οποία φαν ενός manga αποκτούν το πρωτότυπο (συνήθως στα ιαπωνικά), το σαρώνουν, καθαρίζουν ψηφιακά τις εικόνες, αφαιρούν το πρωτότυπο κείμενο, το μεταφράζουν και ενσωματώνουν τη μετάφραση στις "καθαρές" σελίδες. Το τελικό προϊόν διανέμεται δωρεάν online.</p>
-                    <p class="mb-4">Παρά τα ζητήματα πνευματικών δικαιωμάτων, τα scanlations είναι εξαιρετικά δημοφιλή και συχνά αποτελούν την πρώτη (ή και μοναδική) επαφή πολλών αναγνωστών εκτός Ιαπωνίας με συγκεκριμένους τίτλους. Οι λόγοι της δημοτικότητάς τους περιλαμβάνουν την ταχύτητα κυκλοφορίας (συχνά πολύ πιο γρήγορα από τις επίσημες εκδόσεις), την ευρεία διαθεσιμότητα και την κάλυψη τίτλων που δεν αδειοδοτούνται επίσημα. Η βιομηχανία των manga, αν και θεωρεί παράνομη τη δραστηριότητα, συχνά την ανέχεται ή την χρησιμοποιεί ως δείκτη δημοτικότητας για πιθανές επίσημες αδειοδοτήσεις (Lee 2009).</p>
+                    <p class="mb-4 lang-text" data-lang-key="aot_scanlation_p1">Το "scanlating" (συνδυασμός των λέξεων scan και translating) είναι η διαδικασία κατά την οποία φαν ενός manga αποκτούν το πρωτότυπο (συνήθως στα ιαπωνικά), το σαρώνουν, καθαρίζουν ψηφιακά τις εικόνες, αφαιρούν το πρωτότυπο κείμενο, το μεταφράζουν και ενσωματώνουν τη μετάφραση στις "καθαρές" σελίδες. Το τελικό προϊόν διανέμεται δωρεάν online.</p>
+                    <p class="mb-4 lang-text" data-lang-key="aot_scanlation_p2">Παρά τα ζητήματα πνευματικών δικαιωμάτων, τα scanlations είναι εξαιρετικά δημοφιλή και συχνά αποτελούν την πρώτη (ή και μοναδική) επαφή πολλών αναγνωστών εκτός Ιαπωνίας με συγκεκριμένους τίτλους. Οι λόγοι της δημοτικότητάς τους περιλαμβάνουν την ταχύτητα κυκλοφορίας (συχνά πολύ πιο γρήγορα από τις επίσημες εκδόσεις), την ευρεία διαθεσιμότητα και την κάλυψη τίτλων που δεν αδειοδοτούνται επίσημα. Η βιομηχανία των manga, αν και θεωρεί παράνομη τη δραστηριότητα, συχνά την ανέχεται ή την χρησιμοποιεί ως δείκτη δημοτικότητας για πιθανές επίσημες αδειοδοτήσεις (Lee 2009).</p>
                 </div>
             </div>
 
             <div class="manga-panel fade-in-panel panel-color-1 mt-10">
-                <h3 class="manga-panel-title">Πρακτικά Ζητήματα και Προκλήσεις στη Μετάφραση Manga</h3>
-                <p class="text-content leading-relaxed mb-6">Η μετάφραση manga παρουσιάζει ιδιαίτερες προκλήσεις λόγω της σύνθετης σημειωτικής τους δομής (Jüngst 2008) και των πολιτισμικών τους ιδιαιτεροτήτων. Ορισμένα βασικά ζητήματα περιλαμβάνουν:</p>
+                <h3 class="manga-panel-title lang-text" data-lang-key="aot_challenges_title">Πρακτικά Ζητήματα και Προκλήσεις στη Μετάφραση Manga</h3>
+                <p class="text-content leading-relaxed mb-6 lang-text" data-lang-key="aot_challenges_intro">Η μετάφραση manga παρουσιάζει ιδιαίτερες προκλήσεις λόγω της σύνθετης σημειωτικής τους δομής (Jüngst 2008) και των πολιτισμικών τους ιδιαιτεροτήτων. Ορισμένα βασικά ζητήματα περιλαμβάνουν:</p>
                 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="sub-panel">
-                        <h4 class="sub-panel-title">Κατεύθυνση Ανάγνωσης & Διάταξη</h4>
-                        <p class="text-content text-sm">Η ανάγνωση από δεξιά προς τα αριστερά και η κάθετη γραφή στα ιαπωνικά επηρεάζουν τη διάταξη των καρέ και των πλαισίων ομιλίας. Η προσαρμογή σε οριζόντιο κείμενο και η τοποθέτηση στα συχνά στενά πλαίσια απαιτεί προσοχή.</p>
-                        <button class="gemini-button text-xs mt-2 analyze-challenge-btn" data-challenge="Κατεύθυνση Ανάγνωσης και Διάταξη σελίδας manga">✨ Ανάλυση</button>
+                        <h4 class="sub-panel-title lang-text" data-lang-key="aot_challenge_reading_direction">Κατεύθυνση Ανάγνωσης & Διάταξη</h4>
+                        <p class="text-content text-sm lang-text" data-lang-key="aot_challenge_reading_direction_desc">Η ανάγνωση από δεξιά προς τα αριστερά και η κάθετη γραφή στα ιαπωνικά επηρεάζουν τη διάταξη των καρέ και των πλαισίων ομιλίας. Η προσαρμογή σε οριζόντιο κείμενο και η τοποθέτηση στα συχνά στενά πλαίσια απαιτεί προσοχή.</p>
+                        <button class="gemini-button text-xs mt-2 analyze-challenge-btn lang-text" data-challenge="Κατεύθυνση Ανάγνωσης και Διάταξη σελίδας manga" data-lang-key="aot_analyze_btn">✨ Ανάλυση</button>
                     </div>
                      <div class="sub-panel">
-                        <h4 class="sub-panel-title">Τυπογραφία (Typeface)</h4>
-                        <p class="text-content text-sm">Η επιλογή γραμματοσειράς είναι σημαντική. Μεγαλύτερες, έντονες γραμματοσειρές χρησιμοποιούνται συχνά για να δηλώσουν ένταση φωνής (Forceville et al. 2010).</p>
-                        <button class="gemini-button text-xs mt-2 analyze-challenge-btn" data-challenge="Επιλογή Τυπογραφίας και Γραμματοσειρών σε manga">✨ Ανάλυση</button>
+                        <h4 class="sub-panel-title lang-text" data-lang-key="aot_challenge_typography">Τυπογραφία (Typeface)</h4>
+                        <p class="text-content text-sm lang-text" data-lang-key="aot_challenge_typography_desc">Η επιλογή γραμματοσειράς είναι σημαντική. Μεγαλύτερες, έντονες γραμματοσειρές χρησιμοποιούνται συχνά για να δηλώσουν ένταση φωνής (Forceville et al. 2010).</p>
+                        <button class="gemini-button text-xs mt-2 analyze-challenge-btn lang-text" data-challenge="Επιλογή Τυπογραφίας και Γραμματοσειρών σε manga" data-lang-key="aot_analyze_btn">✨ Ανάλυση</button>
                     </div>
                     <div class="sub-panel">
-                        <h4 class="sub-panel-title">Ονοματοποιίες & Μιμητικές Λέξεις</h4>
-                        <p class="text-content text-sm">Η ιαπωνική γλώσσα διαθέτει πληθώρα ονοματοποιητικών (giseigo, giongo) και μιμητικών λέξεων (gitaigo). Αυτές συχνά ενσωματώνονται καλλιτεχνικά στο σχέδιο. Η μετάφρασή τους είναι δύσκολη.</p>
-                         <button class="gemini-button text-xs mt-2 analyze-challenge-btn" data-challenge="Μετάφραση Ονοματοποιιών και Μιμητικών Λέξεων (gitaigo) σε manga">✨ Ανάλυση</button>
+                        <h4 class="sub-panel-title lang-text" data-lang-key="aot_challenge_onomatopoeia">Ονοματοποιίες & Μιμητικές Λέξεις</h4>
+                        <p class="text-content text-sm lang-text" data-lang-key="aot_challenge_onomatopoeia_desc">Η ιαπωνική γλώσσα διαθέτει πληθώρα ονοματοποιητικών (giseigo, giongo) και μιμητικών λέξεων (gitaigo). Αυτές συχνά ενσωματώνονται καλλιτεχνικά στο σχέδιο. Η μετάφρασή τους είναι δύσκολη.</p>
+                         <button class="gemini-button text-xs mt-2 analyze-challenge-btn lang-text" data-challenge="Μετάφραση Ονοματοποιιών και Μιμητικών Λέξεων (gitaigo) σε manga" data-lang-key="aot_analyze_btn">✨ Ανάλυση</button>
                     </div>
                     <div class="sub-panel">
-                        <h4 class="sub-panel-title">Πολιτισμικά Στοιχεία</h4>
-                        <p class="text-content text-sm">Οι τιμητικές προσφωνήσεις (-san, -kun) δηλώνουν σχέσεις. Άλλα στοιχεία (φαγητά, έθιμα) μπορεί να χρειάζονται επεξήγηση.</p>
-                        <button class="gemini-button text-xs mt-2 analyze-challenge-btn" data-challenge="Μετάφραση Πολιτισμικών Στοιχείων και Τιμητικών Προσφωνήσεων (keigo) σε manga">✨ Ανάλυση</button>
+                        <h4 class="sub-panel-title lang-text" data-lang-key="aot_challenge_cultural_elements">Πολιτισμικά Στοιχεία</h4>
+                        <p class="text-content text-sm lang-text" data-lang-key="aot_challenge_cultural_elements_desc">Οι τιμητικές προσφωνήσεις (-san, -kun) δηλώνουν σχέσεις. Άλλα στοιχεία (φαγητά, έθιμα) μπορεί να χρειάζονται επεξήγηση.</p>
+                        <button class="gemini-button text-xs mt-2 analyze-challenge-btn lang-text" data-challenge="Μετάφραση Πολιτισμικών Στοιχείων και Τιμητικών Προσφωνήσεων (keigo) σε manga" data-lang-key="aot_analyze_btn">✨ Ανάλυση</button>
                     </div>
                     <div class="sub-panel">
-                        <h4 class="sub-panel-title">Μεταφραστικές Σημειώσεις</h4>
-                        <p class="text-content text-sm">Συχνά χρησιμοποιούνται για επεξήγηση πολιτισμικών αναφορών ή γλωσσικών ιδιωματισμών. Οι αναγνώστες scanlations τις εκτιμούν (Fabbretti 2016).</p>
-                         <button class="gemini-button text-xs mt-2 analyze-challenge-btn" data-challenge="Χρήση και Αποτελεσματικότητα Μεταφραστικών Σημειώσεων σε manga">✨ Ανάλυση</button>
+                        <h4 class="sub-panel-title lang-text" data-lang-key="aot_challenge_translation_notes">Μεταφραστικές Σημειώσεις</h4>
+                        <p class="text-content text-sm lang-text" data-lang-key="aot_challenge_translation_notes_desc">Συχνά χρησιμοποιούνται για επεξήγηση πολιτισμικών αναφορών ή γλωσσικών ιδιωματισμών. Οι αναγνώστες scanlations τις εκτιμούν (Fabbretti 2016).</p>
+                         <button class="gemini-button text-xs mt-2 analyze-challenge-btn lang-text" data-challenge="Χρήση και Αποτελεσματικότητα Μεταφραστικών Σημειώσεων σε manga" data-lang-key="aot_analyze_btn">✨ Ανάλυση</button>
                     </div>
                     <div class="sub-panel">
-                        <h4 class="sub-panel-title">Στρατηγικές Μετάφρασης</h4>
-                        <p class="text-content text-sm">Οι μεταφραστές επιλέγουν μεταξύ ξενισμού (foreignization) και οικειοποίησης (domestication). Στα manga, οι φαν συχνά προτιμούν τον ξενισμό (Sell 2011).</p>
-                        <button class="gemini-button text-xs mt-2 analyze-challenge-btn" data-challenge="Στρατηγικές Μετάφρασης manga: Ξενισμός έναντι Οικειοποίησης">✨ Ανάλυση</button>
+                        <h4 class="sub-panel-title lang-text" data-lang-key="aot_challenge_strategies">Στρατηγικές Μετάφρασης</h4>
+                        <p class="text-content text-sm lang-text" data-lang-key="aot_challenge_strategies_desc">Οι μεταφραστές επιλέγουν μεταξύ ξενισμού (foreignization) και οικειοποίησης (domestication). Στα manga, οι φαν συχνά προτιμούν τον ξενισμό (Sell 2011).</p>
+                        <button class="gemini-button text-xs mt-2 analyze-challenge-btn lang-text" data-challenge="Στρατηγικές Μετάφρασης manga: Ξενισμός έναντι Οικειοποίησης" data-lang-key="aot_analyze_btn">✨ Ανάλυση</button>
                     </div>
                 </div>
             </div>
@@ -554,60 +595,60 @@
 
         <section id="research-methodology" class="mb-20">
             <div class="text-center">
-                <h2 class="section-title mb-12">研究方法 - Η Έρευνα: Μεθοδολογικά Ζητήματα</h2>
+                <h2 class="section-title mb-12 lang-text" data-lang-key="section_title_research_methodology">研究方法 - Η Έρευνα: Μεθοδολογικά Ζητήματα</h2>
             </div>
             <div class="manga-panel fade-in-panel panel-color-2">
-                <h3 class="manga-panel-title">Στόχοι και Ερευνητικά Ερωτήματα</h3>
+                <h3 class="manga-panel-title lang-text" data-lang-key="rm_aims_questions_title">Στόχοι και Ερευνητικά Ερωτήματα</h3>
                 <img src="https://www.ssbm.ch/wp-content/uploads/2021/11/5f3504fc6ea38f001ec0f8b5.jpg" 
                          alt="[Εικόνα γραφήματος που απεικονίζει την ερευνητική μεθοδολογία]" 
                          class="responsive-img shadow-md img-centered-block max-w-lg" 
                          onerror="this.onerror=null; this.src='https://placehold.co/500x300/B9E4C9/333333?text=Μεθοδολογία+Έρευνας';">
                 <div class="text-content mt-6">
-                    <p class="mb-4">Η παρούσα έρευνα αποσκοπούσε στον εντοπισμό των κύριων μεταφραστικών προκλήσεων κατά τη μεταφορά αγγλικών scanlated manga στα ελληνικά και στην πρόταση μεθόδων για την αντιμετώπισή τους. Βασικά ερευνητικά ερωτήματα ήταν:</p>
+                    <p class="mb-4 lang-text" data-lang-key="rm_aims_intro">Η παρούσα έρευνα αποσκοπούσε στον εντοπισμό των κύριων μεταφραστικών προκλήσεων κατά τη μεταφορά αγγλικών scanlated manga στα ελληνικά και στην πρόταση μεθόδων για την αντιμετώπισή τους. Βασικά ερευνητικά ερωτήματα ήταν:</p>
                     <ul class="list-disc mb-4 space-y-1">
-                        <li>Ποιες είναι οι κύριες θεματικές κατηγορίες προκλήσεων στη μετάφραση αγγλικών scanlated manga στα ελληνικά;</li>
-                        <li>Ποιες μέθοδοι μπορούν να χρησιμοποιηθούν για την αντιμετώπιση αυτών των προκλήσεων;</li>
-                        <li>Εκτιμώνται αυτές οι μέθοδοι από το ελληνικό αναγνωστικό κοινό και γιατί;</li>
-                        <li>Μπορεί η παραγωγή ελληνικών scanlated manga να κεντρίσει το ενδιαφέρον των αναγνωστών;</li>
-                        <li>Ενθαρρύνει η παραγωγή αυτή τους αναγνώστες να εξερευνήσουν περαιτέρω τα manga;</li>
+                        <li class="lang-text" data-lang-key="rm_question1">Ποιες είναι οι κύριες θεματικές κατηγορίες προκλήσεων στη μετάφραση αγγλικών scanlated manga στα ελληνικά;</li>
+                        <li class="lang-text" data-lang-key="rm_question2">Ποιες μέθοδοι μπορούν να χρησιμοποιηθούν για την αντιμετώπιση αυτών των προκλήσεων;</li>
+                        <li class="lang-text" data-lang-key="rm_question3">Εκτιμώνται αυτές οι μέθοδοι από το ελληνικό αναγνωστικό κοινό και γιατί;</li>
+                        <li class="lang-text" data-lang-key="rm_question4">Μπορεί η παραγωγή ελληνικών scanlated manga να κεντρίσει το ενδιαφέρον των αναγνωστών;</li>
+                        <li class="lang-text" data-lang-key="rm_question5">Ενθαρρύνει η παραγωγή αυτή τους αναγνώστες να εξερευνήσουν περαιτέρω τα manga;</li>
                     </ul>
                 </div>
                 <div class="clear-both"></div>
             </div>
             <div class="manga-panel fade-in-panel panel-color-3 mt-10">
-                <h3 class="manga-panel-title">Διαδικασία Έρευνας και Ανάλυση Δεδομένων</h3>
+                <h3 class="manga-panel-title lang-text" data-lang-key="rm_procedure_analysis_title">Διαδικασία Έρευνας και Ανάλυση Δεδομένων</h3>
                 <div class="text-content">
-                    <p class="mb-4">Για την έρευνα, επιλέχθηκαν και μεταφράστηκαν στα ελληνικά πέντε αποσπάσματα από αγγλικά scanlated manga, καλύπτοντας όλες τις κύριες δημογραφικές κατηγορίες: <em>Doraemon</em> (kodomomuke), <em>Demon Slayer: Kimetsu no Yaiba</em> (shonen), <em>Fruits Basket</em> (shojo), <em>Monster</em> (seinen), και <em>NANA</em> (josei). Η επεξεργασία των εικόνων και η ενσωμάτωση της ελληνικής μετάφρασης έγινε με το πρόγραμμα Adobe Photoshop.</p>
-                    <p class="mb-4">Η ανάλυση των μεταφραστικών προκλήσεων βασίστηκε στη μέθοδο της θεματικής ανάλυσης. Οι προκλήσεις κατηγοριοποιήθηκαν σε δύο ευρείες θεματικές ενότητες: γλωσσικά ζητήματα και πολιτισμικά ζητήματα. Για τη συλλογή της άποψης των αναγνωστών, διανεμήθηκε ανώνυμο ηλεκτρονικό ερωτηματολόγιο (μέσω Google Forms) σε 38 Έλληνες αναγνώστες, οι οποίοι πρώτα διάβασαν τα μεταφρασμένα αποσπάσματα. Οι απαντήσεις τους αναλύθηκαν ποσοτικά.</p>
+                    <p class="mb-4 lang-text" data-lang-key="rm_procedure_p1">Για την έρευνα, επιλέχθηκαν και μεταφράστηκαν στα ελληνικά πέντε αποσπάσματα από αγγλικά scanlated manga, καλύπτοντας όλες τις κύριες δημογραφικές κατηγορίες: <em>Doraemon</em> (kodomomuke), <em>Demon Slayer: Kimetsu no Yaiba</em> (shonen), <em>Fruits Basket</em> (shojo), <em>Monster</em> (seinen), και <em>NANA</em> (josei). Η επεξεργασία των εικόνων και η ενσωμάτωση της ελληνικής μετάφρασης έγινε με το πρόγραμμα Adobe Photoshop.</p>
+                    <p class="mb-4 lang-text" data-lang-key="rm_procedure_p2">Η ανάλυση των μεταφραστικών προκλήσεων βασίστηκε στη μέθοδο της θεματικής ανάλυσης. Οι προκλήσεις κατηγοριοποιήθηκαν σε δύο ευρείες θεματικές ενότητες: γλωσσικά ζητήματα και πολιτισμικά ζητήματα. Για τη συλλογή της άποψης των αναγνωστών, διανεμήθηκε ανώνυμο ηλεκτρονικό ερωτηματολόγιο (μέσω Google Forms) σε 38 Έλληνες αναγνώστες, οι οποίοι πρώτα διάβασαν τα μεταφρασμένα αποσπάσματα. Οι απαντήσεις τους αναλύθηκαν ποσοτικά.</p>
                 </div>
             </div>
         </section>
         
         <section id="results-discussion" class="mb-20">
             <div class="text-center">
-                <h2 class="section-title mb-12">結果と考察 - Αποτελέσματα και Συζήτηση</h2>
+                <h2 class="section-title mb-12 lang-text" data-lang-key="section_title_results_discussion">結果と考察 - Αποτελέσματα και Συζήτηση</h2>
             </div>
             <div class="manga-panel fade-in-panel panel-color-4">
-                <h3 class="manga-panel-title">Κύριες Μεταφραστικές Προκλήσεις που Εντοπίστηκαν</h3>
+                <h3 class="manga-panel-title lang-text" data-lang-key="rd_main_challenges_title">Κύριες Μεταφραστικές Προκλήσεις που Εντοπίστηκαν</h3>
                  <img src="https://atlasti.com/media/pages/research-hub/finding-research-topic/031ca917f7-1739281450/research-topic.png" 
                          alt="[Εικόνα που συμβολίζει την εύρεση και ανάλυση ερευνητικών ευρημάτων]" 
                          class="responsive-img shadow-md md:w-2/5 mb-6 md:mb-0 img-wrap-right"
                          onerror="this.onerror=null; this.src='https://placehold.co/500x300/F7C5CC/333333?text=Αποτελέσματα+Ερωτηματολογίου';">
                 <div class="text-content">
-                    <p class="mb-4">Η διαδικασία μετάφρασης ανέδειξε συγκεκριμένες προκλήσεις, οι οποίες κατηγοριοποιήθηκαν ως εξής:</p>
+                    <p class="mb-4 lang-text" data-lang-key="rd_main_challenges_intro">Η διαδικασία μετάφρασης ανέδειξε συγκεκριμένες προκλήσεις, οι οποίες κατηγοριοποιήθηκαν ως εξής:</p>
                     <div class="sub-panel mb-4">
-                        <h4 class="sub-panel-title">Γλωσσικά Ζητήματα:</h4>
+                        <h4 class="sub-panel-title lang-text" data-lang-key="rd_linguistic_issues_title">Γλωσσικά Ζητήματα:</h4>
                         <ul class="list-disc space-y-1 text-sm">
-                            <li><strong>Απόδοση έντονων στιγμών:</strong> Η δυσκολία μεταφοράς της έντασης (φωνές, εκρήξεις, συναισθηματική φόρτιση) χωρίς ήχο και κίνηση. Η λύση που υιοθετήθηκε ήταν η χρήση έντονης γραφής, μεγαλύτερου μεγέθους γραμματοσειράς και κατάλληλων σημείων στίξης.</li>
-                            <li><strong>Ονοματοποιίες και ήχοι (SFX):</strong> Οι ιαπωνικές ηχομιμητικές λέξεις (giseigo, giongo, gitaigo) συχνά αφήνονται αμετάφραστες από τους Άγγλους scanlators. Η παρούσα έρευνα ακολούθησε την ίδια στρατηγική (μη μετάφραση των ιαπωνικών SFX), θεωρώντας τα αναπόσπαστο κομμάτι της αυθεντικότητας και της οπτικής αισθητικής των manga.</li>
-                            <li><strong>Κείμενο εκτός πλαισίων ομιλίας:</strong> Η διάκριση εσωτερικών σκέψεων, ψιθύρων ή αφηγηματικών σχολίων από τον κανονικό διάλογο, συχνά μέσω διαφορετικής γραμματοσειράς ή μικρότερου μεγέθους.</li>
+                            <li class="lang-text" data-lang-key="rd_linguistic_issue1"><strong>Απόδοση έντονων στιγμών:</strong> Η δυσκολία μεταφοράς της έντασης (φωνές, εκρήξεις, συναισθηματική φόρτιση) χωρίς ήχο και κίνηση. Η λύση που υιοθετήθηκε ήταν η χρήση έντονης γραφής, μεγαλύτερου μεγέθους γραμματοσειράς και κατάλληλων σημείων στίξης.</li>
+                            <li class="lang-text" data-lang-key="rd_linguistic_issue2"><strong>Ονοματοποιίες και ήχοι (SFX):</strong> Οι ιαπωνικές ηχομιμητικές λέξεις (giseigo, giongo, gitaigo) συχνά αφήνονται αμετάφραστες από τους Άγγλους scanlators. Η παρούσα έρευνα ακολούθησε την ίδια στρατηγική (μη μετάφραση των ιαπωνικών SFX), θεωρώντας τα αναπόσπαστο κομμάτι της αυθεντικότητας και της οπτικής αισθητικής των manga.</li>
+                            <li class="lang-text" data-lang-key="rd_linguistic_issue3"><strong>Κείμενο εκτός πλαισίων ομιλίας:</strong> Η διάκριση εσωτερικών σκέψεων, ψιθύρων ή αφηγηματικών σχολίων από τον κανονικό διάλογο, συχνά μέσω διαφορετικής γραμματοσειράς ή μικρότερου μεγέθους.</li>
                         </ul>
                     </div>
                     <div class="sub-panel">
-                        <h4 class="sub-panel-title">Πολιτισμικά Ζητήματα:</h4>
+                        <h4 class="sub-panel-title lang-text" data-lang-key="rd_cultural_issues_title">Πολιτισμικά Ζητήματα:</h4>
                         <ul class="list-disc space-y-1 text-sm">
-                            <li><strong>Τιμητικές προσφωνήσεις (Keigo):</strong> Η διαχείριση των ιαπωνικών επιθημάτων (-san, -kun, -chan, -sama κ.λπ.) που δηλώνουν την κοινωνική σχέση μεταξύ των ομιλητών. Η στρατηγική που επιλέχθηκε ήταν η μεταγραφή τους στα ελληνικά και η παροχή επεξηγηματικής σημείωσης στην πρώτη τους εμφάνιση.</li>
-                            <li><strong>Πολιτισμικά Ειδικά Στοιχεία (Real-ia):</strong> Η απόδοση ή επεξήγηση άγνωστων στο ελληνικό κοινό εθίμων, αντικειμένων, φαγητών, νομισματικών μονάδων (π.χ. γιεν) ή κοινωνικών πρακτικών. Η λύση ήταν η χρήση μεταφραστικών σημειώσεων. Παραδείγματα από την εργασία περιλαμβάνουν την έννοια του "oni", το "Japanese battledore", την αξία του γιεν, και την απεικόνιση της προσευχής σε οικιακό βωμό.</li>
+                            <li class="lang-text" data-lang-key="rd_cultural_issue1"><strong>Τιμητικές προσφωνήσεις (Keigo):</strong> Η διαχείριση των ιαπωνικών επιθημάτων (-san, -kun, -chan, -sama κ.λπ.) που δηλώνουν την κοινωνική σχέση μεταξύ των ομιλητών. Η στρατηγική που επιλέχθηκε ήταν η μεταγραφή τους στα ελληνικά και η παροχή επεξηγηματικής σημείωσης στην πρώτη τους εμφάνιση.</li>
+                            <li class="lang-text" data-lang-key="rd_cultural_issue2"><strong>Πολιτισμικά Ειδικά Στοιχεία (Real-ia):</strong> Η απόδοση ή επεξήγηση άγνωστων στο ελληνικό κοινό εθίμων, αντικειμένων, φαγητών, νομισματικών μονάδων (π.χ. γιεν) ή κοινωνικών πρακτικών. Η λύση ήταν η χρήση μεταφραστικών σημειώσεων. Παραδείγματα από την εργασία περιλαμβάνουν την έννοια του "oni", το "Japanese battledore", την αξία του γιεν, και την απεικόνιση της προσευχής σε οικιακό βωμό.</li>
                         </ul>
                     </div>
                 </div>
@@ -615,18 +656,18 @@
             </div>
 
             <div class="manga-panel fade-in-panel panel-color-1 mt-10">
-                <h3 class="manga-panel-title">Ευρήματα Ερωτηματολογίου: Η Οπτική των Ελλήνων Αναγνωστών</h3>
+                <h3 class="manga-panel-title lang-text" data-lang-key="rd_survey_findings_title">Ευρήματα Ερωτηματολογίου: Η Οπτική των Ελλήνων Αναγνωστών</h3>
                 <div class="text-content">
-                    <p class="mb-4">Οι απαντήσεις των 38 συμμετεχόντων στο ερωτηματολόγio έδωσαν σημαντικές ενδείξεις για την πρόσληψη των μεταφραστικών επιλογών:</p>
+                    <p class="mb-4 lang-text" data-lang-key="rd_survey_findings_intro">Οι απαντήσεις των 38 συμμετεχόντων στο ερωτηματολόγio έδωσαν σημαντικές ενδείξεις για την πρόσληψη των μεταφραστικών επιλογών:</p>
                     <ul class="list-disc space-y-2">
-                        <li><strong>Τυπογραφία για Ένταση:</strong> Η συντριπτική πλειοψηφία (30 από 38 άτομα) έκρινε ότι η χρήση έντονης γραφής και μεγαλύτερου μεγέθους γραμμάτων ήταν χρήσιμη για την κατανόηση σκηνών με έντονη συναισθηματική φόρτιση.</li>
-                        <li><strong>Αμετάφραστες Ονοματοποιίες:</strong> Ένας σημαντικός αριθμός αναγνωστών δήλωσε ότι όχι μόνο κατανοεί τα αμετάφραστα ιαπωνικά ηχητικά εφέ, αλλά προτιμά και τη διατήρησή τους, θεωρώντας τα αναπόσπαστο κομμάτι της αυθεντικότητας και της αισθητικής των manga.</li>
-                        <li><strong>Τιμητικές Προσφωνήσεις:</strong> Η πλειοψηφία τάχθηκε υπέρ της μεταγραφής των τιμητικών προσφωνήσεων στα ελληνικά, εκτιμώντας ότι βοηθούν στην κατανόηση της ιαπωνικής κουλτούρας και προσδίδουν αυθεντικότητα στο κείμενο.</li>
-                        <li><strong>Μεταφραστικές Σημειώσεις:</strong> Οι σημειώσεις κρίθηκαν ως ιδιαίτερα χρήσιμες έως απαραίτητες για την κατανόηση τόσο των τιμητικών προσφωνήσεων όσο και άλλων πολιτισμικά ειδικών στοιχείων που θα παρέμεναν ασαφή.</li>
-                        <li><strong>Ροή και Φυσικότητα Μετάφρασης:</strong> Οι περισσότεροι συμμετέχοντες χαρακτήρισαν τις μεταφράσεις ως έχουσες φυσική ροή στα ελληνικά. Ωστόσο, ένα αξιόλογο ποσοστό αναγνώρισε ότι πρόκειται για μεταφρασμένο κείμενο, πιθανόν λόγω της έντονης πολιτισμικής σφραγίδας των manga που δύσκολα εξαλείφεται πλήρως.</li>
-                        <li><strong>Ενδιαφέρον για τη Συνέχεια:</strong> Το ενδιαφέρον των αναγνωστών να μάθουν τη συνέχεια των ιστοριών που διάβασαν ήταν υψηλό, γεγονός που υποδεικνύει ότι οι ποιοτικές μεταφράσεις μπορούν να δημιουργήσουν δέσμευση και επένδυση από την πλευρά του κοινού.</li>
-                        <li><strong>Πρόσβαση σε Ελληνικά Manga:</strong> Σχεδόν καθολική ήταν η άποψη (35 από 38 άτομα) ότι η πρόσβαση σε ελληνικά μεταφρασμένα manga είναι δύσκολη.</li>
-                        <li><strong>Επιθυμία για Περισσότερες Εκδόσεις:</strong> Η συντριπτική πλειοψηφία (34 από 38 άτομα) εξέφρασε την επιθυμία να δει περισσότερους εκδοτικούς οίκους να κυκλοφορούν manga μεταφρασμένα στα ελληνικά.</li>
+                        <li class="lang-text" data-lang-key="rd_survey_finding1"><strong>Τυπογραφία για Ένταση:</strong> Η συντριπτική πλειοψηφία (30 από 38 άτομα) έκρινε ότι η χρήση έντονης γραφής και μεγαλύτερου μεγέθους γραμμάτων ήταν χρήσιμη για την κατανόηση σκηνών με έντονη συναισθηματική φόρτιση.</li>
+                        <li class="lang-text" data-lang-key="rd_survey_finding2"><strong>Αμετάφραστες Ονοματοποιίες:</strong> Ένας σημαντικός αριθμός αναγνωστών δήλωσε ότι όχι μόνο κατανοεί τα αμετάφραστα ιαπωνικά ηχητικά εφέ, αλλά προτιμά και τη διατήρησή τους, θεωρώντας τα αναπόσπαστο κομμάτι της αυθεντικότητας και της αισθητικής των manga.</li>
+                        <li class="lang-text" data-lang-key="rd_survey_finding3"><strong>Τιμητικές Προσφωνήσεις:</strong> Η πλειοψηφία τάχθηκε υπέρ της μεταγραφής των τιμητικών προσφωνήσεων στα ελληνικά, εκτιμώντας ότι βοηθούν στην κατανόηση της ιαπωνικής κουλτούρας και προσδίδουν αυθεντικότητα στο κείμενο.</li>
+                        <li class="lang-text" data-lang-key="rd_survey_finding4"><strong>Μεταφραστικές Σημειώσεις:</strong> Οι σημειώσεις κρίθηκαν ως ιδιαίτερα χρήσιμες έως απαραίτητες για την κατανόηση τόσο των τιμητικών προσφωνήσεων όσο και άλλων πολιτισμικά ειδικών στοιχείων που θα παρέμεναν ασαφή.</li>
+                        <li class="lang-text" data-lang-key="rd_survey_finding5"><strong>Ροή και Φυσικότητα Μετάφρασης:</strong> Οι περισσότεροι συμμετέχοντες χαρακτήρισαν τις μεταφράσεις ως έχουσες φυσική ροή στα ελληνικά. Ωστόσο, ένα αξιόλογο ποσοστό αναγνώρισε ότι πρόκειται για μεταφρασμένο κείμενο, πιθανόν λόγω της έντονης πολιτισμικής σφραγίδας των manga που δύσκολα εξαλείφεται πλήρως.</li>
+                        <li class="lang-text" data-lang-key="rd_survey_finding6"><strong>Ενδιαφέρον για τη Συνέχεια:</strong> Το ενδιαφέρον των αναγνωστών να μάθουν τη συνέχεια των ιστοριών που διάβασαν ήταν υψηλό, γεγονός που υποδεικνύει ότι οι ποιοτικές μεταφράσεις μπορούν να δημιουργήσουν δέσμευση και επένδυση από την πλευρά του κοινού.</li>
+                        <li class="lang-text" data-lang-key="rd_survey_finding7"><strong>Πρόσβαση σε Ελληνικά Manga:</strong> Σχεδόν καθολική ήταν η άποψη (35 από 38 άτομα) ότι η πρόσβαση σε ελληνικά μεταφρασμένα manga είναι δύσκολη.</li>
+                        <li class="lang-text" data-lang-key="rd_survey_finding8"><strong>Επιθυμία για Περισσότερες Εκδόσεις:</strong> Η συντριπτική πλειοψηφία (34 από 38 άτομα) εξέφρασε την επιθυμία να δει περισσότερους εκδοτικούς οίκους να κυκλοφορούν manga μεταφρασμένα στα ελληνικά.</li>
                     </ul>
                 </div>
             </div>
@@ -634,7 +675,7 @@
 
         <section id="conclusion" class="mb-20">
             <div class="text-center">
-                <h2 class="section-title mb-12">結論 - Συμπεράσματα και Προοπτικές</h2>
+                <h2 class="section-title mb-12 lang-text" data-lang-key="section_title_conclusion">結論 - Συμπεράσματα και Προοπτικές</h2>
             </div>
              <div class="manga-panel fade-in-panel panel-color-2">
                 <img src="https://news.cnrs.fr/sites/default/files/styles/asset_image_full/public/assets/images/sipa_00563641_000007_72dpi.jpg?itok=UjnyU9SS" 
@@ -642,13 +683,13 @@
                          class="responsive-img shadow-lg img-centered-block max-w-xl"  
                          onerror="this.onerror=null; this.src='https://placehold.co/600x400/D8BFD8/333333?text=Μέλλον+Ελληνικών+Manga';">
                 <div class="text-content text-lg leading-relaxed mt-8">
-                    <p class="mb-5">
+                    <p class="mb-5 lang-text" data-lang-key="conclusion_p1">
                        Η παρούσα διπλωματική εργασία κατέδειξε ότι η μετάφραση αγγλικών scanlated manga στα ελληνικά ενέχει συγκεκριμένες γλωσσικές και πολιτισμικές προκλήσεις. Ωστόσο, αυτές οι προκλήσεις μπορούν να αντιμετωπιστούν αποτελεσματικά μέσω της εφαρμογής κατάλληλων μεταφραστικών στρατηγικών, όπως η προσεκτική χρήση της τυπογραφίας για την απόδοση έντασης, η διατήρηση (με τις απαραίτητες επεξηγήσεις μέσω σημειώσεων) των τιμητικών προσφωνήσεων, και η παροχή σαφών μεταφραστικών σημειώσεων για πολιτισμικά ειδικά στοιχεία. Αυτές οι προσεγγίσεις εκτιμήθηκαν θετικά από το ελληνικό αναγνωστικό κοινό που συμμετείχε στην έρευνα.
                     </p>
-                    <p class="mb-5">
+                    <p class="mb-5 lang-text" data-lang-key="conclusion_p2">
                        Η προτίμηση των αναγνωστών για διατήρηση των ιαπωνικών ονοματοποιιών υπογραμμίζει την επιθυμία για μια αυθεντική εμπειρία ανάγνωσης, η οποία σέβεται την προέλευση του μέσου. Τα ευρήματα της έρευνας υποστηρίζουν σθεναρά ότι η δημιουργία ποιοτικών ελληνικών μεταφράσεων manga όχι μόνο είναι εφικτή αλλά και επιθυμητή από ένα σημαντικό και ενθουσιώδες μέρος του αναγνωστικού κοινού στην Ελλάδα.
                     </p>
-                    <p>
+                    <p class="lang-text" data-lang-key="conclusion_p3">
                        Η αισθητή έλλειψη προσβάσιμων ελληνικών εκδόσεων, σε συνδυασμό με τη σαφή ζήτηση για περισσότερες προσπάθειες από εκδοτικούς οίκους, αναδεικνύει μια σημαντική ευκαιρία. Εν κατακλείδι, η επένδυση στην προσεγμένη και πολιτισμικά ευαίσθητη μετάφραση manga στα ελληνικά μπορεί να καλύψει ένα υπαρκτό κενό στην αγορά, να ικανοποιήσει τους υπάρχοντες φαν, να προσελκύσει νέους αναγνώστες και, τελικά, να συμβάλει στην ευρύτερη διάδοση και κατανόηση αυτού του συναρπαστικού και πολυεπίπεδου ιαπωνικού πολιτισμικού προϊόντος στην Ελλάδα.
                     </p>
                 </div>
@@ -657,15 +698,15 @@
         </section>
 
         <section id="author" class="pt-16"> <div class="text-center">
-                <h2 class="section-title mb-12">著者について - Σχετικά με τον Συγγραφέα</h2>
+                <h2 class="section-title mb-12 lang-text" data-lang-key="section_title_author">著者について - Σχετικά με τον Συγγραφέα</h2>
             </div>
             <div class="manga-panel fade-in-panel panel-color-3 text-center">
                 <img src="https://media.licdn.com/dms/image/v2/D4D03AQFphUNkDWbSww/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1722348904690?e=2147483647&v=beta&t=ah_Y3JVxe84iCQpZqq59YXuVJSu9Dfrq9PhrwQu3dTM" 
                      alt="[Πορτρέτο του Αθανάσιου Βασιλειάδη]" 
                      class="responsive-img mx-auto rounded-full w-48 h-48 mb-8 shadow-xl border-4 border-white" 
                      onerror="this.onerror=null; this.src='https://placehold.co/200x200/B2DFDB/333333?text=Αθανάσιος+Βασιλειάδης';">
-                <h3 class="font-shippori text-3xl text-indigo-700 mb-3">Αθανάσιος Βασιλειάδης</h3>
-                <p class="text-content text-xl leading-relaxed max-w-3xl mx-auto">
+                <h3 class="font-shippori text-3xl text-indigo-700 mb-3 lang-text" data-lang-key="author_name">Αθανάσιος Βασιλειάδης</h3>
+                <p class="text-content text-xl leading-relaxed max-w-3xl mx-auto lang-text" data-lang-key="author_bio">
                     Ο Αθανάσιος Βασιλειάδης είναι κάτοχος μεταπτυχιακού τίτλου στη Μετάφραση και Διερμηνεία από το Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών, με προπτυχιακές σπουδές στην Αγγλική Γλώσσα και Φιλολογία. Έχει ιδιαίτερη αγάπη για την ιαπωνική κουλτούρα, τα anime και τα manga, στοιχεία που αποτέλεσαν έμπνευση για την παρούσα διπλωματική εργασία.
                 </p>
             </div>
@@ -675,12 +716,13 @@
     <div id="exploreMangaModal" class="modal">
         <div class="modal-content">
             <span class="close-button" id="closeExploreModal">&times;</span>
-            <h3 class="manga-panel-title mb-4">Εξερεύνησε Βαθύτερα τα Manga ✨</h3>
-            <p class="text-content text-sm mb-3">Εισάγετε έναν όρο σχετικό με manga (π.χ. "shonen", "ukiyo-e", ένα όνομα mangaka ή τίτλο manga) για να μάθετε περισσότερα.</p>
+            <h3 class="manga-panel-title mb-4 lang-text" data-lang-key="modal_explore_title">Εξερεύνησε Βαθύτερα τα Manga ✨</h3>
+            <p class="text-content text-sm mb-3 lang-text" data-lang-key="modal_explore_prompt">Εισάγετε έναν όρο σχετικό με manga (π.χ. "shonen", "ukiyo-e", ένα όνομα mangaka ή τίτλο manga) για να μάθετε περισσότερα.</p>
             <input type="text" id="mangaKeywordInput" class="w-full p-2 border border-gray-300 rounded-md mb-3" placeholder="Π.χ. shojo, Akira Toriyama, cultural impact...">
-            <button id="submitMangaKeyword" class="gemini-button">Αναζήτηση με Gemini</button>
+            <button id="submitMangaKeyword" class="gemini-button lang-text" data-lang-key="modal_explore_submit_btn">Αναζήτηση με Gemini</button>
             <div id="geminiResponseLoading" class="loading-spinner"></div>
-            <div id="geminiResponseArea" class="text-content"></div> </div>
+            <div id="geminiResponseArea" class="text-content"></div> 
+        </div>
     </div>
 
     <div id="challengeAnalysisModal" class="modal">
@@ -688,18 +730,373 @@
             <span class="close-button" id="closeChallengeAnalysisModal">&times;</span>
             <h3 class="manga-panel-title mb-4" id="challengeAnalysisModalTitle">Ανάλυση Μεταφραστικής Πρόκλησης ✨</h3>
             <div id="challengeAnalysisLoading" class="loading-spinner"></div>
-            <div id="challengeAnalysisResponseArea" class="text-content"></div> </div>
+            <div id="challengeAnalysisResponseArea" class="text-content"></div> 
+        </div>
     </div>
 
 
     <footer class="bg-gray-900 text-gray-300 py-10 mt-20">
         <div class="container mx-auto px-6 text-center">
-            <p class="font-mplus-rounded text-lg">&copy; 2022 Αθανάσιος Βασιλειάδης. Με επιφύλαξη παντός δικαιώματος.</p>
-            <p class="font-mplus-rounded text-md mt-2">Ιστοσελίδα σχεδιασμένη με έμπνευση από την ιαπωνική κουλτούρα.</p>
+            <p class="font-mplus-rounded text-lg lang-text" data-lang-key="footer_copyright">&copy; 2022 Αθανάσιος Βασιλειάδης. Με επιφύλαξη παντός δικαιώματος.</p>
+            <p class="font-mplus-rounded text-md mt-2 lang-text" data-lang-key="footer_design_note">Ιστοσελίδα σχεδιασμένη με έμπνευση από την ιαπωνική κουλτούρα.</p>
         </div>
     </footer>
 
     <script>
+        // --- TRANSLATION DATA ---
+        const translations = {
+            "el": {
+                "page_title": "Διπλωματική Εργασία: Ιαπωνική Λαϊκή Κουλτούρα & Manga",
+                "nav_title_main": "研究",
+                "nav_introduction": "Εισαγωγή",
+                "nav_world_of_manga": "Manga",
+                "nav_art_of_translation": "Μετάφραση",
+                "nav_research_methodology": "Έρευνα",
+                "nav_results_discussion": "Αποτελέσματα",
+                "nav_conclusion": "Συμπεράσματα",
+                "nav_author": "Συγγραφέας",
+                "hero_title1": "ΙΑΠΩΝΙΚΗ ΛΑΪΚΗ ΚΟΥΛΤΟΥΡΑ ΚΑΙ ΔΥΤΙΚΟ ΚΟΙΝΟ:",
+                "hero_title2": "ΜΕΤΑΦΡΑΖΟΝΤΑΣ ΑΓΓΛΙΚΑ SCANLATED MANGA ΣΤΑ ΕΛΛΗΝΙΚΑ",
+                "hero_subtitle": "Διπλωματική Εργασία",
+                "hero_author_name": "Αθανάσιος Βασιλειάδης",
+                "section_title_introduction": "序章 - Εισαγωγή",
+                "intro_p1": "Τα manga (漫画), τα ιαπωνικά κόμικς, έχουν εξελιχθεί σε ένα παγκόσμιο πολιτιστικό φαινόμενο, γοητεύοντας κοινό πέρα από τα σύνορα της Ιαπωνίας. Η παρούσα διπλωματική εργασία εμβαθύνει στον συναρπαστικό κόσμο των manga και την πορεία τους προς το δυτικό κοινό, με ιδιαίτερη έμφαση στις προκλήσεις και τις ιδιαιτερότητες της μετάφρασης των αγγλικών \"scanlations\" (ανεπίσημες μεταφράσεις από φαν) στην ελληνική γλώσσα.",
+                "intro_p2": "Η έρευνα εξετάζει την ταυτότητα και την ιστορία των manga, την πρόσληψή τους από το κοινό, τον κρίσιμο ρόλο του μεταφραστή και τις πρακτικές δυσκολίες που ανακύπτουν. Στόχος είναι η διερεύνηση των στρατηγικών που μπορούν να υιοθετηθούν για τη δημιουργία ποιοτικών ελληνικών μεταφράσεων manga, ικανών να κεντρίσουν το ενδιαφέρον των Ελλήνων αναγνωστών και να προωθήσουν την περαιτέρω εξερεύνηση αυτού του πολυδιάστατου μέσου, καλύπτοντας το σημαντικό κενό που παρατηρείται στην ελληνική αγορά.",
+                "section_title_world_of_manga": "漫画の世界 - Ο Κόσμος των Manga",
+                "wom_what_is_manga_title": "Τι Είναι τα Manga; Ορισμός και Βασικά Χαρακτηριστικά",
+                "wom_what_is_manga_p1": "Ο ιαπωνικός όρος \"manga\" (漫画) κυριολεκτικά σημαίνει \"ιδιότροπες\" ή \"αυθόρμητες εικόνες\". Στην Ιαπωνία, περιγράφει κάθε μορφή κόμικ και καρτούν, ενώ διεθνώς αναφέρεται αποκλειστικά στα ιαπωνικά κόμικς. Συνήθως τυπώνονται ασπρόμαυρα, αρχικά σε περιοδικά και κατόπιν σε συγκεντρωτικούς τόμους (tankōbon).",
+                "wom_what_is_manga_p2": "Ένα από τα πιο αναγνωρίσιμα χαρακτηριστικά τους είναι η ανάγνωση από δεξιά προς τα αριστερά, ακολουθώντας την παραδοσιακή ιαπωνική γραφή. Άλλα διακριτικά στοιχεία περιλαμβάνουν την αφηγηματική συνοχή με συγκεκριμένη αρχή, μέση και τέλος, τον κεντρικό ρόλο του δημιουργού (mangaka) που συχνά διατηρεί τα πνευματικά δικαιώματα του έργου του, και ένα ιδιαίτερο εικαστικό ύφος (μεγάλα εκφραστικά μάτια, ποικιλία στυλ από ρεαλιστικό έως εξαιρετικά καρτουνίστικο).",
+                "wom_manpu_title": "Manpu και Οπτική Αφήγηση",
+                "wom_manpu_p1": "Τα manga χρησιμοποιούν εκτενώς τα \"manpu\" (漫符), οπτικά σύμβολα που αποδίδουν συναισθήματα (π.χ., σταγόνες ιδρώτα για αμηχανία, φλέβες για θυμό), ήχους (μέσω ονοματοποιιών), κίνηση και ψυχολογικές καταστάσεις. Αυτά τα σύμβολα, συχνά ενσωματωμένα καλλιτεχνικά στο σχέδιο, προσθέτουν ένα επιπλέον επίπεδο στην αφήγηση και αποτελούν αναπόσπαστο κομμάτι της \"γλώσσας\" των manga.",
+                "wom_manpu_p2": "Η \"genre hybridity\", δηλαδή η ανάμειξη διαφορετικών αφηγηματικών ειδών (π.χ. δράση με ρομαντισμό, κωμωδία με δράμα), είναι επίσης συχνό φαινόμενο, καθιστώντας πολλά manga πολυεπίπεδα και απρόβλεπτα.",
+                "wom_history_title": "Ιστορική Διαδρομή των Manga",
+                "wom_history_p1": "Οι ρίζες των manga ανιχνεύονται αιώνες πριν. Πρώιμες μορφές αφηγηματικής τέχνης περιλαμβάνουν σχέδια σε δοκούς ναών (περ. 700 μ.Χ.) και τους διάσημους κυλίνδρους με εικόνες ζώων που μιμούνται ανθρώπινες δραστηριότητες, γνωστούς ως \"Chōjū-jinbutsu-giga\" (鳥獣人物戯画 – Παρωδίες Ανθρώπων και Ζώων), που αποδίδονται στον μοναχό Toba Sōjō (12ος αιώνας) και θεωρούνται από πολλούς ως οι πρόγονοι των manga.",
+                "wom_history_p2": "Κατά την περίοδο Edo (1603-1868), η τεχνική της ξυλογραφίας άνθισε, οδηγώντας στη δημιουργία των \"ukiyo-e\" (浮世絵 – \"εικόνες του επιπλέοντος κόσμου\"), που απεικόνιζαν σκηνές της καθημερινής ζωής, τοπία και ηθοποιούς. Ο διάσημος καλλιτέχνης Hokusai χρησιμοποίησε για πρώτη φορά τον όρο \"manga\" στους τόμους σκίτσων του \"Hokusai Manga\" (1814-1834), αν και με διαφορετική έννοια από τη σημερινή.",
+                "wom_history_p3": "Το άνοιγμα της Ιαπωνίας στη Δύση στα τέλη του 19ου αιώνα έφερε επιρροές από τα δυτικά κόμικς. Ωστόσο, οι Ιάπωνες καλλιτέχνες διατήρησαν στοιχεία της δικής τους παράδοσης. Ο Β' Παγκόσμιος Πόλεμος είχε σημαντικό αντίκτυπο, με τα manga να χρησιμοποιούνται αρχικά για προπαγάνδα και αργότερα να αντικατοπτρίζουν τις ανησυχίες της εποχής (π.χ., σχέση ανθρώπου-τεχνολογίας, αντιπολεμικά μηνύματα).",
+                "wom_history_p4": "Η μεταπολεμική περίοδος σηματοδότησε την \"χρυσή εποχή\" των manga. Καθιερώθηκαν συμβάσεις όπως η ασπρόμαυρη εκτύπωση (λόγω οικονομικών περιορισμών αρχικά), η έκδοση σε εβδομαδιαία περιοδικά και η συλλογή δημοφιλών σειρών σε τόμους tankōbon. Η βιομηχανία άνθισε παράλληλα με την ιαπωνική οικονομία, και τα manga άρχισαν να αναγνωρίζονται ως σημαντική μορφή ψυχαγωγίας και τέχνης, οδηγώντας συχνά σε προσαρμογές anime, ταινίες και παιχνίδια.",
+                "wom_demographics_title": "Δημογραφικές Κατηγορίες και Εμβληματικά Έργα",
+                "wom_demographics_intro": "Τα manga κατηγοριοποιούνται κυρίως με βάση το φύλο και την ηλικία του κοινού στο οποίο απευθύνονται, αν και οι διαχωριστικές γραμμές συχνά είναι ρευστές:",
+                "wom_demographics_kodomomuke": "<strong>Kodomomuke (子供向け):</strong> Για μικρά παιδιά (π.χ., <em>Doraemon</em> του Fujiko F. Fujio). Με ηθικοδιδακτικό χαρακτήρα, χαριτωμένους χαρακτήρες και απλές ιστορίες.",
+                "wom_demographics_shonen": "<strong>Shōnen (少年):</strong> Για νεαρά αγόρια (π.χ., <em>One Piece</em> του Eiichiro Oda, <em>Naruto</em> του Masashi Kishimoto, <em>Attack on Titan</em> του Hajime Isayama). Επικεντρώνονται στη δράση, την περιπέτεια, τη φιλία και την αυτοβελτίωση.",
+                "wom_demographics_shojo": "<strong>Shōjo (少女):</strong> Για νεαρά κορίτσια (π.χ., <em>Fruits Basket</em> της Natsuki Takaya, <em>Sailor Moon</em> της Naoko Takeuchi). Δίνουν έμφαση στις διαπροσωπικές σχέσεις, τον ρομαντισμό και την συναισθηματική ανάπτυξη.",
+                "wom_demographics_seinen": "<strong>Seinen (青年):</strong> Για νεαρούς άνδρες (18+) (π.χ., <em>Berserk</em> του Kentaro Miura, <em>Monster</em> του Naoki Urasawa, <em>Vinland Saga</em> του Makoto Yukimura). Πιο ώριμες και σύνθετες θεματολογίες, ψυχολογικό βάθος, συχνά με πιο ρεαλιστική ή σκοτεινή ατμόσφαιρα.",
+                "wom_demographics_josei": "<strong>Josei (女性):</strong> Για νεαρές γυναίκες (18+) (π.χ., <em>Nodame Cantabile</em> της Tomoko Ninomiya, <em>Paradise Kiss</em> της Ai Yazawa, <em>NANA</em> της Ai Yazawa). Εξερευνούν ρεαλιστικές σχέσεις, την καθημερινότητα και τις επαγγελματικές φιλοδοξίες.",
+                "wom_reception_title": "Πρόσληψη των Manga στην Ελλάδα και Διεθνώς",
+                "wom_reception_p1": "Τα manga έχουν κατακτήσει μια σημαντική θέση στην παγκόσμια ποπ κουλτούρα, με την αγορά των anime να παίζει καθοριστικό ρόλο στη διάδοσή τους. Σε χώρες της Ευρώπης όπως η Ιταλία, η Γαλλία και η Γερμανία, υπάρχει μια ανεπτυγμένη αγορά επίσημων μεταφράσεων manga. Αντίθετα, στην Ελλάδα, παρά το αυξανόμενο ενδιαφέρον, παρατηρείται ένα σημαντικό κενό τόσο στις επίσημες εκδόσεις όσο και στις ανεπίσημες μεταφράσεις από φαν (scanlations). Οι ελάχιστες προσπάθειες που γίνονται συχνά χαρακτηρίζονται από ασυνέχεια. Αυτή η έλλειψη ελληνικού μεταφρασμένου περιεχομένου και η περιορισμένη έρευνα πάνω στις μεταφραστικές προκλήσεις από τα Ιαπωνικά (μέσω Αγγλικών) στα Ελληνικά αποτέλεσαν βασικό κίνητρο για την παρούσα διπλωματική εργασία.",
+                "wom_explore_btn": "✨ Εξερεύνησε Βαθύτερα τα Manga ✨",
+                "section_title_art_of_translation": "翻訳の技術 - Η Τέχνη της Μετάφρασης",
+                "aot_translator_role_title": "Ο Μεταφραστής ως Πολιτισμικός Διαμεσολαβητής",
+                "aot_translator_role_p1": "Η μετάφραση λογοτεχνικών έργων, και ειδικότερα των manga, υπερβαίνει την απλή γλωσσική μεταφορά. Ο μεταφραστής καλείται να λειτουργήσει ως \"διαμεσολαβητής μεταξύ πολιτισμών\" (Bassnett 2011), μεταφέροντας όχι μόνο λέξεις αλλά και τις πολιτισμικές ιδιαιτερότητες, τις κοινωνικές νόρμες και τις αισθητικές αξίες που ενσωματώνονται στο πρωτότυπο. Στα manga, με την πλούσια εικονογραφία και τις συχνές αναφορές στην ιαπωνική κουλτούρα, ο ρόλος αυτός καθίσταται ακόμη πιο κρίσιμος.",
+                "aot_translator_role_p2": "Η ποιότητα της μετάφρασης επηρεάζει άμεσα την πρόσληψη του έργου, την κατανόηση των νοημάτων και την αισθητική απόλαυση από το ξένο κοινό. Ο μεταφραστής μελετά τους χαρακτήρες, τις αντιδράσεις τους και την ψυχολογία τους, ώστε να αποδώσει την αμεσότητα του διαλόγου και την πρόθεση του δημιουργού. Όπως σημειώνει ο Schodt (2012), όσο καλά κι αν μεταφραστεί ένα manga, παραμένει ένα ιαπωνικό πολιτισμικό προϊόν που μπορεί αρχικά να ξενίσει όσους δεν είναι εξοικειωμένοι, απαιτώντας την εκμάθηση ενός νέου \"οπτικού και γραπτού λεξιλογίου\".",
+                "aot_scanlation_title": "Scanlation: Η Ανεπίσημη Μετάφραση από τους Fans",
+                "aot_scanlation_p1": "Το \"scanlating\" (συνδυασμός των λέξεων scan και translating) είναι η διαδικασία κατά την οποία φαν ενός manga αποκτούν το πρωτότυπο (συνήθως στα ιαπωνικά), το σαρώνουν, καθαρίζουν ψηφιακά τις εικόνες, αφαιρούν το πρωτότυπο κείμενο, το μεταφράζουν και ενσωματώνουν τη μετάφραση στις \"καθαρές\" σελίδες. Το τελικό προϊόν διανέμεται δωρεάν online.",
+                "aot_scanlation_p2": "Παρά τα ζητήματα πνευματικών δικαιωμάτων, τα scanlations είναι εξαιρετικά δημοφιλή και συχνά αποτελούν την πρώτη (ή και μοναδική) επαφή πολλών αναγνωστών εκτός Ιαπωνίας με συγκεκριμένους τίτλους. Οι λόγοι της δημοτικότητάς τους περιλαμβάνουν την ταχύτητα κυκλοφορίας (συχνά πολύ πιο γρήγορα από τις επίσημες εκδόσεις), την ευρεία διαθεσιμότητα και την κάλυψη τίτλων που δεν αδειοδοτούνται επίσημα. Η βιομηχανία των manga, αν και θεωρεί παράνομη τη δραστηριότητα, συχνά την ανέχεται ή την χρησιμοποιεί ως δείκτη δημοτικότητας για πιθανές επίσημες αδειοδοτήσεις (Lee 2009).",
+                "aot_challenges_title": "Πρακτικά Ζητήματα και Προκλήσεις στη Μετάφραση Manga",
+                "aot_challenges_intro": "Η μετάφραση manga παρουσιάζει ιδιαίτερες προκλήσεις λόγω της σύνθετης σημειωτικής τους δομής (Jüngst 2008) και των πολιτισμικών τους ιδιαιτεροτήτων. Ορισμένα βασικά ζητήματα περιλαμβάνουν:",
+                "aot_challenge_reading_direction": "Κατεύθυνση Ανάγνωσης & Διάταξη",
+                "aot_challenge_reading_direction_desc": "Η ανάγνωση από δεξιά προς τα αριστερά και η κάθετη γραφή στα ιαπωνικά επηρεάζουν τη διάταξη των καρέ και των πλαισίων ομιλίας. Η προσαρμογή σε οριζόντιο κείμενο και η τοποθέτηση στα συχνά στενά πλαίσια απαιτεί προσοχή.",
+                "aot_challenge_typography": "Τυπογραφία (Typeface)",
+                "aot_challenge_typography_desc": "Η επιλογή γραμματοσειράς είναι σημαντική. Μεγαλύτερες, έντονες γραμματοσειρές χρησιμοποιούνται συχνά για να δηλώσουν ένταση φωνής (Forceville et al. 2010).",
+                "aot_challenge_onomatopoeia": "Ονοματοποιίες & Μιμητικές Λέξεις",
+                "aot_challenge_onomatopoeia_desc": "Η ιαπωνική γλώσσα διαθέτει πληθώρα ονοματοποιητικών (giseigo, giongo) και μιμητικών λέξεων (gitaigo). Αυτές συχνά ενσωματώνονται καλλιτεχνικά στο σχέδιο. Η μετάφρασή τους είναι δύσκολη.",
+                "aot_challenge_cultural_elements": "Πολιτισμικά Στοιχεία",
+                "aot_challenge_cultural_elements_desc": "Οι τιμητικές προσφωνήσεις (-san, -kun) δηλώνουν σχέσεις. Άλλα στοιχεία (φαγητά, έθιμα) μπορεί να χρειάζονται επεξήγηση.",
+                "aot_challenge_translation_notes": "Μεταφραστικές Σημειώσεις",
+                "aot_challenge_translation_notes_desc": "Συχνά χρησιμοποιούνται για επεξήγηση πολιτισμικών αναφορών ή γλωσσικών ιδιωματισμών. Οι αναγνώστες scanlations τις εκτιμούν (Fabbretti 2016).",
+                "aot_challenge_strategies": "Στρατηγικές Μετάφρασης",
+                "aot_challenge_strategies_desc": "Οι μεταφραστές επιλέγουν μεταξύ ξενισμού (foreignization) και οικειοποίησης (domestication). Στα manga, οι φαν συχνά προτιμούν τον ξενισμό (Sell 2011).",
+                "aot_analyze_btn": "✨ Ανάλυση",
+                "section_title_research_methodology": "研究方法 - Η Έρευνα: Μεθοδολογικά Ζητήματα",
+                "rm_aims_questions_title": "Στόχοι και Ερευνητικά Ερωτήματα",
+                "rm_aims_intro": "Η παρούσα έρευνα αποσκοπούσε στον εντοπισμό των κύριων μεταφραστικών προκλήσεων κατά τη μεταφορά αγγλικών scanlated manga στα ελληνικά και στην πρόταση μεθόδων για την αντιμετώπισή τους. Βασικά ερευνητικά ερωτήματα ήταν:",
+                "rm_question1": "Ποιες είναι οι κύριες θεματικές κατηγορίες προκλήσεων στη μετάφραση αγγλικών scanlated manga στα ελληνικά;",
+                "rm_question2": "Ποιες μέθοδοι μπορούν να χρησιμοποιηθούν για την αντιμετώπιση αυτών των προκλήσεων;",
+                "rm_question3": "Εκτιμώνται αυτές οι μέθοδοι από το ελληνικό αναγνωστικό κοινό και γιατί;",
+                "rm_question4": "Μπορεί η παραγωγή ελληνικών scanlated manga να κεντρίσει το ενδιαφέρον των αναγνωστών;",
+                "rm_question5": "Ενθαρρύνει η παραγωγή αυτή τους αναγνώστες να εξερευνήσουν περαιτέρω τα manga;",
+                "rm_procedure_analysis_title": "Διαδικασία Έρευνας και Ανάλυση Δεδομένων",
+                "rm_procedure_p1": "Για την έρευνα, επιλέχθηκαν και μεταφράστηκαν στα ελληνικά πέντε αποσπάσματα από αγγλικά scanlated manga, καλύπτοντας όλες τις κύριες δημογραφικές κατηγορίες: <em>Doraemon</em> (kodomomuke), <em>Demon Slayer: Kimetsu no Yaiba</em> (shonen), <em>Fruits Basket</em> (shojo), <em>Monster</em> (seinen), και <em>NANA</em> (josei). Η επεξεργασία των εικόνων και η ενσωμάτωση της ελληνικής μετάφρασης έγινε με το πρόγραμμα Adobe Photoshop.",
+                "rm_procedure_p2": "Η ανάλυση των μεταφραστικών προκλήσεων βασίστηκε στη μέθοδο της θεματικής ανάλυσης. Οι προκλήσεις κατηγοριοποιήθηκαν σε δύο ευρείες θεματικές ενότητες: γλωσσικά ζητήματα και πολιτισμικά ζητήματα. Για τη συλλογή της άποψης των αναγνωστών, διανεμήθηκε ανώνυμο ηλεκτρονικό ερωτηματολόγιο (μέσω Google Forms) σε 38 Έλληνες αναγνώστες, οι οποίοι πρώτα διάβασαν τα μεταφρασμένα αποσπάσματα. Οι απαντήσεις τους αναλύθηκαν ποσοτικά.",
+                "section_title_results_discussion": "結果と考察 - Αποτελέσματα και Συζήτηση",
+                "rd_main_challenges_title": "Κύριες Μεταφραστικές Προκλήσεις που Εντοπίστηκαν",
+                "rd_main_challenges_intro": "Η διαδικασία μετάφρασης ανέδειξε συγκεκριμένες προκλήσεις, οι οποίες κατηγοριοποιήθηκαν ως εξής:",
+                "rd_linguistic_issues_title": "Γλωσσικά Ζητήματα:",
+                "rd_linguistic_issue1": "<strong>Απόδοση έντονων στιγμών:</strong> Η δυσκολία μεταφοράς της έντασης (φωνές, εκρήξεις, συναισθηματική φόρτιση) χωρίς ήχο και κίνηση. Η λύση που υιοθετήθηκε ήταν η χρήση έντονης γραφής, μεγαλύτερου μεγέθους γραμματοσειράς και κατάλληλων σημείων στίξης.",
+                "rd_linguistic_issue2": "<strong>Ονοματοποιίες και ήχοι (SFX):</strong> Οι ιαπωνικές ηχομιμητικές λέξεις (giseigo, giongo, gitaigo) συχνά αφήνονται αμετάφραστες από τους Άγγλους scanlators. Η παρούσα έρευνα ακολούθησε την ίδια στρατηγική (μη μετάφραση των ιαπωνικών SFX), θεωρώντας τα αναπόσπαστο κομμάτι της αυθεντικότητας και της οπτικής αισθητικής των manga.",
+                "rd_linguistic_issue3": "<strong>Κείμενο εκτός πλαισίων ομιλίας:</strong> Η διάκριση εσωτερικών σκέψεων, ψιθύρων ή αφηγηματικών σχολίων από τον κανονικό διάλογο, συχνά μέσω διαφορετικής γραμματοσειράς ή μικρότερου μεγέθους.",
+                "rd_cultural_issues_title": "Πολιτισμικά Ζητήματα:",
+                "rd_cultural_issue1": "<strong>Τιμητικές προσφωνήσεις (Keigo):</strong> Η διαχείριση των ιαπωνικών επιθημάτων (-san, -kun, -chan, -sama κ.λπ.) που δηλώνουν την κοινωνική σχέση μεταξύ των ομιλητών. Η στρατηγική που επιλέχθηκε ήταν η μεταγραφή τους στα ελληνικά και η παροχή επεξηγηματικής σημείωσης στην πρώτη τους εμφάνιση.",
+                "rd_cultural_issue2": "<strong>Πολιτισμικά Ειδικά Στοιχεία (Real-ia):</strong> Η απόδοση ή επεξήγηση άγνωστων στο ελληνικό κοινό εθίμων, αντικειμένων, φαγητών, νομισματικών μονάδων (π.χ. γιεν) ή κοινωνικών πρακτικών. Η λύση ήταν η χρήση μεταφραστικών σημειώσεων. Παραδείγματα από την εργασία περιλαμβάνουν την έννοια του \"oni\", το \"Japanese battledore\", την αξία του γιεν, και την απεικόνιση της προσευχής σε οικιακό βωμό.",
+                "rd_survey_findings_title": "Ευρήματα Ερωτηματολογίου: Η Οπτική των Ελλήνων Αναγνωστών",
+                "rd_survey_findings_intro": "Οι απαντήσεις των 38 συμμετεχόντων στο ερωτηματολόγio έδωσαν σημαντικές ενδείξεις για την πρόσληψη των μεταφραστικών επιλογών:",
+                "rd_survey_finding1": "<strong>Τυπογραφία για Ένταση:</strong> Η συντριπτική πλειοψηφία (30 από 38 άτομα) έκρινε ότι η χρήση έντονης γραφής και μεγαλύτερου μεγέθους γραμμάτων ήταν χρήσιμη για την κατανόηση σκηνών με έντονη συναισθηματική φόρτιση.",
+                "rd_survey_finding2": "<strong>Αμετάφραστες Ονοματοποιίες:</strong> Ένας σημαντικός αριθμός αναγνωστών δήλωσε ότι όχι μόνο κατανοεί τα αμετάφραστα ιαπωνικά ηχητικά εφέ, αλλά προτιμά και τη διατήρησή τους, θεωρώντας τα αναπόσπαστο κομμάτι της αυθεντικότητας και της αισθητικής των manga.",
+                "rd_survey_finding3": "<strong>Τιμητικές Προσφωνήσεις:</strong> Η πλειοψηφία τάχθηκε υπέρ της μεταγραφής των τιμητικών προσφωνήσεων στα ελληνικά, εκτιμώντας ότι βοηθούν στην κατανόηση της ιαπωνικής κουλτούρας και προσδίδουν αυθεντικότητα στο κείμενο.",
+                "rd_survey_finding4": "<strong>Μεταφραστικές Σημειώσεις:</strong> Οι σημειώσεις κρίθηκαν ως ιδιαίτερα χρήσιμες έως απαραίτητες για την κατανόηση τόσο των τιμητικών προσφωνήσεων όσο και άλλων πολιτισμικά ειδικών στοιχείων που θα παρέμεναν ασαφή.",
+                "rd_survey_finding5": "<strong>Ροή και Φυσικότητα Μετάφρασης:</strong> Οι περισσότεροι συμμετέχοντες χαρακτήρισαν τις μεταφράσεις ως έχουσες φυσική ροή στα ελληνικά. Ωστόσο, ένα αξιόλογο ποσοστό αναγνώρισε ότι πρόκειται για μεταφρασμένο κείμενο, πιθανόν λόγω της έντονης πολιτισμικής σφραγίδας των manga που δύσκολα εξαλείφεται πλήρως.",
+                "rd_survey_finding6": "<strong>Ενδιαφέρον για τη Συνέχεια:</strong> Το ενδιαφέρον των αναγνωστών να μάθουν τη συνέχεια των ιστοριών που διάβασαν ήταν υψηλό, γεγονός που υποδεικνύει ότι οι ποιοτικές μεταφράσεις μπορούν να δημιουργήσουν δέσμευση και επένδυση από την πλευρά του κοινού.",
+                "rd_survey_finding7": "<strong>Πρόσβαση σε Ελληνικά Manga:</strong> Σχεδόν καθολική ήταν η άποψη (35 από 38 άτομα) ότι η πρόσβαση σε ελληνικά μεταφρασμένα manga είναι δύσκολη.",
+                "rd_survey_finding8": "<strong>Επιθυμία για Περισσότερες Εκδόσεις:</strong> Η συντριπτική πλειοψηφία (34 από 38 άτομα) εξέφρασε την επιθυμία να δει περισσότερους εκδοτικούς οίκους να κυκλοφορούν manga μεταφρασμένα στα ελληνικά.",
+                "section_title_conclusion": "結論 - Συμπεράσματα και Προοπτικές",
+                "conclusion_p1": "Η παρούσα διπλωματική εργασία κατέδειξε ότι η μετάφραση αγγλικών scanlated manga στα ελληνικά ενέχει συγκεκριμένες γλωσσικές και πολιτισμικές προκλήσεις. Ωστόσο, αυτές οι προκλήσεις μπορούν να αντιμετωπιστούν αποτελεσματικά μέσω της εφαρμογής κατάλληλων μεταφραστικών στρατηγικών, όπως η προσεκτική χρήση της τυπογραφίας για την απόδοση έντασης, η διατήρηση (με τις απαραίτητες επεξηγήσεις μέσω σημειώσεων) των τιμητικών προσφωνήσεων, και η παροχή σαφών μεταφραστικών σημειώσεων για πολιτισμικά ειδικά στοιχεία. Αυτές οι προσεγγίσεις εκτιμήθηκαν θετικά από το ελληνικό αναγνωστικό κοινό που συμμετείχε στην έρευνα.",
+                "conclusion_p2": "Η προτίμηση των αναγνωστών για διατήρηση των ιαπωνικών ονοματοποιιών υπογραμμίζει την επιθυμία για μια αυθεντική εμπειρία ανάγνωσης, η οποία σέβεται την προέλευση του μέσου. Τα ευρήματα της έρευνας υποστηρίζουν σθεναρά ότι η δημιουργία ποιοτικών ελληνικών μεταφράσεων manga όχι μόνο είναι εφικτή αλλά και επιθυμητή από ένα σημαντικό και ενθουσιώδες μέρος του αναγνωστικού κοινού στην Ελλάδα.",
+                "conclusion_p3": "Η αισθητή έλλειψη προσβάσιμων ελληνικών εκδόσεων, σε συνδυασμό με τη σαφή ζήτηση για περισσότερες προσπάθειες από εκδοτικούς οίκους, αναδεικνύει μια σημαντική ευκαιρία. Εν κατακλείδι, η επένδυση στην προσεγμένη και πολιτισμικά ευαίσθητη μετάφραση manga στα ελληνικά μπορεί να καλύψει ένα υπαρκτό κενό στην αγορά, να ικανοποιήσει τους υπάρχοντες φαν, να προσελκύσει νέους αναγνώστες και, τελικά, να συμβάλει στην ευρύτερη διάδοση και κατανόηση αυτού του συναρπαστικού και πολυεπίπεδου ιαπωνικού πολιτισμικού προϊόντος στην Ελλάδα.",
+                "section_title_author": "著者について - Σχετικά με τον Συγγραφέα",
+                "author_name": "Αθανάσιος Βασιλειάδης",
+                "author_bio": "Ο Αθανάσιος Βασιλειάδης είναι κάτοχος μεταπτυχιακού τίτλου στη Μετάφραση και Διερμηνεία από το Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών, με προπτυχιακές σπουδές στην Αγγλική Γλώσσα και Φιλολογία. Έχει ιδιαίτερη αγάπη για την ιαπωνική κουλτούρα, τα anime και τα manga, στοιχεία που αποτέλεσαν έμπνευση για την παρούσα διπλωματική εργασία.",
+                "modal_explore_title": "Εξερεύνησε Βαθύτερα τα Manga ✨",
+                "modal_explore_prompt": "Εισάγετε έναν όρο σχετικό με manga (π.χ. \"shonen\", \"ukiyo-e\", ένα όνομα mangaka ή τίτλο manga) για να μάθετε περισσότερα.",
+                "modal_explore_submit_btn": "Αναζήτηση με Gemini",
+                "footer_copyright": "&copy; 2022 Αθανάσιος Βασιλειάδης. Με επιφύλαξη παντός δικαιώματος.",
+                "footer_design_note": "Ιστοσελίδα σχεδιασμένη με έμπνευση από την ιαπωνική κουλτούρα."
+            },
+            "en": {
+                "page_title": "MA Thesis: Japanese Popular Culture & Manga",
+                "nav_title_main": "研究", // Keep Japanese for style, or "Research"
+                "nav_introduction": "Introduction",
+                "nav_world_of_manga": "Manga",
+                "nav_art_of_translation": "Translation",
+                "nav_research_methodology": "Research",
+                "nav_results_discussion": "Results",
+                "nav_conclusion": "Conclusion",
+                "nav_author": "Author",
+                "hero_title1": "JAPANESE POPULAR CULTURE AND WESTERN AUDIENCES:",
+                "hero_title2": "TRANSLATING ENGLISH SCANLATED MANGA INTO GREEK",
+                "hero_subtitle": "MA Thesis",
+                "hero_author_name": "Athanasios Vasileiadis",
+                "section_title_introduction": "序章 - Introduction",
+                "intro_p1": "Manga (漫画), Japanese comics, have evolved into a global cultural phenomenon, captivating audiences beyond Japan's borders. This MA thesis delves into the fascinating world of manga and their journey to Western audiences, with a particular focus on the challenges and specificities of translating English \"scanlations\" (unofficial fan translations) into the Greek language.",
+                "intro_p2": "The research examines the identity and history of manga, their reception by the public, the crucial role of the translator, and the practical difficulties that arise. The aim is to explore strategies that can be adopted for creating quality Greek manga translations, capable of sparking the interest of Greek readers and promoting further exploration of this multifaceted medium, addressing the significant gap observed in the Greek market.",
+                "section_title_world_of_manga": "漫画の世界 - The World of Manga",
+                "wom_what_is_manga_title": "What is Manga? Definition and Key Characteristics",
+                "wom_what_is_manga_p1": "The Japanese term \"manga\" (漫画) literally means \"whimsical\" or \"impromptu pictures.\" In Japan, it describes all forms of comics and cartoons, while internationally it refers exclusively to Japanese comics. They are usually printed in black and white, initially in magazines and later collected into volumes (tankōbon).",
+                "wom_what_is_manga_p2": "One of their most recognizable features is reading from right to left, following traditional Japanese writing. Other distinct elements include narrative cohesion with a specific beginning, middle, and end, the central role of the creator (mangaka) who often retains the copyright to their work, and a unique visual style (large expressive eyes, a variety of styles from realistic to extremely cartoonish).",
+                "wom_manpu_title": "Manpu and Visual Storytelling",
+                "wom_manpu_p1": "Manga extensively use \"manpu\" (漫符), visual symbols that convey emotions (e.g., sweat drops for embarrassment, veins for anger), sounds (via onomatopoeia), movement, and psychological states. These symbols, often artistically integrated into the artwork, add an extra layer to the narrative and are an integral part of the \"language\" of manga.",
+                "wom_manpu_p2": "\"Genre hybridity,\" the mixing of different narrative genres (e.g., action with romance, comedy with drama), is also common, making many manga multi-layered and unpredictable.",
+                "wom_history_title": "Historical Journey of Manga",
+                "wom_history_p1": "The roots of manga can be traced back centuries. Early forms of narrative art include drawings on temple beams (circa 700 AD) and the famous scrolls depicting animals mimicking human activities, known as \"Chōjū-jinbutsu-giga\" (鳥獣人物戯画 – Animal-Person Caricatures), attributed to the monk Toba Sōjō (12th century) and considered by many as the ancestors of manga.",
+                "wom_history_p2": "During the Edo period (1603-1868), the woodblock printing technique flourished, leading to the creation of \"ukiyo-e\" (浮世絵 – \"pictures of the floating world\"), which depicted scenes of daily life, landscapes, and actors. The famous artist Hokusai first used the term \"manga\" in his sketch volumes \"Hokusai Manga\" (1814-1834), albeit with a different meaning than today.",
+                "wom_history_p3": "Japan's opening to the West in the late 19th century brought influences from Western comics. However, Japanese artists retained elements of their own tradition. World War II had a significant impact, with manga initially used for propaganda and later reflecting the era's anxieties (e.g., human-technology relationship, anti-war messages).",
+                "wom_history_p4": "The post-war period marked the \"golden age\" of manga. Conventions such as black-and-white printing (initially due to economic constraints), publication in weekly magazines, and the collection of popular series into tankōbon volumes were established. The industry flourished alongside the Japanese economy, and manga began to be recognized as a significant form of entertainment and art, often leading to anime adaptations, films, and games.",
+                "wom_demographics_title": "Demographic Categories and Landmark Works",
+                "wom_demographics_intro": "Manga are primarily categorized based on the gender and age of their target audience, although the dividing lines are often fluid:",
+                "wom_demographics_kodomomuke": "<strong>Kodomomuke (子供向け):</strong> For young children (e.g., <em>Doraemon</em> by Fujiko F. Fujio). Moralistic character, cute characters, and simple stories.",
+                "wom_demographics_shonen": "<strong>Shōnen (少年):</strong> For young boys (e.g., <em>One Piece</em> by Eiichiro Oda, <em>Naruto</em> by Masashi Kishimoto, <em>Attack on Titan</em> by Hajime Isayama). Focus on action, adventure, friendship, and self-improvement.",
+                "wom_demographics_shojo": "<strong>Shōjo (少女):</strong> For young girls (e.g., <em>Fruits Basket</em> by Natsuki Takaya, <em>Sailor Moon</em> by Naoko Takeuchi). Emphasis on interpersonal relationships, romance, and emotional development.",
+                "wom_demographics_seinen": "<strong>Seinen (青年):</strong> For young men (18+) (e.g., <em>Berserk</em> by Kentaro Miura, <em>Monster</em> by Naoki Urasawa, <em>Vinland Saga</em> by Makoto Yukimura). More mature and complex themes, psychological depth, often with a more realistic or dark atmosphere.",
+                "wom_demographics_josei": "<strong>Josei (女性):</strong> For young women (18+) (e.g., <em>Nodame Cantabile</em> by Tomoko Ninomiya, <em>Paradise Kiss</em> by Ai Yazawa, <em>NANA</em> by Ai Yazawa). Explore realistic relationships, daily life, and professional ambitions.",
+                "wom_reception_title": "Reception of Manga in Greece and Internationally",
+                "wom_reception_p1": "Manga have secured a significant place in global pop culture, with the anime market playing a crucial role in their dissemination. In European countries like Italy, France, and Germany, there is a developed market for official manga translations. In contrast, in Greece, despite growing interest, a significant gap is observed in both official publications and fan translations (scanlations). The few efforts made are often characterized by discontinuity. This lack of Greek translated content and limited research on the translation challenges from Japanese (via English) to Greek were primary motivations for this thesis.",
+                "wom_explore_btn": "✨ Explore Manga Deeper ✨",
+                "section_title_art_of_translation": "翻訳の技術 - The Art of Translation",
+                "aot_translator_role_title": "The Translator as a Cultural Mediator",
+                "aot_translator_role_p1": "The translation of literary works, and manga in particular, goes beyond simple linguistic transfer. The translator is called upon to act as a \"mediator between cultures\" (Bassnett 2011), conveying not only words but also the cultural specificities, social norms, and aesthetic values embedded in the original. In manga, with their rich iconography and frequent references to Japanese culture, this role becomes even more critical.",
+                "aot_translator_role_p2": "The quality of the translation directly affects the work's reception, the understanding of its meanings, and the aesthetic enjoyment by the foreign audience. The translator studies the characters, their reactions, and their psychology to convey the immediacy of the dialogue and the creator's intent. As Schodt (2012) notes, however well a manga is translated, it remains a Japanese cultural product that may initially seem alien to the uninitiated, requiring the learning of a new \"visual and written vocabulary.\"",
+                "aot_scanlation_title": "Scanlation: Unofficial Translation by Fans",
+                "aot_scanlation_p1": "\"Scanlating\" (a portmanteau of scan and translating) is the process by which manga fans acquire the original (usually in Japanese), scan it, digitally clean the images, remove the original text, translate it, and typeset the translation onto the 'cleaned' pages. The final product is distributed online for free.",
+                "aot_scanlation_p2": "Despite copyright issues, scanlations are extremely popular and often constitute the first (or only) contact many readers outside Japan have with specific titles. Reasons for their popularity include speed of release (often much faster than official versions), wide availability, and coverage of titles not officially licensed. The manga industry, while deeming the activity illegal, often tolerates it or even uses it as an indicator of popularity for potential official licensing (Lee 2009).",
+                "aot_challenges_title": "Practical Issues and Challenges in Manga Translation",
+                "aot_challenges_intro": "Manga translation presents unique challenges due to their complex semiotic structure (Jüngst 2008) and cultural specificities. Some key issues include:",
+                "aot_challenge_reading_direction": "Reading Direction & Layout",
+                "aot_challenge_reading_direction_desc": "Right-to-left reading and vertical Japanese script affect panel and speech bubble layout. Adapting to horizontal text and fitting it into often narrow bubbles requires care.",
+                "aot_challenge_typography": "Typography (Typeface)",
+                "aot_challenge_typography_desc": "Font choice is significant. Larger, bold fonts are often used to indicate loudness (Forceville et al. 2010).",
+                "aot_challenge_onomatopoeia": "Onomatopoeia & Mimetic Words",
+                "aot_challenge_onomatopoeia_desc": "Japanese has a wealth of onomatopoeic (giseigo, giongo) and mimetic (gitaigo) words. These are often artistically integrated into the artwork. Their translation is difficult.",
+                "aot_challenge_cultural_elements": "Cultural Elements",
+                "aot_challenge_cultural_elements_desc": "Honorifics (-san, -kun) denote relationships. Other elements (food, customs) may need explanation.",
+                "aot_challenge_translation_notes": "Translation Notes",
+                "aot_challenge_translation_notes_desc": "Often used to explain cultural references or linguistic idioms. Scanlation readers often appreciate them (Fabbretti 2016).",
+                "aot_challenge_strategies": "Translation Strategies",
+                "aot_challenge_strategies_desc": "Translators choose between foreignization and domestication. In manga, fans often prefer foreignization (Sell 2011).",
+                "aot_analyze_btn": "✨ Analyze",
+                "section_title_research_methodology": "研究方法 - Research: Methodological Issues",
+                "rm_aims_questions_title": "Aims and Research Questions",
+                "rm_aims_intro": "This research aimed to identify the main translation challenges in transferring English scanlated manga into Greek and to propose methods for addressing them. Key research questions were:",
+                "rm_question1": "What are the main thematic categories of challenges in translating English scanlated manga into Greek?",
+                "rm_question2": "What methods can be used to overcome these challenges?",
+                "rm_question3": "Are these methods appreciated by the Greek readership and why?",
+                "rm_question4": "Can the production of Greek scanlated manga spark readers' interest?",
+                "rm_question5": "Does this production encourage readers to explore manga further?",
+                "rm_procedure_analysis_title": "Research Procedure and Data Analysis",
+                "rm_procedure_p1": "For the research, five manga excerpts from different demographic categories were selected and translated into Greek: <em>Doraemon</em> (kodomomuke), <em>Demon Slayer: Kimetsu no Yaiba</em> (shonen), <em>Fruits Basket</em> (shojo), <em>Monster</em> (seinen), and <em>NANA</em> (josei). Image editing and Greek translation typesetting were done using Adobe Photoshop.",
+                "rm_procedure_p2": "The analysis of translation challenges was based on thematic analysis. Challenges were categorized into two broad themes: linguistic issues and cultural issues. To gather readers' opinions, an anonymous online questionnaire (via Google Forms) was distributed to 38 Greek readers, who first read the translated excerpts. Their responses were analyzed quantitatively.",
+                "section_title_results_discussion": "結果と考察 - Results and Discussion",
+                "rd_main_challenges_title": "Main Translation Challenges Identified",
+                "rd_main_challenges_intro": "The translation process highlighted specific challenges, categorized as follows:",
+                "rd_linguistic_issues_title": "Linguistic Issues:",
+                "rd_linguistic_issue1": "<strong>Conveying Intense Moments:</strong> Difficulty in transferring intensity (shouts, explosions, emotional stress) without sound and motion. The adopted solution was the use of bold type, larger font sizes, and appropriate punctuation.",
+                "rd_linguistic_issue2": "<strong>Onomatopoeia and Sound Effects (SFX):</strong> Japanese mimetic words are often left untranslated by English scanlators. This research followed the same strategy (non-translation of Japanese SFX), considering them integral to authenticity and visual aesthetics.",
+                "rd_linguistic_issue3": "<strong>Text Outside Speech Bubbles:</strong> Differentiating internal thoughts, whispers, or narrative comments from regular dialogue, often through different fonts or smaller sizes.",
+                "rd_cultural_issues_title": "Cultural Issues:",
+                "rd_cultural_issue1": "<strong>Honorifics (Keigo):</strong> Managing Japanese suffixes (-san, -kun, etc.) that indicate social relationships. The chosen strategy was transliteration into Greek and providing an explanatory note on their first appearance.",
+                "rd_cultural_issue2": "<strong>Culture-Specific Items (Real-ia):</strong> Rendering or explaining customs, objects, foods, currency (e.g., yen), or social practices unfamiliar to the Greek audience. The solution was the use of translation notes. Examples from the thesis include the concept of \"oni,\" \"Japanese battledore,\" the value of yen, and praying at a home altar.",
+                "rd_survey_findings_title": "Questionnaire Findings: The Greek Readers' Perspective",
+                "rd_survey_findings_intro": "The responses of the 38 questionnaire participants provided valuable insights into the reception of the translation choices:",
+                "rd_survey_finding1": "<strong>Typography for Intensity:</strong> The vast majority (30 out of 38) found bold type and larger font sizes helpful for understanding scenes with high emotional charge.",
+                "rd_survey_finding2": "<strong>Untranslated Onomatopoeia:</strong> A significant number of readers stated they not only understand untranslated Japanese sound effects but also prefer their retention, viewing them as an authentic element of manga.",
+                "rd_survey_finding3": "<strong>Honorifics:</strong> Most favored transliterating honorifics into Greek, believing it aids understanding of Japanese culture and adds authenticity.",
+                "rd_survey_finding4": "<strong>Translation Notes:</strong> Notes were deemed very useful to essential for understanding both honorifics and other culture-specific elements.",
+                "rd_survey_finding5": "<strong>Translation Flow and Naturalness:</strong> Most participants described the translations as having a natural flow in Greek. However, a notable percentage recognized it as translated text, possibly due to manga's strong cultural imprint.",
+                "rd_survey_finding6": "<strong>Interest in Continuation:</strong> Readers' interest in continuing the stories was high, suggesting quality translations can create audience engagement.",
+                "rd_survey_finding7": "<strong>Access to Greek Manga:</strong> Almost universally (35 out of 38), respondents found access to Greek translated manga difficult.",
+                "rd_survey_finding8": "<strong>Desire for More Publications:</strong> The overwhelming majority (34 out of 38) expressed a desire to see more publishing houses release manga translated into Greek.",
+                "section_title_conclusion": "結論 - Conclusion and Prospects",
+                "conclusion_p1": "This MA thesis demonstrated that translating English scanlated manga into Greek involves specific linguistic and cultural challenges. However, these can be effectively addressed through appropriate translation strategies, such as careful use of typography for intensity, retention (with explanatory notes) of honorifics, and clear translation notes for culture-specific items. These approaches were positively received by the Greek readership participating in the research.",
+                "conclusion_p2": "Readers' preference for retaining Japanese onomatopoeia underscores a desire for an authentic reading experience that respects the medium's origin. The research findings strongly support that creating quality Greek manga translations is not only feasible but also desired by a significant and enthusiastic segment of the readership in Greece.",
+                "conclusion_p3": "The noticeable lack of accessible Greek editions, combined with clear demand for more efforts from publishing houses, highlights a significant opportunity. In conclusion, investing in careful and culturally sensitive manga translation into Greek can fill an existing market gap, satisfy current fans, attract new readers, and ultimately contribute to the wider dissemination and understanding of this fascinating and multi-layered Japanese cultural product in Greece.",
+                "section_title_author": "著者について - About the Author",
+                "author_name": "Athanasios Vasileiadis",
+                "author_bio": "Athanasios Vasileiadis holds an MA in Translation Studies and Interpreting from the National and Kapodistrian University of Athens, with undergraduate studies in English Language and Literature. He has a special love for Japanese culture, anime, and manga, elements that inspired this MA thesis.",
+                "modal_explore_title": "Explore Manga Deeper ✨",
+                "modal_explore_prompt": "Enter a manga-related term (e.g., \"shonen\", \"ukiyo-e\", a mangaka's name, or manga title) to learn more.",
+                "modal_explore_submit_btn": "Search with Gemini",
+                "footer_copyright": "&copy; 2022 Athanasios Vasileiadis. All rights reserved.",
+                "footer_design_note": "Website designed with inspiration from Japanese culture."
+            },
+            "ja": {
+                "page_title": "修士論文：日本のポップカルチャーと漫画",
+                "nav_title_main": "研究",
+                "nav_introduction": "序章",
+                "nav_world_of_manga": "漫画",
+                "nav_art_of_translation": "翻訳",
+                "nav_research_methodology": "研究",
+                "nav_results_discussion": "結果",
+                "nav_conclusion": "結論",
+                "nav_author": "著者",
+                "hero_title1": "日本のポップカルチャーと西洋の読者：",
+                "hero_title2": "英語スキャンレーション漫画のギリシャ語への翻訳",
+                "hero_subtitle": "修士論文",
+                "hero_author_name": "アタナシオス・ヴァシレイアディス",
+                "section_title_introduction": "序章 - Εισαγωγή",
+                "intro_p1": "漫画は、日本の国境を越えて読者を魅了し、世界的な文化現象へと進化しました。本修士論文は、漫画の魅力的な世界と西洋の読者への道のりを深く掘り下げ、特に英語の「スキャンレーション」（ファンによる非公式翻訳）をギリシャ語に翻訳する際の課題と特殊性に焦点を当てています。",
+                "intro_p2": "本研究では、漫画のアイデンティティと歴史、読者による受容、翻訳者の重要な役割、そして実際に生じる困難について考察します。目的は、ギリシャの読者の関心を引き付け、この多面的なメディアのさらなる探求を促進することができる質の高いギリシャ語漫画翻訳を作成するための戦略を探求し、ギリシャ市場で見られる重要なギャップを埋めることです。",
+                "section_title_world_of_manga": "漫画の世界 - Ο Κόσμος των Manga",
+                "wom_what_is_manga_title": "漫画とは？定義と主な特徴",
+                "wom_what_is_manga_p1": "日本語の「漫画」という言葉は、文字通り「気まぐれな」または「即興の絵」を意味します。日本ではあらゆる種類のコミックやカートゥーンを指しますが、国際的には日本のコミックのみを指します。通常、白黒で印刷され、最初は雑誌に掲載され、後に単行本にまとめられます。",
+                "wom_what_is_manga_p2": "最も認識しやすい特徴の一つは、日本の伝統的な書字方向に倣い、右から左へと読むことです。その他の際立った要素としては、明確な始まり、中間、終わりを持つ物語の一貫性、しばしば作品の著作権を保持する作者（漫画家）の中心的な役割、そして独特の視覚スタイル（大きな表現力豊かな目、写実的なものから極端に漫画的なものまで多様なスタイル）が挙げられます。",
+                "wom_manpu_title": "漫符と視覚的物語",
+                "wom_manpu_p1": "漫画は「漫符」を広範に使用します。これは感情（例：困惑を示す汗、怒りを示す血管）、音（オノマトペを通じて）、動き、心理状態を伝える視覚的シンボルです。これらのシンボルは、しばしば芸術的にデザインに組み込まれ、物語にさらなる層を加え、漫画の「言語」の不可欠な部分を形成しています。",
+                "wom_manpu_p2": "「ジャンルの混成」、つまり異なる物語ジャンルの混合（例：アクションとロマンス、コメディとドラマ）も一般的な現象であり、多くの漫画を多層的で予測不可能なものにしています。",
+                "wom_history_title": "漫画の歴史的道のり",
+                "wom_history_p1": "漫画のルーツは何世紀も前に遡ります。初期の物語芸術の形態には、寺院の梁の絵（約700年）や、人間の活動を模倣する動物を描いた有名な絵巻物「鳥獣人物戯画」（鳥獣人物戯画 – 動物と人物の戯画）があり、これらは僧侶鳥羽僧正（12世紀）に帰属され、多くの人々に漫画の祖先と見なされています。",
+                "wom_history_p2": "江戸時代（1603-1868年）には、木版画の技術が隆盛し、「浮世絵」（浮世絵 – 「浮世の絵」）が制作されました。これらは日常生活の場面、風景、役者を描写しました。有名な芸術家である葛飾北斎は、彼のスケッチ集「北斎漫画」（1814-1834年）で初めて「漫画」という言葉を使用しましたが、今日の意味とは異なります。",
+                "wom_history_p3": "19世紀後半の日本の西洋への開国は、西洋のコミックからの影響をもたらしました。しかし、日本の芸術家は自国の伝統の要素を保持しました。第二次世界大戦は大きな影響を与え、漫画は当初プロパガンダとして使用され、後には時代の不安（例：人間と技術の関係、反戦メッセージ）を反映するようになりました。",
+                "wom_history_p4": "戦後期は漫画の「黄金時代」を示しました。白黒印刷（当初は経済的制約のため）、週刊誌での出版、人気シリーズの単行本への収録といった慣習が確立されました。産業は日本経済と並行して繁栄し、漫画はエンターテイメントと芸術の重要な形態として認識され始め、しばしばアニメ、映画、ゲームへの翻案につながりました。",
+                "wom_demographics_title": "読者層別分類と代表作",
+                "wom_demographics_intro": "漫画は主に読者の性別と年齢に基づいて分類されますが、その境界線はしばしば流動的です。",
+                "wom_demographics_kodomomuke": "<strong>子供向け (子供向け):</strong> 幼い子供向け（例：藤子・F・不二雄の<em>ドラえもん</em>）。道徳的な性格、かわいいキャラクター、簡単な物語。",
+                "wom_demographics_shonen": "<strong>少年漫画 (少年):</strong> 若い男の子向け（例：尾田栄一郎の<em>ONE PIECE</em>、岸本斉史の<em>NARUTO -ナルト-</em>、諫山創の<em>進撃の巨人</em>）。アクション、冒険、友情、自己改善に焦点を当てています。",
+                "wom_demographics_shojo": "<strong>少女漫画 (少女):</strong> 若い女の子向け（例：高屋奈月の<em>フルーツバスケット</em>、武内直子の<em>美少女戦士セーラームーン</em>）。人間関係、ロマンス、感情的成長に重点を置いています。",
+                "wom_demographics_seinen": "<strong>青年漫画 (青年):</strong> 若い男性向け（18歳以上）（例：三浦建太郎の<em>ベルセルク</em>、浦沢直樹の<em>MONSTER</em>、幸村誠の<em>ヴィンランド・サガ</em>）。より成熟し複雑なテーマ、心理的深さ、しばしばより現実的または暗い雰囲気。",
+                "wom_demographics_josei": "<strong>女性漫画 (女性):</strong> 若い女性向け（18歳以上）（例：二ノ宮知子の<em>のだめカンタービレ</em>、矢沢あいの<em>Paradise Kiss</em>、矢沢あいの<em>NANA</em>）。現実的な関係、日常生活、職業上の野心を探求します。",
+                "wom_reception_title": "ギリシャおよび国際的な漫画の受容",
+                "wom_reception_p1": "漫画は世界のポップカルチャーにおいて重要な位置を占めており、アニメ市場はその普及に決定的な役割を果たしています。イタリア、フランス、ドイツなどのヨーロッパ諸国では、公式の漫画翻訳市場が発展しています。対照的に、ギリシャでは関心が高まっているにもかかわらず、公式出版物とファン翻訳（スキャンレーション）の両方で大きなギャップが見られます。行われている数少ない試みは、しばしば継続性に欠けています。このギリシャ語翻訳コンテンツの欠如と、日本語（英語経由）からギリシャ語への翻訳課題に関する限られた研究が、本修士論文の主な動機となりました。",
+                "wom_explore_btn": "✨ 漫画をもっと深く探る ✨",
+                "section_title_art_of_translation": "翻訳の技術 - Η Τέχνη της Μετάφρασης",
+                "aot_translator_role_title": "文化の仲介者としての翻訳者",
+                "aot_translator_role_p1": "文学作品、特に漫画の翻訳は、単なる言語的置き換えを超えています。翻訳者は「文化間の仲介者」（Bassnett 2011）として機能し、言葉だけでなく、原作に埋め込まれた文化的特異性、社会規範、美的価値を伝えることが求められます。豊かな図像と日本文化への頻繁な言及を伴う漫画において、この役割はさらに重要になります。",
+                "aot_translator_role_p2": "翻訳の質は、作品の受容、意味の理解、そして外国人読者の美的楽しみに直接影響します。翻訳者はキャラクター、彼らの反応、心理を研究し、対話の直接性と作者の意図を伝えるように努めます。Schodt（2012）が指摘するように、漫画がいかにうまく翻訳されても、それは日本の文化的産物であり続け、未経験者には最初は異質に感じられる可能性があり、新しい「視覚的および書かれた語彙」の学習を必要とします。",
+                "aot_scanlation_title": "スキャンレーション：ファンによる非公式翻訳",
+                "aot_scanlation_p1": "「スキャンレーティング」（スキャンと翻訳の合成語）とは、漫画のファンが原作（通常は日本語）を入手し、スキャンし、画像をデジタル的にクリーンアップし、元のテキストを削除し、翻訳し、翻訳を「クリーンな」ページに植字するプロセスです。最終製品はオンラインで無料で配布されます。",
+                "aot_scanlation_p2": "著作権の問題にもかかわらず、スキャンレーションは非常に人気があり、日本国外の多くの読者が特定のタイトルに初めて（または唯一）触れる機会となることがよくあります。その人気の理由には、リリースの速さ（公式版よりはるかに速いことが多い）、広範な入手可能性、公式にライセンスされていないタイトルのカバーが含まれます。漫画業界は、この活動を違法と見なしているものの、しばしばそれを容認したり、潜在的な公式ライセンスのための人気指標として利用したりしています（Lee 2009）。",
+                "aot_challenges_title": "漫画翻訳における実際的な問題と課題",
+                "aot_challenges_intro": "漫画翻訳は、その複雑な記号論的構造（Jüngst 2008）と文化的特異性のために、独特の課題を提示します。主な問題点には以下が含まれます。",
+                "aot_challenge_reading_direction": "読み方向とレイアウト",
+                "aot_challenge_reading_direction_desc": "右から左への読み方と日本語の縦書きは、コマ割りや吹き出しのレイアウトに影響します。横書きテキストへの適応と、しばしば狭い吹き出しへの配置には注意が必要です。",
+                "aot_challenge_typography": "タイポグラフィ（書体）",
+                "aot_challenge_typography_desc": "フォントの選択は重要です。声の大きさを表現するために、より大きく太いフォントがよく使われます（Forceville et al. 2010）。",
+                "aot_challenge_onomatopoeia": "オノマトペと擬態語",
+                "aot_challenge_onomatopoeia_desc": "日本語には豊富なオノマトペ（擬声語、擬音語）と擬態語があります。これらはしばしば芸術的にデザインに組み込まれます。その翻訳は困難です。",
+                "aot_challenge_cultural_elements": "文化的要素",
+                "aot_challenge_cultural_elements_desc": "敬称（～さん、～君）は関係性を示します。その他の要素（食べ物、習慣）には説明が必要な場合があります。",
+                "aot_challenge_translation_notes": "翻訳ノート",
+                "aot_challenge_translation_notes_desc": "文化的参照や言語的イディオムの説明によく使われます。スキャンレーションの読者はしばしばそれらを高く評価します（Fabbretti 2016）。",
+                "aot_challenge_strategies": "翻訳戦略",
+                "aot_challenge_strategies_desc": "翻訳者は異化（外国文化の要素を保持する）と自国化（ターゲット文化の規範にテキストを適応させる）の間で選択します。漫画では、ファンはしばしば異化を好みます（Sell 2011）。",
+                "aot_analyze_btn": "✨ 分析",
+                "section_title_research_methodology": "研究方法 - 研究：方法論的問題",
+                "rm_aims_questions_title": "目的と研究課題",
+                "rm_aims_intro": "本研究は、英語スキャンレーション漫画をギリシャ語に翻訳する際の主な翻訳課題を特定し、それらに対処するための方法を提案することを目的としていました。主な研究課題は以下の通りです。",
+                "rm_question1": "英語スキャンレーション漫画をギリシャ語に翻訳する際の課題の主なテーマ別カテゴリーは何ですか？",
+                "rm_question2": "これらの課題を克服するためにどのような方法が使用できますか？",
+                "rm_question3": "これらの方法はギリシャの読者層に評価されていますか、そしてその理由は何ですか？",
+                "rm_question4": "ギリシャ語スキャンレーション漫画の制作は読者の関心を引くことができますか？",
+                "rm_question5": "この制作は読者が漫画をさらに探求することを奨励しますか？",
+                "rm_procedure_analysis_title": "研究手順とデータ分析",
+                "rm_procedure_p1": "研究のために、異なる読者層をカバーする5つの漫画の抜粋が選ばれ、ギリシャ語に翻訳されました：<em>ドラえもん</em>（子供向け）、<em>鬼滅の刃</em>（少年）、<em>フルーツバスケット</em>（少女）、<em>MONSTER</em>（青年）、そして<em>NANA</em>（女性）。画像の編集とギリシャ語翻訳の植字はAdobe Photoshopを使用して行われました。",
+                "rm_procedure_p2": "翻訳課題の分析は、主題分析法に基づいて行われました。課題は、言語的問題と文化的問題という2つの広範なテーマに分類されました。読者の意見を収集するために、翻訳された抜粋を最初に読んだ38人のギリシャ人読者に匿名のオンラインアンケート（Googleフォーム経由）が配布されました。彼らの回答は量的に分析されました。",
+                "section_title_results_discussion": "結果と考察 - 結果と考察",
+                "rd_main_challenges_title": "特定された主な翻訳課題",
+                "rd_main_challenges_intro": "翻訳プロセスは特定の課題を浮き彫りにし、それらは次のように分類されました。",
+                "rd_linguistic_issues_title": "言語的問題：",
+                "rd_linguistic_issue1": "<strong>激しい瞬間の表現：</strong>音や動きなしに激しさ（叫び声、爆発、感情的ストレス）を伝えることの難しさ。採用された解決策は、太字、大きなフォントサイズ、適切な句読点の使用でした。",
+                "rd_linguistic_issue2": "<strong>オノマトペと効果音（SFX）：</strong>日本の擬音語・擬態語は、しばしば英語のスキャンレーターによって未翻訳のままにされます。本研究は同じ戦略（日本のSFXを翻訳しない）に従い、それらを真正性と漫画の視覚的美学の不可欠な部分と見なしました。",
+                "rd_linguistic_issue3": "<strong>吹き出し外のテキスト：</strong>内なる思考、ささやき、または物語のコメントを通常の対話と区別すること。しばしば異なるフォントや小さいサイズを使用します。",
+                "rd_cultural_issues_title": "文化的問題：",
+                "rd_cultural_issue1": "<strong>敬称（敬語）：</strong>話者間の社会的関係を示す日本語の接尾辞（-さん、-くん、-ちゃん、-様など）の管理。選択された戦略は、それらをギリシャ語に音訳し、初出時に説明的な注釈を提供することでした。",
+                "rd_cultural_issue2": "<strong>文化固有の項目（リアリア）：</strong>ギリシャの読者になじみのない習慣、物、食べ物、通貨単位（例：円）、または社会的慣行の表現または説明。解決策は翻訳ノートの使用でした。論文の例には、「鬼」の概念、「日本の羽根突き」、円の価値、家庭の祭壇での祈りの描写が含まれます。",
+                "rd_survey_findings_title": "アンケート調査結果：ギリシャ人読者の視点",
+                "rd_survey_findings_intro": "38人のアンケート参加者の回答は、翻訳選択の受容に関する貴重な洞察を提供しました。",
+                "rd_survey_finding1": "<strong>強調のためのタイポグラフィ：</strong>大多数（38人中30人）が、感情的な場面を理解する上で、太字や大きなフォントサイズの使用が役立つと判断しました。",
+                "rd_survey_finding2": "<strong>未翻訳のオノマトペ：</strong>かなりの数の読者が、未翻訳の日本の効果音を理解するだけでなく、それらを漫画の真正な要素と見なして保持することを好むと述べました。",
+                "rd_survey_finding3": "<strong>敬称：</strong>大多数が、敬称をギリシャ語に音訳することを支持し、それが日本文化の理解を助け、テキストに真正性を加えると評価しました。",
+                "rd_survey_finding4": "<strong>翻訳ノート：</strong>ノートは、敬称と、そうでなければ不明瞭なままになる他の文化固有の要素の両方を理解する上で、非常に役立つか不可欠であると見なされました。",
+                "rd_survey_finding5": "<strong>翻訳の流れと自然さ：</strong>ほとんどの参加者は、翻訳がギリシャ語で自然な流れを持っていると特徴づけました。しかし、かなりの割合が、それが翻訳されたテキストであることを認識しており、おそらく漫画の強い文化的刻印が完全に排除するのが難しいためです。",
+                "rd_survey_finding6": "<strong>続きへの関心：</strong>読んだ物語の続きを知りたいという読者の関心は高く、質の高い翻訳が読者のエンゲージメントと投資を生み出すことができることを示唆しています。",
+                "rd_survey_finding7": "<strong>ギリシャ語漫画へのアクセス：</strong>ほぼ全員（38人中35人）が、ギリシャ語に翻訳された漫画へのアクセスが難しいという意見でした。",
+                "rd_survey_finding8": "<strong>より多くの出版物への要望：</strong>圧倒的多数（38人中34人）が、より多くの出版社がギリシャ語に翻訳された漫画を出版することを見たいと表明しました。",
+                "section_title_conclusion": "結論 - 結論と展望",
+                "conclusion_p1": "本修士論文は、英語スキャンレーション漫画をギリシャ語に翻訳することが特定の言語的および文化的課題を伴うことを示しました。しかし、これらの課題は、強調のためのタイポグラフィの慎重な使用、敬称の保持（注釈による必要な説明付き）、文化固有の項目に関する明確な翻訳ノートの提供など、適切な翻訳戦略の適用を通じて効果的に対処できます。これらのアプローチは、研究に参加したギリシャの読者層から肯定的に評価されました。",
+                "conclusion_p2": "日本のオノマトペを保持することを好む読者の傾向は、メディアの起源を尊重する真正な読書体験への欲求を強調しています。研究結果は、質の高いギリシャ語漫画翻訳の作成が実現可能であるだけでなく、ギリシャの読者層の重要かつ熱心な部分によって望まれていることを強く裏付けています。",
+                "conclusion_p3": "アクセス可能なギリシャ語版の著しい不足は、出版社からのより多くの努力に対する明確な需要と相まって、重要な機会を浮き彫りにしています。結論として、ギリシャ語への丁寧で文化的に配慮した漫画翻訳への投資は、市場の既存のギャップを埋め、現在のファンを満足させ、新しい読者を引き付け、最終的にはこの魅力的で多層的な日本の文化的産物のギリシャでのより広範な普及と理解に貢献することができます。",
+                "section_title_author": "著者について - 著者について",
+                "author_name": "アタナシオス・ヴァシレイアディス",
+                "author_bio": "アタナシオス・ヴァシレイアディスは、アテネ国立カポディストリアス大学で翻訳・通訳の修士号を取得し、英語英文学の学士号を取得しています。彼は日本文化、アニメ、漫画に特別な愛情を持っており、これらが本修士論文のインスピレーションとなりました。",
+                "modal_explore_title": "漫画をもっと深く探る ✨",
+                "modal_explore_prompt": "漫画関連の用語（例：「少年」、「浮世絵」、漫画家の名前、漫画のタイトル）を入力して詳細をご覧ください。",
+                "modal_explore_submit_btn": "Geminiで検索",
+                "footer_copyright": "&copy; 2022 アタナシオス・ヴァシレイアディス。無断複写・転載を禁じます。",
+                "footer_design_note": "日本文化に触発されてデザインされたウェブサイト。"
+            }
+        };
+
+        let currentLanguage = localStorage.getItem('preferredLanguage') || 'el';
+        let currentLanguageName = 'Ελληνικά'; // Default
+
+        function updateLanguageButtonStates() {
+            document.querySelectorAll('.lang-switcher button').forEach(button => {
+                if (button.dataset.lang === currentLanguage) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+
+        function switchLanguage(langCode) {
+            currentLanguage = langCode;
+            localStorage.setItem('preferredLanguage', langCode);
+            document.documentElement.lang = langCode;
+
+            if (langCode === 'en') currentLanguageName = 'English';
+            else if (langCode === 'ja') currentLanguageName = 'Japanese';
+            else currentLanguageName = 'Ελληνικά';
+
+            document.title = translations[langCode]["page_title"] || translations["el"]["page_title"];
+
+            document.querySelectorAll('.lang-text').forEach(element => {
+                const key = element.dataset.langKey;
+                if (translations[langCode] && translations[langCode][key]) {
+                    element.innerHTML = translations[langCode][key];
+                } else if (translations["el"][key]) { // Fallback to Greek if translation missing
+                    element.innerHTML = translations["el"][key];
+                }
+            });
+            updateLanguageButtonStates();
+        }
+        
         // Function to convert simple Markdown to HTML
         function markdownToHtmlSimple(markdownText) {
             if (!markdownText) return '';
@@ -728,7 +1125,7 @@
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
-                if (targetId && targetId.length > 1) { // Check if targetId is not just "#"
+                if (targetId && targetId.length > 1) { 
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
                         const navbarHeight = document.getElementById('navbar').offsetHeight;
@@ -740,7 +1137,7 @@
                             behavior: "smooth"
                         });
                     }
-                } else if (targetId === "#hero") { // Special case for the main title link
+                } else if (targetId === "#hero") { 
                      window.scrollTo({ top: 0, behavior: "smooth"});
                 }
             });
@@ -813,8 +1210,10 @@
             let chatHistory = [{ role: "user", parts: [{ text: promptText }] }];
             const payload = { contents: chatHistory };
             const workerBaseUrl = 'https://gemini-proxy.nvasedis-cc5.workers.dev';
-                    const geminiModelPath = '/v1beta/models/gemini-2.0-flash:generateContent';
-                    const apiUrl = `${workerBaseUrl}${geminiModelPath}`; 
+            const geminiModelPath = '/v1beta/models/gemini-2.0-flash:generateContent';
+            const apiUrl = `${workerBaseUrl}${geminiModelPath}`;
+
+            
             try {
                 const response = await fetch(apiUrl, {
                     method: 'POST',
@@ -846,6 +1245,10 @@
         if (exploreMangaBtn) {
             exploreMangaBtn.onclick = function() {
                 exploreMangaModal.style.display = "flex";
+                 // Update modal text based on current language
+                document.querySelector('#exploreMangaModal .manga-panel-title').innerHTML = translations[currentLanguage]['modal_explore_title'] || translations['el']['modal_explore_title'];
+                document.querySelector('#exploreMangaModal .text-sm').innerHTML = translations[currentLanguage]['modal_explore_prompt'] || translations['el']['modal_explore_prompt'];
+                document.querySelector('#exploreMangaModal .gemini-button').innerHTML = translations[currentLanguage]['modal_explore_submit_btn'] || translations['el']['modal_explore_submit_btn'];
             }
         }
         if (closeExploreModalBtn) {
@@ -859,8 +1262,7 @@
             submitMangaKeywordBtn.onclick = function() {
                 const keyword = mangaKeywordInput.value.trim();
                 if (keyword) {
-                    // Updated prompt for concise and well-formatted response
-                    const prompt = `Για τον όρο σχετικό με τα manga: '${keyword}', δώσε μια σύντομη και περιεκτική επισκόπηση (περίπου 3-4 προτάσεις). Ανέφερε 2-3 βασικά παραδείγματα σχετικών manga, δημιουργών ή πολιτισμικών εννοιών. Η απάντηση να είναι στα Ελληνικά. Μορφοποίησε τις σημαντικές λέξεις-κλειδιά με **έντονη γραφή** και τυχόν ενδιάμεσους τίτλους με ## Markdown στυλ. Κάνε την απάντηση ευανάγνωστη.`;
+                    const prompt = `Για τον όρο σχετικό με τα manga: '${keyword}', δώσε μια σύντομη και περιεκτική επισκόπηση (περίπου 3-4 κύριες προτάσεις, όχι πάνω από 80 λέξεις συνολικά). Ανέφερε 1-2 βασικά παραδείγματα σχετικών manga, δημιουργών ή πολιτισμικών εννοιών. Η απάντηση να είναι στα ${currentLanguageName}. Μορφοποίησε τις σημαντικές λέξεις-κλειδιά με **έντονη γραφή** και τυχόν ενδιάμεσους τίτλους με ## Markdown στυλ. Κάνε την απάντηση ευανάγνωστη και άμεσα κατανοητή.`;
                     callGeminiAPI(prompt, geminiResponseArea, geminiResponseLoading);
                 } else {
                     geminiResponseArea.innerHTML = "Παρακαλώ εισάγετε έναν όρο για αναζήτηση.";
@@ -870,14 +1272,15 @@
         
         analyzeChallengeBtns.forEach(button => {
             button.onclick = function() {
-                const challenge = this.dataset.challenge;
-                if (challenge) {
-                    challengeAnalysisModalTitle.textContent = `✨ Ανάλυση: ${challenge} ✨`;
-                    challengeAnalysisModal.style.display = "flex";
-                    // Updated prompt for concise and well-formatted response
-                    const prompt = `Εξήγησε σύντομα και περιεκτικά (περίπου 4-5 προτάσεις) τις κύριες προκλήσεις και τις συνήθεις στρατηγικές για την μετάφραση του εξής θέματος στα manga από τα Ιαπωνικά (μέσω Αγγλικών) στα Ελληνικά: "${challenge}". Δώσε 1-2 χαρακτηριστικά παραδείγματα. Η απάντηση να είναι στα Ελληνικά. Μορφοποίησε τις σημαντικές λέξεις-κλειδιά ή τους όρους με **έντονη γραφή** και τυχόν ενδιάμεσους τίτλους με ## Markdown στυλ. Κάνε την απάντηση ευανάγνωστη.`;
-                    callGeminiAPI(prompt, challengeAnalysisResponseArea, challengeAnalysisLoading);
-                }
+                const challengeKey = this.dataset.challenge; // This should be a key from translations
+                const challengeText = translations[currentLanguage][`aot_challenge_${challengeKey.toLowerCase().replace(/\s+/g, '_').replace(/[&]/g, 'and')}_title`] || challengeKey;
+
+
+                challengeAnalysisModalTitle.innerHTML = `${translations[currentLanguage]['aot_analyze_btn'] || 'Ανάλυση'}: ${challengeText}`;
+                challengeAnalysisModal.style.display = "flex";
+                
+                const prompt = `Εξήγησε σύντομα και περιεκτικά (περίπου 4-5 κύριες προτάσεις, όχι πάνω από 100 λέξεις συνολικά) τις κύριες προκλήσεις και τις συνήθεις στρατηγικές για την μετάφραση του εξής θέματος στα manga από τα Ιαπωνικά (μέσω Αγγλικών) στα ${currentLanguageName}: "${challengeText}". Δώσε 1-2 χαρακτηριστικά παραδείγματα για να γίνουν πιο κατανοητές οι έννοιες. Η απάντηση να είναι στα ${currentLanguageName}. Μορφοποίησε τις σημαντικές λέξεις-κλειδιά ή τους όρους με **έντονη γραφή** και τυχόν ενδιάμεσους τίτλους με ## Markdown στυλ. Κάνε την απάντηση ευανάγνωστη και άμεσα κατανοητή.`;
+                callGeminiAPI(prompt, challengeAnalysisResponseArea, challengeAnalysisLoading);
             }
         });
 
@@ -899,6 +1302,17 @@
                 challengeAnalysisResponseArea.innerHTML = '';
             }
         }
+
+        // Language Switcher Logic
+        document.querySelectorAll('.lang-switcher button').forEach(button => {
+            button.addEventListener('click', function() {
+                switchLanguage(this.dataset.lang);
+            });
+        });
+
+        // Initialize page with current language
+        switchLanguage(currentLanguage); 
+        updateLanguageButtonStates(); // Set initial active button
 
     </script>
 </body>
