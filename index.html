@@ -131,7 +131,7 @@
         }
          @media (max-width: 768px) {
             .nav-title { font-size: 1.5rem; }
-         }
+          }
 
         .nav-link {
             font-family: 'M PLUS Rounded 1c', sans-serif; 
@@ -166,12 +166,12 @@
         }
         @media (max-width: 768px) {
              .lang-switcher {
-                position: absolute;
-                top: 10px;
-                right: 10px;
+               position: absolute;
+               top: 10px;
+               right: 10px;
              }
              #navbar .container { /* Allow space for lang switcher on mobile */
-                padding-right: 70px; /* Adjust if needed */
+               padding-right: 70px; /* Adjust if needed */
              }
         }
 
@@ -346,7 +346,7 @@
                 100% { transform: translateY(70px) translateX(var(--sway)) rotate(var(--rotation)); opacity: 0; }
             }
         }
-        /* New style for text blocks within panels */
+        /* Styles for text blocks within panels */
         .text-content-block {
             background-color: #FDFDFD; /* Slightly different background than panel */
             border: 1px solid #E9ECEF;
@@ -359,6 +359,29 @@
             margin-bottom: 0; /* No margin after the last block */
         }
 
+        /* Specific styles for survey findings text blocks */
+        .survey-finding-block {
+            background-color: #FDFDFD; /* Light background */
+            border: 1px solid #E9ECEF;
+            border-radius: 0.5rem;
+            padding: 1rem; /* Slightly reduced padding */
+            margin-bottom: 1rem; /* Space between blocks */
+            box-shadow: 0 1px 4px rgba(0,0,0,0.02); /* Very subtle shadow */
+            font-size: 0.95rem; /* Smaller font size for survey findings */
+            line-height: 1.6;
+            color: #343A40;
+            transition: all 0.2s ease-in-out;
+            border-left: 5px solid; /* For distinct colors */
+        }
+        .survey-finding-block:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        /* Color variations for survey finding blocks */
+        .survey-finding-block:nth-child(odd) { border-left-color: #DB7093; background-color: #FFF0F5; } 
+        .survey-finding-block:nth-child(even) { border-left-color: #87CEEB; background-color: #E6F3FF; } 
+
+
         .sub-panel { 
             background-color: #F8F9FA; 
             border: 1px dashed #ADB5BD; 
@@ -366,7 +389,22 @@
             padding: 2rem; /* Increased padding for larger look */
             margin-top: 1rem; 
             margin-bottom: 1rem; 
+            transition: all 0.2s ease-in-out;
+            border-left: 8px solid; /* For distinct colors */
         }
+        .sub-panel:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        }
+        /* Specific colors for sub-panels in challenges section */
+        .sub-panel:nth-child(1) { border-left-color: #DB7093; background-color: #FFF0F5; } /* Pink */
+        .sub-panel:nth-child(2) { border-left-color: #87CEEB; background-color: #E6F3FF; } /* Light Blue */
+        .sub-panel:nth-child(3) { border-left-color: #4DB6AC; background-color: #E0F2F1; } /* Teal */
+        .sub-panel:nth-child(4) { border-left-color: #FFD700; background-color: #FFF9C4; } /* Gold */
+        .sub-panel:nth-child(5) { border-left-color: #D9534F; background-color: #FEEAFA; } /* Reddish */
+        .sub-panel:nth-child(6) { border-left-color: #4A55A2; background-color: #E6E6FA; } /* Indigo */
+
+
         .sub-panel-title { 
             font-family: 'M PLUS Rounded 1c', sans-serif; 
             font-weight: 700; 
@@ -375,7 +413,7 @@
             font-size: 1.35rem; /* Increased font size */
         }
         .sub-panel .text-content.text-sm { /* Targeting text inside sub-panels */
-            font-size: 1.1rem; /* Increased font size for sub-panel text */
+            font-size: 1.15rem; /* Increased font size for sub-panel text */
             line-height: 1.7;
         }
 
@@ -537,7 +575,7 @@
             max-height: 50vh; 
             overflow-y: auto; 
             font-size: 1.125rem; 
-            line-height: 1.8;    
+            line-height: 1.8;   
         }
         #geminiResponseArea h1, #infoModalResponseArea h1,
         #geminiResponseArea h2, #infoModalResponseArea h2,
@@ -572,6 +610,150 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        /* --- Dark Mode Styles --- */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #1A202C; /* Dark background */
+                color: #E2E8F0; /* Light text */
+            }
+            #navbar {
+                background-color: #2D3748; /* Darker navbar */
+                box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            }
+            .nav-link {
+                color: #CBD5E0; /* Lighter nav links */
+            }
+            .nav-link:hover {
+                background-color: #E53E3E; /* Still red on hover */
+                color: #FFFFFF;
+            }
+            .lang-switcher button {
+                border-color: #E53E3E;
+                color: #E53E3E;
+            }
+            .lang-switcher button:hover, .lang-switcher button.active {
+                background-color: #E53E3E;
+                color: white;
+            }
+
+            .manga-panel {
+                background-color: #2D3748; /* Darker panel background */
+                border-color: #4A5568; /* Darker border */
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+                background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M 0 0 L 100 0 L 100 100 L 0 100 Z" fill="%232D3748"/><path d="M 0 0 L 100 100 M 100 0 L 0 100" stroke="%233A455A" stroke-width="0.5" stroke-opacity="0.5"/></svg>');
+            }
+            .manga-panel:hover {
+                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+            }
+            /* Dark mode panel colors */
+            .panel-color-1 { background-color: #3A3035; border-left-color: #DB7093; }
+            .panel-color-2 { background-color: #2A3B4F; border-left-color: #87CEEB; }
+            .panel-color-3 { background-color: #2A403F; border-left-color: #4DB6AC; }
+            .panel-color-4 { background-color: #3A372E; border-left-color: #FFD700; }
+
+            .manga-panel-title {
+                color: #E53E3E; /* Red title remains */
+                border-bottom-color: #E53E3E;
+            }
+            .manga-title, .section-title {
+                color: #E53E3E; /* Red title remains */
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.8); /* Darker shadow for contrast */
+            }
+            .manga-subtitle {
+                color: #90CDF4; /* Lighter blue for subtitle */
+            }
+            .text-content {
+                color: #CBD5E0; /* Lighter general text */
+            }
+            .text-content-block {
+                background-color: #2D3748; /* Darker block background */
+                border-color: #4A5568;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            }
+
+            /* Dark mode for specific survey finding blocks */
+            .survey-finding-block {
+                background-color: #2D3748;
+                border-color: #4A5568;
+                color: #CBD5E0;
+                box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            }
+            .survey-finding-block:nth-child(odd) { border-left-color: #DB7093; background-color: #3A3035; } 
+            .survey-finding-block:nth-child(even) { border-left-color: #87CEEB; background-color: #2A3B4F; }
+
+            /* Dark mode for sub-panels */
+            .sub-panel {
+                background-color: #2D3748;
+                border-color: #4A5568;
+                color: #CBD5E0;
+            }
+            .sub-panel-title {
+                color: #E53E3E; /* Red title remains */
+            }
+            .sub-panel:nth-child(1) { border-left-color: #DB7093; background-color: #3A3035; }
+            .sub-panel:nth-child(2) { border-left-color: #87CEEB; background-color: #2A3B4F; }
+            .sub-panel:nth-child(3) { border-left-color: #4DB6AC; background-color: #2A403F; }
+            .sub-panel:nth-child(4) { border-left-color: #FFD700; background-color: #3A372E; }
+            .sub-panel:nth-child(5) { border-left-color: #D9534F; background-color: #3A2F3A; }
+            .sub-panel:nth-child(6) { border-left-color: #4A55A2; background-color: #2F324A; }
+
+
+            /* Dark mode for demographic cards */
+            .demographic-card {
+                background-color: #2D3748;
+                border-color: #4A5568;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            }
+            .demographic-card-title {
+                color: #90CDF4; /* Lighter blue for demographic titles */
+            }
+            .demographic-card-text {
+                color: #CBD5E0;
+            }
+
+            /* Dark mode for history image cards */
+            .history-image-card {
+                background-color: #2D3748;
+                border-color: #4A5568;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            }
+
+            /* Dark mode for modals */
+            .modal-content {
+                background-color: #2D3748;
+                border-color: #4A5568;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            }
+            #geminiResponseArea, #infoModalResponseArea {
+                background-color: #1A202C;
+                border-color: #4A5568;
+                color: #CBD5E0;
+            }
+            #geminiResponseArea h1, #infoModalResponseArea h1,
+            #geminiResponseArea h2, #infoModalResponseArea h2,
+            #geminiResponseArea h3, #infoModalResponseArea h3,
+            #geminiResponseArea h4, #infoModalResponseArea h4,
+            #geminiResponseArea h5, #infoModalResponseArea h5,
+            #geminiResponseArea h6, #infoModalResponseArea h6 {
+                color: #E53E3E; /* Keep red for headings in modals */
+            }
+            .gemini-button {
+                background-color: #E53E3E; /* Keep red for buttons */
+                color: white;
+            }
+            .gemini-button:hover {
+                background-color: #C9302C;
+            }
+            .loading-spinner {
+                border-top-color: #E53E3E; /* Red spinner */
+            }
+
+            footer {
+                background-color: #1A202C; /* Darker footer */
+                color: #A0AEC0; /* Lighter footer text */
+            }
         }
 
     </style>
@@ -681,9 +863,9 @@
                     </div>
                     <div class="md:w-2/5 mt-4 md:mt-0">
                         <img src="https://i.imgur.com/MCnTAla.png" 
-                                alt="[Image of manga page with black and white frames and Japanese characters]" 
-                                class="responsive-img shadow-md mx-auto"
-                                onerror="this.onerror=null; this.src='https://placehold.co/400x300/D1E8E2/333333?text=Manga+Page+RTL';">
+                                 alt="[Image of manga page with black and white frames and Japanese characters]" 
+                                 class="responsive-img shadow-md mx-auto"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/400x300/D1E8E2/333333?text=Manga+Page+RTL';">
                     </div>
                 </div>
             </div>
@@ -693,14 +875,14 @@
                 <div class="md:flex md:gap-8 items-center">
                     <div class="md:w-1/2 mb-6 md:mb-0 flex flex-col space-y-4 manpu-collage-container"> 
                         <img src="https://animeartmagazine.com/wp-content/uploads/2022/02/dcf2f6ea5c924b6cf7611a3f15762e8f.webp" 
-                             alt="[Image explaining manpu symbols with examples from manga]" 
-                             onerror="this.onerror=null; this.src='https://placehold.co/400x200/FFDAB9/333333?text=Manpu+Symbols+1';">
+                                 alt="[Image explaining manpu symbols with examples from manga]" 
+                                 onerror="this.onerror=null; this.src='https://placehold.co/400x200/FFDAB9/333333?text=Manpu+Symbols+1';">
                         <img src="https://animeartmagazine.com/wp-content/uploads/2022/02/3c5bb14a0e9f8816ee964b9ee909bbb4.webp" 
-                             alt="[Image of manpu example]" 
-                             onerror="this.onerror=null; this.src='https://placehold.co/400x200/FFDAB9/333333?text=Manpu+Symbols+2';">
+                                 alt="[Image of manpu example]" 
+                                 onerror="this.onerror=null; this.src='https://placehold.co/400x200/FFDAB9/333333?text=Manpu+Symbols+2';">
                         <img src="https://www.researchgate.net/publication/324558532/figure/fig2/AS:11431281429370169@1746715444674/Some-examples-of-manpu-a-mark-used-to-represent-the-emotions-of-the-characters-such-as.tif" 
-                             alt="[Image of manpu example]" 
-                             onerror="this.onerror=null; this.src='https://placehold.co/400x200/FFDAB9/333333?text=Manpu+Symbols+3';">
+                                 alt="[Image of manpu example]" 
+                                 onerror="this.onerror=null; this.src='https://placehold.co/400x200/FFDAB9/333333?text=Manpu+Symbols+3';">
                     </div>
                     <div class="md:w-1/2 text-content"> 
                         <div class="text-content-block">
@@ -711,7 +893,7 @@
                         </div>
                     </div>
                 </div>
-                   <div class="clear-both"></div>
+                    <div class="clear-both"></div>
             </div>
             
             <div class="manga-panel fade-in-panel panel-color-4 mt-10">
@@ -720,23 +902,23 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8"> 
                         <div class="history-image-card" data-history-key="wom_history_p1_intro" data-history-title-key="wom_history_era1_title">
                             <img src="https://en.seigensha.com/wp-content/uploads/978-4-86152-280-2_009-1-1.jpg" 
-                                 alt="[Image from Chōjū-giga scroll depicting animals in human activities]" 
-                                 onerror="this.onerror=null; this.src='https://placehold.co/400x250/E0E0E0/333333?text=Chōjū-giga';">
+                                     alt="[Image from Chōjū-giga scroll depicting animals in human activities]" 
+                                     onerror="this.onerror=null; this.src='https://placehold.co/400x250/E0E0E0/333333?text=Chōjū-giga';">
                         </div>
                         <div class="history-image-card" data-history-key="wom_history_p2_desc" data-history-title-key="wom_history_era2_title">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Great_Wave_off_Kanagawa2.jpg/800px-Great_Wave_off_Kanagawa2.jpg" 
-                                 alt="[Image from Hokusai's 'The Great Wave off Kanagawa']" 
-                                 onerror="this.onerror=null; this.src='https://placehold.co/400x300/C9C9FF/333333?text=Ukiyo-e+Inspiration';">
+                                     alt="[Image from Hokusai's 'The Great Wave off Kanagawa']" 
+                                     onerror="this.onerror=null; this.src='https://placehold.co/400x300/C9C9FF/333333?text=Ukiyo-e+Inspiration';">
                         </div>
                         <div class="history-image-card" data-history-key="wom_history_p3_desc" data-history-title-key="wom_history_era3_title">
                             <img src="https://timesofindia.indiatimes.com/blogs/wp-content/uploads/backup2/between-panels/comics1.png" 
-                                 alt="[Image of early Western comics influence]" 
-                                 onerror="this.onerror=null; this.src='https://placehold.co/400x300/A0A0A0/333333?text=Western+Comics+Influence';">
+                                     alt="[Image of early Western comics influence]" 
+                                     onerror="this.onerror=null; this.src='https://placehold.co/400x300/A0A0A0/333333?text=Western+Comics+Influence';">
                         </div>
                         <div class="history-image-card" data-history-key="wom_history_p4_desc" data-history-title-key="wom_history_era4_title">
                             <img src="https://www.history.org.uk/library/2008/0000/0086/shutterstock_302738093_640.jpg"
-                                 alt="[Image of post-war Japan]"
-                                 onerror="this.onerror=null; this.src='https://placehold.co/400x300/A2B2C2/333333?text=Post-War+Japan';">
+                                     alt="[Image of post-war Japan]"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/400x300/A2B2C2/333333?text=Post-War+Japan';">
                         </div>
                     </div>
                 </div>
@@ -774,20 +956,28 @@
                     </div>
                     <div class="md:w-2/5 mt-4 md:mt-0 flex flex-col justify-around space-y-8">
                         <img src="https://static.beebom.com/wp-content/uploads/2023/06/featured-new.jpg?w=750&quality=75" 
-                                alt="[Image of various anime/manga characters]" 
-                                class="responsive-img shadow-md mx-auto"
-                                onerror="this.onerror=null; this.src='https://placehold.co/400x200/BEE3DB/333333?text=Demographic+Groups';">
+                                 alt="[Image of various anime/manga characters]" 
+                                 class="responsive-img shadow-md mx-auto"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/400x200/BEE3DB/333333?text=Demographic+Groups';">
                         <img src="https://cor-cdn-static.bibliocommons.com/list_jacket_covers/live/1937276259.png" 
-                                alt="[Image collage of famous manga covers]" 
-                                class="responsive-img shadow-md mx-auto"
-                                onerror="this.onerror=null; this.src='https://placehold.co/400x250/F8BBD0/333333?text=Famous+Manga';">
+                                 alt="[Image collage of famous manga covers]" 
+                                 class="responsive-img shadow-md mx-auto"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/400x250/F8BBD0/333333?text=Famous+Manga';">
                     </div>
                 </div>
             </div>
             <div class="manga-panel fade-in-panel panel-color-2 mt-10">
                 <h3 class="manga-panel-title lang-text" data-lang-key="wom_reception_title"></h3>
-                <div class="text-content-block">
-                    <p class="lang-text" data-lang-key="wom_reception_p1"></p>
+                <div class="text-content">
+                    <div class="text-content-block">
+                        <p class="lang-text" data-lang-key="wom_reception_p1"></p>
+                    </div>
+                    <div class="text-content-block">
+                        <p class="lang-text" data-lang-key="wom_reception_p2"></p>
+                    </div>
+                    <div class="text-content-block">
+                        <p class="lang-text" data-lang-key="wom_reception_p3"></p>
+                    </div>
                 </div>
             </div>
             <div class="text-center mt-10">
@@ -800,11 +990,11 @@
                 <h2 class="section-title mb-12 lang-text" data-lang-key="section_title_art_of_translation"></h2>
             </div>
             <div class="manga-panel fade-in-panel panel-color-3">
-                 <h3 class="manga-panel-title lang-text" data-lang-key="aot_translator_role_title"></h3>
-                 <img src="https://www.japan.go.jp/kizuna/_src/7997194/manga_translation_service_01.jpg?v=1743005535161" 
-                            alt="[Image symbolizing manga translation as a bridge of cultures]" 
-                            class="responsive-img shadow-md img-centered-block max-w-xl" 
-                            onerror="this.onerror=null; this.src='https://placehold.co/500x350/A0D2DB/333333?text=Bridge+of+Cultures';">
+                <h3 class="manga-panel-title lang-text" data-lang-key="aot_translator_role_title"></h3>
+                <img src="https://www.japan.go.jp/kizuna/_src/7997194/manga_translation_service_01.jpg?v=1743005535161" 
+                                 alt="[Image symbolizing manga translation as a bridge of cultures]" 
+                                 class="responsive-img shadow-md img-centered-block max-w-xl" 
+                                 onerror="this.onerror=null; this.src='https://placehold.co/500x350/A0D2DB/333333?text=Bridge+of+Cultures';">
                 <div class="text-content mt-6">
                     <div class="text-content-block">
                         <p class="lang-text" data-lang-key="aot_translator_role_p1"></p>
@@ -813,15 +1003,15 @@
                         <p class="lang-text" data-lang-key="aot_translator_role_p2"></p>
                     </div>
                 </div>
-                   <div class="clear-both"></div>
+                    <div class="clear-both"></div>
             </div>
 
             <div class="manga-panel fade-in-panel panel-color-4 mt-10">
                 <h3 class="manga-panel-title lang-text" data-lang-key="aot_scanlation_title"></h3>
-                 <img src="https://www.insidescanlation.com/images/spotlight/speedscan_onb.png" 
-                            alt="[Image depicting the scanlation process on a computer]" 
-                            class="responsive-img shadow-md mb-6 mx-auto block max-w-lg scanlation-image" 
-                            onerror="this.onerror=null; this.src='https://placehold.co/500x350/FEEAFA/333333?text=Scanlation+Process';">
+                <img src="https://www.insidescanlation.com/images/spotlight/speedscan_onb.png" 
+                                 alt="[Image depicting the scanlation process on a computer]" 
+                                 class="responsive-img shadow-md mb-6 mx-auto block max-w-lg scanlation-image" 
+                                 onerror="this.onerror=null; this.src='https://placehold.co/500x350/FEEAFA/333333?text=Scanlation+Process';">
                 <div class="text-content">
                     <div class="text-content-block">
                         <p class="lang-text" data-lang-key="aot_scanlation_p1"></p>
@@ -880,9 +1070,9 @@
             <div class="manga-panel fade-in-panel panel-color-2">
                 <h3 class="manga-panel-title lang-text" data-lang-key="rm_aims_questions_title"></h3>
                 <img src="https://www.ssbm.ch/wp-content/uploads/2021/11/5f3504fc6ea38f001ec0f8b5.jpg" 
-                            alt="[Image of research methodology chart]" 
-                            class="responsive-img shadow-md img-centered-block max-w-lg" 
-                            onerror="this.onerror=null; this.src='https://placehold.co/500x300/B9E4C9/333333?text=Research+Methodology';">
+                                 alt="[Image of research methodology chart]" 
+                                 class="responsive-img shadow-md img-centered-block max-w-lg" 
+                                 onerror="this.onerror=null; this.src='https://placehold.co/500x300/B9E4C9/333333?text=Research+Methodology';">
                 <div class="text-content mt-6">
                     <div class="text-content-block">
                         <p class="mb-4 lang-text" data-lang-key="rm_aims_intro"></p>
@@ -918,10 +1108,10 @@
             </div>
             <div class="manga-panel fade-in-panel panel-color-4">
                 <h3 class="manga-panel-title lang-text" data-lang-key="rd_main_challenges_title"></h3>
-                 <img src="https://atlasti.com/media/pages/research-hub/finding-research-topic/031ca917f7-1739281450/research-topic.png" 
-                            alt="[Image symbolizing finding and analyzing research findings]" 
-                            class="responsive-img shadow-md md:w-2/5 mb-6 md:mb-0 img-wrap-right"
-                            onerror="this.onerror=null; this.src='https://placehold.co/500x300/F7C5CC/333333?text=Questionnaire+Results';">
+                <img src="https://atlasti.com/media/pages/research-hub/finding-research-topic/031ca917f7-1739281450/research-topic.png" 
+                                 alt="[Image symbolizing finding and analyzing research findings]" 
+                                 class="responsive-img shadow-md md:w-2/5 mb-6 md:mb-0 img-wrap-right"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/500x300/F7C5CC/333333?text=Questionnaire+Results';">
                 <div class="text-content">
                     <div class="text-content-block">
                         <p class="lang-text" data-lang-key="rd_main_challenges_intro"></p>
@@ -951,28 +1141,29 @@
                     <div class="text-content-block">
                         <p class="lang-text" data-lang-key="rd_survey_findings_intro"></p>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4"> <div class="text-content-block">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4"> 
+                        <div class="survey-finding-block">
                             <p class="lang-text" data-lang-key="rd_survey_finding1"></p>
                         </div>
-                        <div class="text-content-block">
+                        <div class="survey-finding-block">
                             <p class="lang-text" data-lang-key="rd_survey_finding2"></p>
                         </div>
-                        <div class="text-content-block">
+                        <div class="survey-finding-block">
                             <p class="lang-text" data-lang-key="rd_survey_finding3"></p>
                         </div>
-                        <div class="text-content-block">
+                        <div class="survey-finding-block">
                             <p class="lang-text" data-lang-key="rd_survey_finding4"></p>
                         </div>
-                        <div class="text-content-block">
+                        <div class="survey-finding-block">
                             <p class="lang-text" data-lang-key="rd_survey_finding5"></p>
                         </div>
-                        <div class="text-content-block">
+                        <div class="survey-finding-block">
                             <p class="lang-text" data-lang-key="rd_survey_finding6"></p>
                         </div>
-                        <div class="text-content-block">
+                        <div class="survey-finding-block">
                             <p class="lang-text" data-lang-key="rd_survey_finding7"></p>
                         </div>
-                        <div class="text-content-block">
+                        <div class="survey-finding-block">
                             <p class="lang-text" data-lang-key="rd_survey_finding8"></p>
                         </div>
                     </div>
@@ -986,9 +1177,9 @@
             </div>
              <div class="manga-panel fade-in-panel panel-color-2">
                 <img src="https://news.cnrs.fr/sites/default/files/styles/asset_image_full/public/assets/images/sipa_00563641_000007_72dpi.jpg?itok=UjnyU9SS" 
-                            alt="[Image of people reading and discussing, symbolizing knowledge and culture dissemination]" 
-                            class="responsive-img shadow-lg img-centered-block max-w-xl"  
-                            onerror="this.onerror=null; this.src='https://placehold.co/600x400/D8BFD8/333333?text=Future+of+Greek+Manga';">
+                                 alt="[Image of people reading and discussing, symbolizing knowledge and culture dissemination]" 
+                                 class="responsive-img shadow-lg img-centered-block max-w-xl"  
+                                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/D8BFD8/333333?text=Future+of+Greek+Manga';">
                 <div class="text-content text-lg leading-relaxed mt-8">
                     <div class="text-content-block">
                         <p class="lang-text" data-lang-key="conclusion_p1"></p>
@@ -1000,7 +1191,7 @@
                         <p class="lang-text" data-lang-key="conclusion_p3"></p>
                     </div>
                 </div>
-                   <div class="clear-both"></div>
+                    <div class="clear-both"></div>
             </div>
         </section>
 
@@ -1020,7 +1211,7 @@
         </section>
 
         <section id="author" class="pt-16"> <div class="text-center">
-                 <h2 class="section-title mb-12 lang-text" data-lang-key="section_title_author"></h2>
+                    <h2 class="section-title mb-12 lang-text" data-lang-key="section_title_author"></h2>
             </div>
             <div class="manga-panel fade-in-panel panel-color-3 text-center">
                 <img src="https://media.licdn.com/dms/image/v2/D4D03AQFphUNkDWbSww/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1722348904690?e=2147483647&v=beta&t=ah_Y3JVxe84iCQpZqq59YXuVJSu9Dfrq9PhrwQu3dTM" 
@@ -1085,7 +1276,7 @@
                 "intro_p2": "Η έρευνα εξετάζει την **ταυτότητα** και την **ιστορία** των manga, την **πρόσληψή** τους από το κοινό, τον **κρίσιμο ρόλο του μεταφραστή** και τις **πρακτικές δυσκολίες** που ανακύπτουν. Στόχος είναι η διερεύνηση των **στρατηγικών** που μπορούν να υιοθετηθούν για τη δημιουργία **ποιοτικών ελληνικών μεταφράσεων manga**, ικανών να κεντρίσουν το ενδιαφέρον των Ελλήνων αναγνωστών και να προωθήσουν την περαιτέρω εξερεύνηση αυτού του πολυδιάστατου μέσου, καλύπτοντας το σημαντικό **κενό** που παρατηρείται στην ελληνική αγορά.",
                 "section_title_world_of_manga": "漫画の世界 - Ο Κόσμος των Manga",
                 "wom_what_is_manga_title": "Τι Είναι τα Manga; Ορισμός και Βασικά Χαρακτηριστικά",
-                "wom_what_is_manga_p1": "Ο **ιαπωνικός όρος** \"**manga**\" (漫画) κυριολεκτικά σημαίνει \"**ιδιότροπες**\" ή \"**αυθόρμητες εικόνες**\". Στην Ιαπωνία, περιγράφει κάθε μορφή **κόμικ** και **καρτούν**, ενώ διεθνώς αναφέρεται αποκλειστικά στα **ιαπωνικά κόμικς**. Συνήθως τυπώνονται **ασπρόμαυρα**, αρχικά σε **περιοδικά** και κατόπιν σε **συγκεντρωτικούς τόμους** (**tankōbon**).",
+                "wom_what_is_manga_p1": "Ο **ιαπωνικός όρος** \"**manga**\" (漫画) κυριολογικά σημαίνει \"**ιδιότροπες**\" ή \"**αυθόρμητες εικόνες**\". Στην Ιαπωνία, περιγράφει κάθε μορφή **κόμικ** και **καρτούν**, ενώ διεθνώς αναφέρεται αποκλειστικά στα **ιαπωνικά κόμικς**. Συνήθως τυπώνονται **ασπρόμαυρα**, αρχικά σε **περιοδικά** και κατόπιν σε **συγκεντρωτικούς τόμους** (**tankōbon**).",
                 "wom_what_is_manga_p2": "Ένα από τα πιο αναγνωρίσιμα χαρακτηριστικά τους είναι η **ανάγνωση από δεξιά προς τα αριστερά**, ακολουθώντας την παραδοσιακή ιαπωνική γραφή. Άλλα διακριτικά στοιχεία περιλαμβάνουν την **αφηγηματική συνοχή** με συγκεκριμένη αρχή, μέση και τέλος, τον **κεντρικό ρόλο του δημιουργού** (**mangaka**) που συχνά διατηρεί τα **πνευματικά δικαιώματα** του έργου του, και ένα ιδιαίτερο **εικαστικό ύφος** (μεγάλα εκφραστικά μάτια, ποικιλία στυλ από ρεαλιστικό έως εξαιρετικά καρτουνίστικο).",
                 "wom_manpu_title": "Manpu και Οπτική Αφήγηση",
                 "wom_manpu_p1": "Τα **manga** χρησιμοποιούν εκτενώς τα \"**manpu**\" (漫符), **οπτικά σύμβολα** που αποδίδουν συναισθήματα (π.χ., σταγόνες ιδρώτα για αμηχανία, φλέβες για θυμό), ήχους (**ονοματοποιίες**), κίνηση και ψυχολογικές καταστάσεις. Αυτά τα σύμβολα, συχνά ενσωματωμένα καλλιτεχνικά στο σχέδιο, προσθέτουν ένα επιπλέον επίπεδο στην **αφήγηση** και αποτελούν αναπόσπαστο κομμάτι της \"**γλώσσας**\" των manga.",
@@ -1095,7 +1286,7 @@
                 "wom_history_era1_title": "Πρώιμες Μορφές",
                 "wom_history_p2_desc": "Κατά την **περίοδο Edo** (1603-1868), η τεχνική της **ξυλογραφίας** άνθισε, οδηγώντας στη δημιουργία των \"**ukiyo-e**\" (浮世絵 – \"**εικόνες του επιπλέοντος κόσμου**\"), που απεικόνιζαν σκηνές της καθημερινής ζωής, τοπία και ηθοποιούς. Ο διάσημος καλλιτέχνης **Hokusai** χρησιμοποίησε για πρώτη φορά τον όρο \"**manga**\" στους τόμους σκίτσων του \"**Hokusai Manga**\" (1814-1834), αν και με διαφορετική έννοια από τη σημερινή.",
                 "wom_history_era2_title": "Περίοδος Edo & Ukiyo-e",
-                "wom_history_p3_desc": "Το άνοιγμα της Ιαπωνίας στη Δύση στα τέλη του 19ου αιώνα έφερε επιρροές από τα **δυτικά κόμικς**. Ωστόσο, οι Ιάπωνες καλλιτέχνες διατήρησαν στοιχεία της δικής τους παράδοσης. Ο **Β' Παγκόσμιος Πόλεμος** είχε σημαντικό αντίκτυπο, με τα manga να χρησιμοποιούνται αρχικά για **προπαγάνδα** και αργότερα να αντικατοπτρίσουν τις ανησυγίες της εποχής (π.χ., σχέση ανθρώπου-τεχνολογίας, αντιπολεμικά μηνύματα).",
+                "wom_history_p3_desc": "Το άνοιγμα της Ιαπωνίας στη Δύση στα τέλη του 19ου αιώνα έφερε επιρροές από τα **δυτικά κόμικς**. Ωστόσο, οι Ιάπωνες καλλιτέχνες διατήρησαν στοιχεία της δικής τους παράδοσης. Ο **Β' Παγκόσμιος Πόλεμος** είχε σημαντικό αντίκτυπο, με τα manga να χρησιμοποιούνται αρχικά για **προπαγάνδα** και αργότερα να αντικατοπτρίσουν τις ανησυχίες της εποχής (π.χ., σχέση ανθρώπου-τεχνολογίας, αντιπολεμικά μηνύματα).",
                 "wom_history_era3_title": "Επιρροές & Πόλεμος",
                 "wom_history_p4_desc": "Η **μεταπολεμική περίοδος** σηματοδότησε την \"**χρυσή εποχή**\" των **manga**. Καθιερώθηκαν συμβάσεις όπως η **ασπρόμαυρη εκτύπωση** (λόγω οικονομικών περιορισμών αρχικά), η έκδοση σε **εβδομαδιαία περιοδικά** και η συλλογή δημοφιλών σειρών σε **τόμους tankōbon**. Η **βιομηχανία** άνθισε παράλληλα με την ιαπωνική οικονομία, και τα manga άρχισαν να αναγνωρίζονται ως σημαντική μορφή **ψυχαγωγίας** και **τέχνης**, οδηγώντας συχνά σε **προσαρμογές anime**, ταινίες και παιχνίδια.",
                 "wom_history_era4_title": "Μεταπολεμική Χρυσή Εποχή",
@@ -1112,7 +1303,9 @@
                 "wom_demographics_josei_title": "Josei (女性)",
                 "wom_demographics_josei_desc": "Για **νεαρές γυναίκες** (18+) (π.χ., <em>Nodame Cantabile</em> της Tomoko Ninomiya, <em>Paradise Kiss</em> της Ai Yazawa, <em>NANA</em> της Ai Yazawa). Εξερευνούν **ρεαλιστικές σχέσεις**, την **καθημερινότητα** και τις **επαγγελματικές φιλοδοξίες**.",
                 "wom_reception_title": "Πρόσληψη των Manga στην Ελλάδα και Διεθνώς",
-                "wom_reception_p1": "Τα **manga** έχουν κατακτήσει μια σημαντική θέση στην **παγκόσμια ποπ κουλτούρα**, με την **αγορά των anime** να παίζει καθοριστικό ρόλο στη διάδοσή τους. Σε χώρες της Ευρώπης όπως η **Ιταλία**, η **Γαλλία** και η **Γερμανία**, υπάρχει μια **ανεπτυγμένη αγορά επίσημων μεταφράσεων manga**. Αντίθετα, στην **Ελλάδα**, παρά το αυξανόμενο ενδιαφέρον, παρατηρείται ένα **σημαντικό κενό** τόσο στις **επίσημες εκδόσεις** όσο και στις **ανεπίσημες μεταφράσεις από φαν** (**scanlations**). Οι ελάχιστες προσπάθειες που γίνονται συχνά χαρακτηρίζονται από **ασυνέχεια**. Αυτή η **έλλειψη ελληνικού μεταφρασμένου περιεχομένου** και η **περιορισμένη έρευνα** πάνω στις **μεταφραστικές προκλήσεις** από τα Ιαπωνικά (μέσω Αγγλικών) στα Ελληνικά αποτέλεσαν βασικό κίνητρο για την παρούσα διπλωματική εργασία.",
+                "wom_reception_p1": "Τα **manga** έχουν κατακτήσει μια σημαντική θέση στην **παγκόσμια ποπ κουλτούρα**, με την **αγορά των anime** να παίζει καθοριστικό ρόλο στη διάδοσή τους. Σε χώρες της Ευρώπης όπως η **Ιταλία**, η **Γαλλία** και η **Γερμανία**, υπάρχει μια **ανεπτυγμένη αγορά επίσημων μεταφράσεων manga**. Αντίθετα, στην **Ελλάδα**, παρά το αυξανόμενο ενδιαφέρον, παρατηρείται ένα **σημαντικό κενό** τόσο στις **επίσημες εκδόσεις** όσο και στις **ανεπίσημες μεταφράσεις από φαν** (**scanlations**).",
+                "wom_reception_p2": "Οι ελάχιστες προσπάθειες που γίνονται συχνά χαρακτηρίζονται από **ασυνέχεια** και **περιορισμένη διαθεσιμότητα**. Αυτή η **έλλειψη ελληνικού μεταφρασμένου περιεχομένου** και η **περιορισμένη έρευνα** πάνω στις **μεταφραστικές προκλήσεις** από τα Ιαπωνικά (μέσω Αγγλικών) στα Ελληνικά αποτέλεσαν βασικό κίνητρο για την παρούσα διπλωματική εργασία.",
+                "wom_reception_p3": "Ωστόσο, το **αυξανόμενο ενδιαφέρον** του ελληνικού κοινού για τα manga, όπως φάνηκε και από την έρευνα, υποδηλώνει μια **σημαντική ευκαιρία** για την ανάπτυξη της αγοράς και την κάλυψη αυτού του κενού με **ποιοτικές μεταφράσεις**.",
                 "wom_explore_btn": "✨ Εξερεύνησε Βαθύτερα τα Manga ✨",
                 "section_title_art_of_translation": "翻訳の技術 - Η Τέχνη της Μετάφρασης",
                 "aot_translator_role_title": "Ο Μεταφραστής ως Πολιτισμικός Διαμεσολαβητής",
@@ -1160,7 +1353,7 @@
                 "rd_survey_findings_title": "Ευρήματα Ερωτηματολογίου: Η Οπτική των Ελλήνων Αναγνωστών",
                 "rd_survey_findings_intro": "Οι **απαντήσεις** των **38 συμμετεχόντων** στο **ερωτηματολόγιο** έδωσαν σημαντικές **ενδείξεις** για την **πρόσληψη** των **μεταφραστικών επιλογών**:",
                 "rd_survey_finding1": "**Τυπογραφία για Ένταση:** Η **συντριπτική πλειοψηφία** (**30 από 38 άτομα**) έκρινε ότι η **χρήση έντονης γραφής** και **μεγαλύτερου μεγέθους γραμμάτων** ήταν **χρήσιμη** για την **κατανόηση σκηνών** με **έντονη συναισθηματική φόρτιση**.",
-                "rd_survey_finding2": "**Αμετάφραστες Ονοματοποιίες:** Ένας **σημαντικός αριθμός αναγνωστών** δήλωσε ότι όχι μόνο **κατανοεί** τα **αμετάφραστα ιαπωνικά ηχητικά εφέ**, αλλά **προτιμά** και τη **διατήρησή** τους, θεωρώντας τα αναπόσπαστο κομμάτι της **αυθεντικότητας** και της **αισθητικής** των **manga**.",
+                "rd_survey_finding2": "**Αμετάφραστες Ονοματοποιίες:** Ένας **σημαντικός αριθμός αναγνωστών** δήλωσε ότι όχι μόνο **κατανοεί** τα **αμετάφραστα ιαπωνικά ηχητικά εφέ**, αλλά **προτιμά** και τη **διατήρησή** τους, θεωρώντας τα αναπόσπαστο κομμάτι της **αυθεντικότητας** και της **οπτικής αισθητικής** των **manga**.",
                 "rd_survey_finding3": "**Τιμητικές Προσφωνήσεις:** Η **πλειοψηγία** τάχθηκε υπέρ της **μεταγραφής** των **τιμητικών προσφωνήσεων** στα ελληνικά, εκτιμώντας ότι **βοηθούν** στην **κατανόηση** της **ιαπωνικής κουλτούρας** και προσδίδουν **αυθεντικότητα** στο κείμενο.",
                 "rd_survey_finding4": "**Μεταφραστικές Σημειώσεις:** Οι **σημειώσεις** κρίθηκαν ως **ιδιαίτερα χρήσιμες** έως **απαραίτητες** για την **κατανόηση** τόσο των **τιμητικών προσφωνήσεων** όσο και άλλων **πολιτισμικά ειδικών στοιχείων** που θα παρέμεναν ασαφή.",
                 "rd_survey_finding5": "**Ροή και Φυσικότητα Μετάφρασης:** Οι περισσότεροι συμμετέχοντες χαρακτήρισαν τις **μεταφράσεις** ως έχουσες **φυσική ροή** στα ελληνικά. Ωστόσο, ένα **αξιόλογο ποσοστό** αναγνώρισε ότι πρόκειται για **μεταφρασμένο κείμενο**, πιθανόν λόγω της **έντονης πολιτισμικής σφραγίδας** των **manga** που δύσκολα εξαλίφεται πλήρως.",
@@ -1235,7 +1428,9 @@
                 "wom_demographics_josei_title": "Josei (女性)",
                 "wom_demographics_josei_desc": "For **young women** (18+) (e.g., <em>Nodame Cantabile</em> by Tomoko Ninomiya, <em>Paradise Kiss</em> by Ai Yazawa, <em>NANA</em> by Ai Yazawa). Explore **realistic relationships**, **daily life**, and **professional ambitions**.",
                 "wom_reception_title": "Reception of Manga in Greece and Internationally",
-                "wom_reception_p1": "**Manga** have secured a significant place in **global pop culture**, with the **anime market** playing a crucial role in their dissemination. In European countries like **Italy**, **France**, and **Germany**, there is a **developed market for official manga translations**. In contrast, in **Greece**, despite growing interest, a **significant gap** is observed in both **official publications** and **fan translations** (**scanlations**). The few efforts made are often characterized by **discontinuity**. This **lack of Greek translated content** and **limited research** on the **translation challenges** from Japanese (via English) to Greek were primary motivations for this thesis.",
+                "wom_reception_p1": "**Manga** have secured a significant place in **global pop culture**, with the **anime market** playing a crucial role in their dissemination. In European countries like **Italy**, **France**, and **Germany**, there is a **developed market for official manga translations**. In contrast, in **Greece**, despite growing interest, a **significant gap** is observed in both **official publications** and **fan translations** (**scanlations**).",
+                "wom_reception_p2": "The few efforts made are often characterized by **discontinuity** and **limited availability**. This **lack of Greek translated content** and **limited research** on the **translation challenges** from Japanese (via English) to Greek were primary motivations for this thesis.",
+                "wom_reception_p3": "However, the **growing interest** of the Greek audience in manga, as also shown by the research, indicates a **significant opportunity** for market development and filling this gap with **quality translations**.",
                 "wom_explore_btn": "✨ Explore Manga Deeper ✨",
                 "section_title_art_of_translation": "翻訳の技術 - The Art of Translation",
                 "aot_translator_role_title": "The Translator as a Cultural Mediator",
@@ -1258,7 +1453,7 @@
                 "aot_challenge_translation_notes_desc": "Often used to **explain cultural references** or **linguistic idioms**. **Scanlation readers** often appreciate them (Fabbretti 2016).",
                 "aot_challenge_strategies": "Translation Strategies",
                 "aot_challenge_strategies_desc": "**Translators** choose between **foreignization** (**foreignization**) and **domestication** (**domestication**). In **manga**, **fans** often prefer **foreignization** (Sell 2011).",
-                "aot_analyze_btn": "✨ Ανάλυση",
+                "aot_analyze_btn": "✨ Analyze",
                 "section_title_research_methodology": "研究方法 - Research: Methodological Issues",
                 "rm_aims_questions_title": "Aims and Research Questions",
                 "rm_aims_intro": "This **research** aimed to **identify** the main **translation challenges** in transferring English **scanlated manga** into Greek and to **propose methods** for addressing them. Key **research questions** were:",
@@ -1358,7 +1553,9 @@
                 "wom_demographics_josei_title": "女性漫画 (女性)",
                 "wom_demographics_josei_desc": "**若い女性**向け（18歳以上）（例：二ノ宮知子の<em>のだめカンタービレ</em>、矢沢あいの<em>Paradise Kiss</em>、矢沢あいの<em>NANA</em>）。**現実的な関係**、**日常生活**、**職業上の野心**を探求します。",
                 "wom_reception_title": "ギリシャおよび国際的な漫画の受容",
-                "wom_reception_p1": "**漫画**は**世界のポップカルチャー**において重要な位置を占めており、**アニメ市場**はその普及に決定的な役割を果たしています。**イタリア**、**フランス**、****ドイツ**などのヨーロッパ諸国では、**公式の漫画翻訳市場**が発展しています。対照的に、**ギリシャ**では関心が高まっているにもかかわらず、**公式出版物**と**ファン翻訳**（**スキャンレーション**）の両方で**大きなギャップ**が見られます。行われている数少ない試みは、しばしば**継続性に欠けています**。この**ギリシャ語翻訳コンテンツの欠如**と、**日本語**（英語経由）から**ギリシャ語**への**翻訳課題**に関する**限られた研究**が、本修士論文の主な動機となりました。",
+                "wom_reception_p1": "**漫画**は**世界のポップカルチャー**において重要な位置を占めており、**アニメ市場**はその普及に決定的な役割を果たしています。**イタリア**、**フランス**、****ドイツ**などのヨーロッパ諸国では、**公式の漫画翻訳市場**が発展しています。対照的に、**ギリシャ**では関心が高まっているにもかかわらず、**公式出版物**と**ファン翻訳**（**スキャンレーション**）の両方で**大きなギャップ**が見られます。",
+                "wom_reception_p2": "行われている数少ない試みは、しばしば**継続性に欠けています**。この**ギリシャ語翻訳コンテンツの欠如**と、**日本語**（英語経由）から**ギリシャ語**への**翻訳課題**に関する**限られた研究**が、本修士論文の主な動機となりました。",
+                "wom_reception_p3": "しかし、**ギリシャの読者**の漫画への**関心**が高まっていることは、研究によっても示されており、市場の発展と、**質の高い翻訳**によってこのギャップを埋めるための**重要な機会**を示唆しています。",
                 "wom_explore_btn": "✨ 漫画をもっと深く探る ✨",
                 "section_title_art_of_translation": "翻訳の技術",
                 "aot_translator_role_title": "文化の仲介者としての翻訳者",
@@ -1366,7 +1563,7 @@
                 "aot_translator_role_p2": "**翻訳の質**は、作品の**受容**、意味の**理解**、そして外国人読者の**美的楽しみに直接影響**します。翻訳者は**キャラクター**、彼らの反応、**心理**を研究し、**対話の直接性**と**作者の意図**を伝えるように努めます。Schodt（2012）が指摘するように、漫画がいかにうまく翻訳されても、それは**日本の文化的産物**であり続け、未経験者には最初は異質に感じられる可能性があり、新しい「**視覚的および書かれた語彙**」の学習を必要とします。",
                 "aot_scanlation_title": "スキャンレーション：ファンによる非公式翻訳",
                 "aot_scanlation_p1": "「**スキャンレーティング**」（スキャンと翻訳の合成語）とは、**漫画のファン**が原作（通常は日本語）を入手し、**スキャン**し、画像をデジタル的に**クリーンアップ**し、元のテキストを**削除**し、**翻訳**し、翻訳を「**クリーンな**」ページに**植字**するプロセスです。最終製品は**オンラインで無料で配布**されます。",
-                "aot_scanlation_p2": "**著作権の問題**にもかかわらず、**スキャンレーション**は非常に**人気**があり、日本国外の多くの読者が特定のタイトルに**初めて**（または唯一）**触れる機会**となることがよくあります。その人気の理由には、**リリースの速さ**（公式版よりはるかに速いことが多い）、**広範な入手可能性**、**公式にライセンスされていないタイトルのカバー**が含まれます。**漫画業界**は、この活動を違法と見なしているものの、しばしばそれを**容認**したり、潜在的な**公式ライセンス**のための**人気指標**として利用したりしています（Lee 2009）。",
+                "aot_scanlation_p2": "**著作権の問題**にもかかわらず、**スキャンレーション**は非常に**人気**があり、日本国外の多くの読者が特定のタイトルに**初めて**（または唯一）**触れる機会**となることがよくあります。その人気の理由には、**リリースの速さ**（公式版よりはるかに速いことが多い）、**広範な入手可能性**、**公式にライセンスされていないタイトルのカバー**が含まれます。**漫画業界**は、この活動を違法と見なしているものの、しばしばそれを**容認**したり、潜在的な**公式ライセンス**のための**人気指標**として利用したりします（Lee 2009）。",
                 "aot_challenges_title": "漫画翻訳における実際的な問題と課題",
                 "aot_challenges_intro": "**漫画翻訳**は、その**複雑な記号論的構造**（Jüngst 2008）と**文化的特異性**のために、独特の**課題**を提示します。主な問題点には以下が含まれます。",
                 "aot_challenge_reading_direction": "読み方向とレイアウト",
@@ -1395,7 +1592,7 @@
                 "rm_procedure_p2": "**翻訳課題**の**分析**は、**主題分析法**に基づいて行われました。**課題**は、**言語的問題**と**文化的問題**という2つの広範な**テーマ**に分類されました。読者の**意見**を収集するために、**翻訳された抜粋**を最初に読んだ**38人のギリशा人読者**に**匿名**の**オンラインアンケート**（Googleフォーム経由）が配布されました。彼らの**回答**は**量的**に**分析**されました。",
                 "section_title_results_discussion": "結果と考察",
                 "rd_main_challenges_title": "特定された主な翻訳課題",
-                "rd_main_challenges_intro": "**翻訳プロセス**は特定の**課題**を浮き彫りにし、それらは次のように分類されました。",
+                "rd_main_challenges_intro": "翻訳プロセスでは、以下のように分類される特定の課題が浮き彫りになりました。",
                 "rd_linguistic_issues_title": "言語的問題：",
                 "rd_linguistic_issue1": "**激しい瞬間の表現：**音や動きなしに**激しさ**（叫び声、爆発、感情的ストレス）を伝えることの**難しさ**。採用された解決策は、**太字**、**大きなフォントサイズ**、適切な**句読点**の使用でした。",
                 "rd_linguistic_issue2": "**オノマトペと効果音（SFX）：****日本の擬音語・擬態語**は、しばしば英語の**スキャンレーター**によって**未翻訳**のままにされます。本研究は同じ**戦略**（日本のSFXを翻訳しない）に従い、それらを**真正性**と**漫画の視覚的美学**の不可欠な部分と見なしました。",
@@ -1423,16 +1620,7 @@
                 "full_thesis_button_text": "PDFを表示",
                 "section_title_author": "著者について",
                 "author_name": "アタナシオス・ヴァシレイアディス",
-                "author_bio": "**アタナシオス・ヴァシレイアディस**は、**アテネ国立カポディストリアス大学**で**翻訳・通訳の修士号**を取得し、**英語英文学の学士号**を取得しています。彼は**日本文化**、**アニメ**、**漫画**に特別な**愛情**を持っており、これらが本**修士論文**の**インスピレーション**となりました。",
-                "modal_explore_title": "漫画をもっと深く探る ✨",
-                "modal_explore_prompt": "漫画関連の用語（例：「少年」、「浮世絵」、漫画家の名前、漫画のタイトル）を入力して詳細をご覧ください。",
-                "modal_explore_input_placeholder": "例：少女漫画、鳥山明、文化的影響...",
-                "modal_explore_input_empty": "検索用語を入力してください。",
-                "modal_api_error_message": "APIエラー：",
-                "modal_api_no_response": "応答を取得できませんでした、または応答が空でした。もう一度お試しください。",
-                "modal_info_title_prefix": "分析：",
-                "footer_copyright": "&copy; 2022 アタナシオス・ヴァシレイアディス。無断複写・転載を禁じます。",
-                "footer_design_note": "日本文化に触発されてデザインされたウェブサイト。"
+                "author_bio": "アタナシオス・ヴァシレイアディスは、アテネ国立カポディストリアス大学で翻訳・通訳の修士号を取得し、英語英文学の学士号を取得しています。彼は日本文化、アニメ、漫画に特別な愛情を持っており、これらが本修士論文のインスピレーションとなりました。"
             }
         };
 
@@ -1583,7 +1771,7 @@
                 navbar.style.opacity = '0';
                 navbar.style.transform = 'translateY(-100%)'; 
                 if (navbarSakuraContainer) {
-                    navbarSakuraContainer.style.opacity = '0'; // Hide navbar sakura
+                    navbarSakuraContainer.style.opacity = '0';
                 }
             }
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; 
@@ -1701,7 +1889,7 @@
             submitMangaKeywordBtn.onclick = function() {
                 const keyword = mangaKeywordInput.value.trim();
                 if (keyword) {
-                    const prompt = `Για τον όρο σχετικό με τα manga: '${keyword}', δώσε μια σύντομη και περιεκτική επισκόπηση (περίπου 3-4 κύριες προτάσεις, όχι πάνω από 80 λέξεις συνολικά). Ανέφερε 1-2 βασικά παραδείγματα σχετικών manga, δημιουργών ή πολιτισμικών εννοιών. Η απάντηση να είναι στα ${currentLanguageName}. Μορφοποίησε τις σημαντικές λέξεις-κλειδιά με **έντονη γραφή** και τυχόν ενδιάμεσους τίτλους με ## Markdown στυλ. Κάνε την απάντηση ευανάγνωστη και άμεσα κατανοητή.`;
+                    const prompt = `Για τον όρο σχετικό με τα manga: '${keyword}', δώσε μια σύντομη και περιεκτική επισκόπηση (περίπου 3-4 κύριες προτάσεις, όχι πάνω από 80 λέξεις συνολικά). Ανέφερε 1-2 βασικά παραδείγματα σχετικών manga, δημιουργών ή πολιτισμικών εννοιών. Η απάντηση να είναι στα ${currentLanguageName}. Μορφοποίησε τις σημαντικές λέξεις-κλειδιά με **έντονη γραφή** και τυχόν ενδιάμεπους τίτλους με ## Markdown στυλ. Κάνε την απάντηση ευανάγνωστη και άμεσα κατανοητή.`;
                     callGeminiAPI(prompt, geminiResponseArea, geminiResponseLoading);
                 } else {
                     geminiResponseArea.innerHTML = translations[currentLanguage]['modal_explore_input_empty'] || translations['el']['modal_explore_input_empty'];
@@ -1715,11 +1903,25 @@
                 const challengeKey = button.dataset.challenge; 
                 const challengeTitleKey = `aot_challenge_${challengeKey}_title`;
                 const challengeText = translations[currentLanguage][challengeTitleKey] || translations['el'][challengeTitleKey] || challengeKey;
-
+                
                 infoModalTitle.innerHTML = `${translations[currentLanguage]['modal_info_title_prefix'] || translations['el']['modal_info_title_prefix']}${challengeText}`; 
                 infoModal.style.display = "flex"; 
                 
-                const prompt = `Εξήγησε σύντομα και περιεκτικά (περίπου 4-5 κύριες προτάσεις, όχι πάνω από 100 λέξεις συνολικά) τις κύριες προκλήσεις και τις συνήθεις στρατηγικές για την μετάφραση του εξής θέματος στα manga από τα Ιαπωνικά (μέσω Αγγλικών) στα ${currentLanguageName}: "${challengeText}". Δώσε 1-2 χαρακτηριστικά παραδείγματα για να γίνουν πιο κατανοητές οι έννοιες. Η απάντηση να είναι στα ${currentLanguageName}. Μορφοποίησε τις σημαντικές λέξεις-κλειδιά με **έντονη γραφή** και τυχόν ενδιάμεσους τίτλους με ## Markdown στυλ. Κάνε την απάντηση ευανάγνωστη και άμεσα κατανοητή.`;
+                // Refined prompt for Gemini API
+                let prompt = '';
+                if (challengeKey === 'reading_direction') {
+                    prompt = `Εξήγησε σύντομα (περίπου 4-5 κύριες προτάσεις, όχι πάνω από 100 λέξεις συνολικά) γιατί η κατεύθυνση ανάγνωσης και η διάταξη των καρέ αποτελούν πρακτικά ζητήματα στη μετάφραση manga από τα Ιαπωνικά (μέσω Αγγλικών) στα ${currentLanguageName}. Δώσε 1-2 χαρακτηριστικά παραδείγματα. Η απάντηση να είναι στα ${currentLanguageName}. Μορφοποίησε τις σημαντικές λέξεις-κλειδιά με **έντονη γραφή** και τυχόν ενδιάμεσους τίτλους με ## Markdown στυλ.`;
+                } else if (challengeKey === 'typography') {
+                    prompt = `Εξήγησε σύντομα (περίπου 4-5 κύριες προτάσεις, όχι πάνω από 100 λέξεις συνολικά) γιατί η τυπογραφία (επιλογή γραμματοσειράς) αποτελεί πρακτικό ζήτημα στη μετάφραση manga από τα Ιαπωνικά (μέσω Αγγλικών) στα ${currentLanguageName}. Δώσε 1-2 χαρακτηριστικά παραδείγματα. Η απάντηση να είναι στα ${currentLanguageName}. Μορφοποίησε τις σημαντικές λέξεις-κλειδιά με **έντονη γραφή** και τυχόν ενδιάμεσους τίτλους με ## Markdown στυλ.`;
+                } else if (challengeKey === 'onomatopoeia') {
+                    prompt = `Εξήγησε σύντομα (περίπου 4-5 κύριες προτάσεις, όχι πάνω από 100 λέξεις συνολικά) γιατί οι ονοματοποιίες και οι μιμητικές λέξεις αποτελούν πρακτικά ζητήματα στη μετάφραση manga από τα Ιαπωνικά (μέσω Αγγλικών) στα ${currentLanguageName}. Δώσε 1-2 χαρακτηριστικά παραδείγματα. Η απάντηση να είναι στα ${currentLanguageName}. Μορφοποίησε τις σημαντικές λέξεις-κλειδιά με **έντονη γραφή** και τυχόν ενδιάμεσους τίτλους με ## Markdown στυλ.`;
+                } else if (challengeKey === 'cultural_elements') {
+                    prompt = `Εξήγησε σύντομα (περίπου 4-5 κύριες προτάσεις, όχι πάνω από 100 λέξεις συνολικά) γιατί τα πολιτισμικά στοιχεία (όπως τιμητικές προσφωνήσεις, φαγητά, έθιμα) αποτελούν πρακτικά ζητήματα στη μετάφραση manga από τα Ιαπωνικά (μέσω Αγγλικών) στα ${currentLanguageName}. Δώσε 1-2 χαρακτηριστικά παραδείγματα. Η απάντηση να είναι στα ${currentLanguageName}. Μορφοποίησε τις σημαντικές λέξεις-κλειδιά με **έντονη γραφή** και τυχόν ενδιάμεσους τίτλους με ## Markdown στυλ.`;
+                } else if (challengeKey === 'translation_notes') {
+                    prompt = `Εξήγησε σύντομα (περίπου 4-5 κύριες προτάσεις, όχι πάνω από 100 λέξεις συνολικά) πώς οι μεταφραστικές σημειώσεις είναι ένα σημαντικό εργαλείο για να βοηθήσουν τον μεταφραστή να εξηγήσει πολιτισμικά στοιχεία και γλωσσικούς ιδιωματισμούς στο κοινό των manga που μεταφράζονται από τα Ιαπωνικά (μέσω Αγγλικών) στα ${currentLanguageName}. Δώσε 1-2 χαρακτηριστικά παραδείγματα. Η απάντηση να είναι στα ${currentLanguageName}. Μορφοποίησε τις σημαντικές λέξεις-κλειδιά με **έντονη γραφή** και τυχόν ενδιάμεσους τίτλους με ## Markdown στυλ.`;
+                } else if (challengeKey === 'strategies') {
+                    prompt = `Εξήγησε σύντομα (περίπου 4-5 κύριες προτάσεις, όχι πάνω από 100 λέξεις συνολικά) γιατί οι στρατηγικές μετάφρασης (ξενισμός vs οικειοποίηση) είναι σημαντικές στη μετάφραση manga από τα Ιαπωνικά (μέσω Αγγλικών) στα ${currentLanguageName}. Δώσε 1-2 χαρακτηριστικά παραδείγματα. Η απάντηση να είναι στα ${currentLanguageName}. Μορφοποίησε τις σημαντικές λέξεις-κλειδιά με **έντονη γραφή** και τυχόν ενδιάμεσους τίτλους με ## Markdown στυλ.`;
+                }
                 callGeminiAPI(prompt, infoModalResponseArea, infoModalLoading); 
             }
         });
