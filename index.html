@@ -77,7 +77,6 @@
             font-size: 2.75rem; /* Base size */
             line-height: 1.2;
             color: #E53E3E; 
-            text-shadow: 1px 1px #495057;
             /* Initial shadow for 3D effect */
             text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
             transition: text-shadow 0.1s ease-out; /* Smooth transition for shadow */
@@ -109,13 +108,13 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
             position: fixed;
             width: 100%;
-            z-index: 50;
+            z-index: 50; /* Ensure navbar is above other content but below modals */
             top: 0;
             transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
             opacity: 0;
             transform: translateY(-100%);
-            overflow: hidden; 
-            height: 70px; 
+            overflow: visible; /* Changed from hidden to allow dropdown to be visible */
+            height: 70px; /* Default height for desktop */
         }
         #navbar .container {
             position: relative;
@@ -132,16 +131,11 @@
             color: #D9534F; 
             text-decoration: none;
         }
-         @media (max-width: 768px) {
-            .nav-title { font-size: 1.5rem; }
-          }
-
-        .nav-links-container {
+        
+        .nav-links-container { /* Default for desktop */
             display: flex;
             align-items: center;
-            /* Hide by default on mobile, show with JS toggle */
-            flex-direction: row; /* Default for larger screens */
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            flex-direction: row;
         }
 
         .nav-link {
@@ -159,6 +153,10 @@
             transform: translateY(-2px);
         }
         
+        .hamburger-menu { /* Hidden on desktop by default */
+            display: none;
+        }
+
         /* Language Switcher Styles */
         .lang-switcher button {
             background-color: transparent;
@@ -176,44 +174,52 @@
             background-color: #D9534F;
             color: white;
         }
+
+        /* Mobile Specific Styles */
         @media (max-width: 768px) {
-             .lang-switcher {
-               position: absolute;
-               top: 10px;
-               right: 10px;
-             }
-             #navbar .container { /* Allow space for lang switcher on mobile */
-               padding-right: 70px; /* Adjust if needed */
+            #navbar {
+                height: auto; /* Allow height to adjust to content on mobile */
+                min-height: 60px; /* Minimum height for mobile */
+           }
+             .nav-title { font-size: 1.5rem; }
+             #navbar .container {
+                padding-right: 1rem; /* Adjusted padding for mobile to accommodate hamburger and lang switcher */
              }
              .nav-links-container {
-                display: none; /* Hide nav links by default on mobile */
-                width: 100%;
-                flex-direction: column;
-                align-items: flex-start;
-                background-color: #FFFFFF; /* Match navbar background */
-                position: absolute;
-                top: 70px; /* Below navbar */
-                left: 0;
-                box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-                padding: 1rem 0;
+                 display: none; /* Hide nav links by default on mobile */
+                 width: 100%;
+                 flex-direction: column;
+                 align-items: flex-start;
+                 background-color: #FFFFFF; 
+                 position: absolute;
+                 top: 100%; /* Position below the navbar dynamically */
+                 left: 0;
+                 box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+                 padding: 1rem 0;
+                 z-index: 55; /* Ensure it's above hero content but below modals */
              }
              .nav-links-container.active {
-                display: flex; /* Show when active */
+                 display: flex; /* Show when active */
              }
-             .nav-link {
-                width: 100%;
-                padding: 0.75rem 1.5rem;
-                text-align: left;
+             .nav-link { /* Mobile specific nav link styling */
+                 width: 100%;
+                 padding: 0.75rem 1.5rem;
+                 text-align: left;
+                 font-size: 0.9rem; /* Slightly larger for better tap targets */
              }
              .hamburger-menu {
-                display: block; /* Show hamburger on mobile */
-                cursor: pointer;
-                z-index: 60; /* Above nav links */
-                margin-left: 1rem;
+                 display: block; /* Show hamburger on mobile */
+                 cursor: pointer;
+                 z-index: 60; /* Above nav links container */
+                 margin-left: 1rem; 
              }
-        }
-        .hamburger-menu {
-            display: none; /* Hide hamburger on desktop */
+             .lang-switcher { /* Adjust lang switcher for mobile */
+                margin-left: 0.5rem; /* Space from hamburger */
+             }
+             /* Container for hamburger and lang switcher to align them correctly */
+            #navbar .container > .flex.items-center {
+                margin-left: auto; /* Pushes this group to the right */
+            }
         }
 
 
@@ -274,6 +280,7 @@
             overflow: hidden;
             opacity: 0; /* Hidden by default */
             transition: opacity 0.3s ease-in-out;
+            z-index: -1; /* Ensure petals are behind navbar content */
         }
         #navbar .navbar-sakura-petal {
             position: absolute;
@@ -366,10 +373,12 @@
         }
 
         .text-content-jp-accent { font-family: 'M PLUS Rounded 1c', sans-serif; }
-        section { padding-top: 90px; margin-top: -90px; }
-        header#hero + main section:first-of-type { padding-top: 1.5rem; margin-top: 0; }
+        section { padding-top: 90px; margin-top: -90px; } /* For anchor scrolling offset */
+        header#hero + main section:first-of-type { padding-top: 1.5rem; margin-top: 0; } /* Remove offset for first section after hero */
+        
         .manga-panel ul { list-style-position: inside; margin-left: 0.5rem; }
         .manga-panel ul li { margin-bottom: 0.5rem; }
+
         @media (max-width: 768px) {
             .img-wrap-left, .img-wrap-right, .img-centered-block { float: none; max-width: 90%; margin-left: auto; margin-right: auto; margin-bottom: 1.5rem; }
             .manga-title { font-size: 2rem; }
@@ -377,14 +386,8 @@
             .section-title { font-size: 2rem; margin-bottom: 2rem;}
             .manga-panel-title { font-size: 1.5rem; }
             .text-content { font-size: 1rem; } 
-            .nav-link { font-size: 0.70rem; padding: 0.3rem 0.4rem;} /* Further reduced nav link size */
-            #navbar .container .space-x-1 { margin-left: 0.05rem; margin-right: 0.05rem;} 
-            #navbar { height: auto; min-height: 60px; padding-bottom: 5px; /* Adjust navbar height for mobile */ }
-             @keyframes fall { 
-                0% { transform: translateY(-20px) translateX(0px) rotate(0deg); opacity: 0; }
-                10% { opacity: 1; }
-                90% { opacity: 0.8; }
-                100% { transform: translateY(70px) translateX(var(--sway)) rotate(var(--rotation)); opacity: 0; }
+            @keyframes fall { /* Sakura fall animation adjustment for smaller screens if needed */
+                100% { transform: translateY(80vh) translateX(var(--sway)) rotate(var(--rotation)); opacity: 0; } /* Fall less than full viewport height */
             }
         }
         /* Styles for text blocks within panels */
@@ -408,7 +411,7 @@
             padding: 1rem; /* Slightly reduced padding */
             margin-bottom: 1rem; /* Space between blocks */
             box-shadow: 0 1px 4px rgba(0,0,0,0.02); /* Very subtle shadow */
-            font-size: 1rem; /* Increased font size for survey findings */
+            font-size: 1rem; 
             line-height: 1.6;
             color: #343A40;
             transition: all 0.2s ease-in-out;
@@ -427,35 +430,34 @@
             background-color: #F8F9FA; 
             border: 1px dashed #ADB5BD; 
             border-radius: 0.5rem; 
-            padding: 2rem; /* Increased padding for larger look */
+            padding: 1.5rem; /* Adjusted padding */
             margin-top: 1rem; 
             margin-bottom: 1rem; 
-            transition: all 0.2s ease-in-out; /* Keep transition for color/shadow, remove transform */
-            border-left: 8px solid; /* For distinct colors */
+            transition: all 0.2s ease-in-out;
+            border-left: 8px solid; 
         }
         .sub-panel:hover {
-            /* Removed transform to prevent layout shift */
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
         }
         /* Specific colors for sub-panels in challenges section */
-        .sub-panel:nth-child(1) { border-left-color: #DB7093; background-color: #FFF0F5; } /* Pink */
-        .sub-panel:nth-child(2) { border-left-color: #87CEEB; background-color: #E6F3FF; } /* Light Blue */
-        .sub-panel:nth-child(3) { border-left-color: #4DB6AC; background-color: #E0F2F1; } /* Teal */
-        .sub-panel:nth-child(4) { border-left-color: #FFD700; background-color: #FFF9C4; } /* Gold */
-        .sub-panel:nth-child(5) { border-left-color: #D9534F; background-color: #FEEAFA; } /* Reddish */
-        .sub-panel:nth-child(6) { border-left-color: #4A55A2; background-color: #E6E6FA; } /* Indigo */
+        .sub-panel:nth-child(1) { border-left-color: #DB7093; background-color: #FFF0F5; } 
+        .sub-panel:nth-child(2) { border-left-color: #87CEEB; background-color: #E6F3FF; } 
+        .sub-panel:nth-child(3) { border-left-color: #4DB6AC; background-color: #E0F2F1; } 
+        .sub-panel:nth-child(4) { border-left-color: #FFD700; background-color: #FFF9C4; } 
+        .sub-panel:nth-child(5) { border-left-color: #D9534F; background-color: #FEEAFA; } 
+        .sub-panel:nth-child(6) { border-left-color: #4A55A2; background-color: #E6E6FA; } 
 
 
         .sub-panel-title { 
             font-family: 'M PLUS Rounded 1c', sans-serif; 
             font-weight: 700; 
             color: #E53E3E; 
-            margin-bottom: 0.75rem; /* Increased margin */
-            font-size: 1.35rem; /* Increased font size */
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem; /* Adjusted font size */
         }
-        .sub-panel .text-content.text-sm { /* Targeting text inside sub-panels */
-            font-size: 1.15rem; /* Increased font size for sub-panel text */
-            line-height: 1.7;
+        .sub-panel .text-content { /* Targeting text inside sub-panels */
+            font-size: 1rem; /* Adjusted font size for sub-panel text */
+            line-height: 1.6;
         }
 
         /* Styles for demographic category cards */
@@ -470,7 +472,7 @@
             flex-direction: column;
             align-items: flex-start;
             text-align: left;
-            margin-bottom: 1rem; /* Space between cards when stacked */
+            margin-bottom: 1rem; 
         }
         .demographic-card:last-child {
             margin-bottom: 0;
@@ -491,13 +493,11 @@
             line-height: 1.6;
             color: #343A40;
         }
-        /* Removed .demographic-card-icon as emojis are removed */
-        /* Specific colors for demographic cards (optional, can be expanded) */
-        .demographic-card.kodomomuke { border-left: 5px solid #FFD700; } /* Gold */
-        .demographic-card.shonen { border-left: 5px solid #00BFFF; } /* Deep Sky Blue */
-        .demographic-card.shojo { border-left: 5px solid #FF69B4; } /* Hot Pink */
-        .demographic-card.seinen { border-left: 5px solid #8B0000; } /* Dark Red */
-        .demographic-card.josei { border-left: 5px solid #8A2BE2; } /* Blue Violet */
+        .demographic-card.kodomomuke { border-left: 5px solid #FFD700; } 
+        .demographic-card.shonen { border-left: 5px solid #00BFFF; } 
+        .demographic-card.shojo { border-left: 5px solid #FF69B4; } 
+        .demographic-card.seinen { border-left: 5px solid #8B0000; } 
+        .demographic-card.josei { border-left: 5px solid #8A2BE2; } 
 
 
         /* Styles for clickable historical image cards */
@@ -514,7 +514,7 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            height: 250px; /* Fixed height for consistency in collage */
+            height: 250px; 
             overflow: hidden;
         }
         .history-image-card:hover {
@@ -524,27 +524,25 @@
         .history-image-card img {
             max-height: 100%;
             max-width: 100%;
-            object-fit: contain; /* Ensure image fits without cropping */
+            object-fit: contain; 
             border-radius: 0.5rem;
         }
 
-        /* Manpu collage size adjustment */
         .manpu-collage-container {
-            width: 100%; /* Make the container take full width */
+            width: 100%; 
             display: flex;
             flex-direction: column;
-            gap: 1rem; /* Space between images */
+            gap: 1rem; 
         }
         .manpu-collage-container img {
-            width: 100%; /* Make images fill container width */
+            width: 100%; 
             height: auto;
-            max-height: 250px; /* Limit height to keep it from being too big */
+            max-height: 250px; 
             object-fit: contain;
         }
 
-        /* Scanlation image size adjustment */
         .scanlation-image {
-            max-width: 80%; /* Make it wider */
+            max-width: 80%; 
             margin-left: auto;
             margin-right: auto;
             display: block;
@@ -554,7 +552,7 @@
         /* Gemini Modal Styles */
         .modal {
             position: fixed;
-            z-index: 100;
+            z-index: 1000; /* Ensure modals are above everything */
             left: 0;
             top: 0;
             width: 100%;
@@ -656,21 +654,21 @@
         /* --- Dark Mode Styles --- */
         @media (prefers-color-scheme: dark) {
             html {
-                background-color: #1A202C; /* Dark background for the entire page */
+                background-color: #1A202C; 
             }
             body {
-                background-color: #1A202C; /* Dark background */
-                color: #E2E8F0; /* Light text */
+                background-color: #1A202C; 
+                color: #E2E8F0; 
             }
             #navbar {
-                background-color: #2D3748; /* Darker navbar */
+                background-color: #2D3748; 
                 box-shadow: 0 2px 8px rgba(0,0,0,0.3);
             }
             .nav-link {
-                color: #CBD5E0; /* Lighter nav links */
+                color: #CBD5E0; 
             }
             .nav-link:hover {
-                background-color: #E53E3E; /* Still red on hover */
+                background-color: #E53E3E; 
                 color: #FFFFFF;
             }
             .lang-switcher button {
@@ -681,49 +679,56 @@
                 background-color: #E53E3E;
                 color: white;
             }
+            /* Mobile nav in dark mode */
+            @media (max-width: 768px) {
+                .nav-links-container { /* Base style for mobile nav in dark mode (when not active but for consistency) */
+                    background-color: #2D3748;
+                }
+                .nav-links-container.active {
+                    background-color: #2D3748; /* Dark background for mobile nav dropdown */
+                }
+                /* Hamburger icon color is handled by Tailwind's dark:text-gray-200 */
+            }
 
-            /* Ensure main content area is dark */
             main {
-                background-color: #1A202C; /* Explicitly set main background to dark */
+                background-color: #1A202C; 
             }
 
             .manga-panel {
-                background-color: #2D3748; /* Darker panel background */
-                border-color: #4A5568; /* Darker border */
+                background-color: #2D3748; 
+                border-color: #4A5568; 
                 box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
                 background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M 0 0 L 100 0 L 100 100 L 0 100 Z" fill="%232D3748"/><path d="M 0 0 L 100 100 M 100 0 L 0 100" stroke="%233A455A" stroke-width="0.5" stroke-opacity="0.5"/></svg>');
             }
             .manga-panel:hover {
                 box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
             }
-            /* Dark mode panel colors */
             .panel-color-1 { background-color: #3A3035; border-left-color: #DB7093; }
             .panel-color-2 { background-color: #2A3B4F; border-left-color: #87CEEB; }
             .panel-color-3 { background-color: #2A403F; border-left-color: #4DB6AC; }
             .panel-color-4 { background-color: #3A372E; border-left-color: #FFD700; }
 
             .manga-panel-title {
-                color: #E53E3E; /* Red title remains */
+                color: #E53E3E; 
                 border-bottom-color: #E53E3E;
             }
             .manga-title, .section-title {
-                color: #E53E3E; /* Red title remains */
-                text-shadow: 2px 2px 4px rgba(0,0,0,0.8); /* Darker shadow for contrast */
+                color: #E53E3E; 
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.8); 
             }
             .manga-subtitle {
-                color: #90CDF4; /* Lighter blue for subtitle */
+                color: #90CDF4; 
             }
             .text-content {
-                color: #CBD5E0; /* Lighter general text */
+                color: #CBD5E0; 
             }
             .text-content-block {
-                background-color: #2D3748; /* Darker block background */
+                background-color: #2D3748; 
                 border-color: #4A5568;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-                color: #E2E8F0; /* Ensure text inside is light */
+                color: #E2E8F0; 
             }
 
-            /* Dark mode for specific survey finding blocks */
             .survey-finding-block {
                 background-color: #2D3748;
                 border-color: #4A5568;
@@ -733,14 +738,13 @@
             .survey-finding-block:nth-child(odd) { border-left-color: #DB7093; background-color: #3A3035; } 
             .survey-finding-block:nth-child(even) { border-left-color: #87CEEB; background-color: #2A3B4F; }
 
-            /* Dark mode for sub-panels */
             .sub-panel {
                 background-color: #2D3748;
-                border-color: #4A5568;
+                border-color: #4A5568; /* Use a slightly lighter border for dashed effect if needed */
                 color: #CBD5E0;
             }
             .sub-panel-title {
-                color: #E53E3E; /* Red title remains */
+                color: #E53E3E; 
             }
             .sub-panel:nth-child(1) { border-left-color: #DB7093; background-color: #3A3035; }
             .sub-panel:nth-child(2) { border-left-color: #87CEEB; background-color: #2A3B4F; }
@@ -749,28 +753,24 @@
             .sub-panel:nth-child(5) { border-left-color: #D9534F; background-color: #3A2F3A; }
             .sub-panel:nth-child(6) { border-left-color: #4A55A2; background-color: #2F324A; }
 
-
-            /* Dark mode for demographic cards */
             .demographic-card {
                 background-color: #2D3748;
                 border-color: #4A5568;
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             }
             .demographic-card-title {
-                color: #90CDF4; /* Lighter blue for demographic titles */
+                color: #90CDF4; 
             }
             .demographic-card-text {
                 color: #CBD5E0;
             }
 
-            /* Dark mode for history image cards */
             .history-image-card {
                 background-color: #2D3748;
                 border-color: #4A5568;
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             }
 
-            /* Dark mode for modals */
             .modal-content {
                 background-color: #2D3748;
                 border-color: #4A5568;
@@ -787,26 +787,26 @@
             #geminiResponseArea h4, #infoModalResponseArea h4,
             #geminiResponseArea h5, #infoModalResponseArea h5,
             #geminiResponseArea h6, #infoModalResponseArea h6 {
-                color: #E53E3E; /* Keep red for headings in modals */
+                color: #E53E3E; 
             }
             .gemini-button {
-                background-color: #E53E3E; /* Keep red for buttons */
+                background-color: #E53E3E; 
                 color: white;
             }
             .gemini-button:hover {
                 background-color: #C9302C;
             }
             .loading-spinner {
-                border-top-color: #E53E3E; /* Red spinner */
+                border-top-color: #E53E3E; 
             }
 
             footer {
-                background-color: #1A202C; /* Darker footer */
-                color: #A0AEC0; /* Lighter footer text */
+                background-color: #1A202C; 
+                color: #A0AEC0; 
             }
-             /* Specific color for author name in dark mode */
-            .manga-panel #author .font-shippori {
-                color: #FFFFFF !important; /* Force white color for author name in dark mode */
+            /* Corrected selector for author name in dark mode */
+            section#author .manga-panel .font-shippori {
+                color: #E2E8F0 !important; /* Use a light color, !important if necessary due to specificity */
             }
         }
 
@@ -823,8 +823,7 @@
         </div>
         <div class="container mx-auto px-4 md:px-6"> 
             <a href="#hero" class="nav-title lang-text" data-lang-key="nav_title_main"></a> 
-            <div class="flex items-center">
-                <div class="nav-links-container space-x-1 sm:space-x-2 md:space-x-4"> 
+            <div class="flex items-center"> <div class="nav-links-container space-x-1 sm:space-x-2 md:space-x-4"> 
                     <a href="#introduction" class="nav-link lang-text" data-lang-key="nav_introduction"></a>
                     <a href="#world-of-manga" class="nav-link lang-text" data-lang-key="nav_world_of_manga"></a>
                     <a href="#art-of-translation" class="nav-link lang-text" data-lang-key="nav_art_of_translation"></a>
@@ -834,8 +833,7 @@
                     <a href="#full-thesis-link" class="nav-link lang-text" data-lang-key="nav_full_thesis"></a>
                     <a href="#author" class="nav-link lang-text" data-lang-key="nav_author"></a>
                 </div>
-                <div class="hamburger-menu" id="hamburgerBtn">
-                    <svg class="w-8 h-8 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <div class="hamburger-menu ml-auto md:ml-4" id="hamburgerBtn"> <svg class="w-8 h-8 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </div>
                 <div class="lang-switcher ml-2 md:ml-4">
                     <button data-lang="el" class="active">GR</button>
@@ -848,7 +846,7 @@
 
     <header id="hero" class="min-h-screen flex flex-col items-center justify-center text-center bg-cover bg-center parallax-bg" 
             style="background-image: url('https://i.imgur.com/SgIDkMc.jpeg');" 
-            onerror="this.onerror=null; this.src='https://placehold.co/1920x1080/A7C7E7/333333?text=Ιαπωνικό+Τοπίο+Manga\')'">
+            onerror="this.onerror=null; this.src='https://placehold.co/1920x1080/A7C7E7/333333?text=Ιαπωνικό+Τοπίο+Manga'">
         <div class="sakura-container">
             <div class="sakura-petal"></div>
             <div class="sakura-petal"></div>
@@ -882,11 +880,11 @@
                 <div class="md:flex md:gap-10 items-start"> 
                     <div class="md:w-2/5 mb-6 md:mb-0 flex flex-col space-y-6">
                         <img src="https://static.beebom.com/wp-content/uploads/2024/12/Demon-Slayer-covers.jpg" 
-                             alt="[Image of Demon Slayer covers]" 
+                             alt="[Εικόνα από εξώφυλλα του Demon Slayer]" 
                              class="responsive-img shadow-lg mx-auto"
                              onerror="this.onerror=null; this.src='https://placehold.co/600x400/EADDCA/333333?text=Demon+Slayer+Covers';">
                         <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/12/mixcollage-28-dec-2024-01-24-pm-9443.jpg" 
-                             alt="[Image of manga scenes collage]" 
+                             alt="[Εικόνα από κολάζ σκηνών manga]" 
                              class="responsive-img shadow-lg mx-auto"
                              onerror="this.onerror=null; this.src='https://placehold.co/600x400/C0C0C0/333333?text=Manga+Introduction';">
                     </div>
@@ -920,7 +918,7 @@
                     </div>
                     <div class="md:w-2/5 mt-4 md:mt-0">
                         <img src="https://i.imgur.com/MCnTAla.png" 
-                                 alt="[Image of manga page with black and white frames and Japanese characters]" 
+                                 alt="[Εικόνα από σελίδα manga με ασπρόμαυρα καρέ και ιαπωνικούς χαρακτήρες]" 
                                  class="responsive-img shadow-md mx-auto"
                                  onerror="this.onerror=null; this.src='https://placehold.co/400x300/D1E8E2/333333?text=Manga+Page+RTL';">
                     </div>
@@ -932,13 +930,13 @@
                 <div class="md:flex md:gap-8 items-center">
                     <div class="md:w-1/2 mb-6 md:mb-0 flex flex-col space-y-4 manpu-collage-container"> 
                         <img src="https://animeartmagazine.com/wp-content/uploads/2022/02/dcf2f6ea5c924b6cf7611a3f15762e8f.webp" 
-                                 alt="[Image explaining manpu symbols with examples from manga]" 
+                                 alt="[Εικόνα που εξηγεί σύμβολα manpu με παραδείγματα από manga]" 
                                  onerror="this.onerror=null; this.src='https://placehold.co/400x200/FFDAB9/333333?text=Manpu+Symbols+1';">
                         <img src="https://animeartmagazine.com/wp-content/uploads/2022/02/3c5bb14a0e9f8816ee964b9ee909bbb4.webp" 
-                                 alt="[Image of manpu example]" 
+                                 alt="[Εικόνα από παράδειγμα manpu]" 
                                  onerror="this.onerror=null; this.src='https://placehold.co/400x200/FFDAB9/333333?text=Manpu+Symbols+2';">
                         <img src="https://www.researchgate.net/publication/324558532/figure/fig2/AS:11431281429370169@1746715444674/Some-examples-of-manpu-a-mark-used-to-represent-the-emotions-of-the-characters-such-as.tif" 
-                                 alt="[Image of manpu example]" 
+                                 alt="[Εικόνα από παράδειγμα manpu]" 
                                  onerror="this.onerror=null; this.src='https://placehold.co/400x200/FFDAB9/333333?text=Manpu+Symbols+3';">
                     </div>
                     <div class="md:w-1/2 text-content"> 
@@ -950,7 +948,7 @@
                         </div>
                     </div>
                 </div>
-                    <div class="clear-both"></div>
+                <div class="clear-both"></div>
             </div>
             
             <div class="manga-panel fade-in-panel panel-color-4 mt-10">
@@ -959,22 +957,22 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8"> 
                         <div class="history-image-card" data-history-key="wom_history_p1_intro" data-history-title-key="wom_history_era1_title">
                             <img src="https://en.seigensha.com/wp-content/uploads/978-4-86152-280-2_009-1-1.jpg" 
-                                     alt="[Image from Chōjū-giga scroll depicting animals in human activities]" 
+                                     alt="[Εικόνα από πάπυρο Chōjū-giga που απεικονίζει ζώα σε ανθρώπινες δραστηριότητες]" 
                                      onerror="this.onerror=null; this.src='https://placehold.co/400x250/E0E0E0/333333?text=Chōjū-giga';">
                         </div>
                         <div class="history-image-card" data-history-key="wom_history_p2_desc" data-history-title-key="wom_history_era2_title">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Great_Wave_off_Kanagawa2.jpg/800px-Great_Wave_off_Kanagawa2.jpg" 
-                                     alt="[Image from Hokusai's 'The Great Wave off Kanagawa']" 
+                                     alt="[Εικόνα από το 'Το Μεγάλο Κύμα έξω από την Καναγκάουα' του Hokusai]" 
                                      onerror="this.onerror=null; this.src='https://placehold.co/400x300/C9C9FF/333333?text=Ukiyo-e+Inspiration';">
                         </div>
                         <div class="history-image-card" data-history-key="wom_history_p3_desc" data-history-title-key="wom_history_era3_title">
                             <img src="https://atomicink.wordpress.com/wp-content/uploads/2016/07/pacific_war_us_propaganda_leafletunga_naizocc84.jpg" 
-                                     alt="[Image of early Western comics influence]" 
+                                     alt="[Εικόνα από πρώιμη επιρροή δυτικών κόμικς]" 
                                      onerror="this.onerror=null; this.src='https://placehold.co/400x300/A0A0A0/333333?text=Western+Comics+Influence';">
                         </div>
                         <div class="history-image-card" data-history-key="wom_history_p4_desc" data-history-title-key="wom_history_era4_title">
                             <img src="https://www.history.org.uk/library/2008/0000/0086/shutterstock_302738093_640.jpg"
-                                     alt="[Image of post-war Japan]"
+                                     alt="[Εικόνα της μεταπολεμικής Ιαπωνίας]"
                                      onerror="this.onerror=null; this.src='https://placehold.co/400x300/A2B2C2/333333?text=Post-War+Japan';">
                         </div>
                     </div>
@@ -1013,11 +1011,11 @@
                     </div>
                     <div class="md:w-2/5 mt-4 md:mt-0 flex flex-col justify-around space-y-8">
                         <img src="https://static.beebom.com/wp-content/uploads/2023/06/featured-new.jpg?w=750&quality=75" 
-                                 alt="[Image of various anime/manga characters]" 
+                                 alt="[Εικόνα από διάφορους χαρακτήρες anime/manga]" 
                                  class="responsive-img shadow-md mx-auto"
                                  onerror="this.onerror=null; this.src='https://placehold.co/400x200/BEE3DB/333333?text=Demographic+Groups';">
                         <img src="https://cor-cdn-static.bibliocommons.com/list_jacket_covers/live/1937276259.png" 
-                                 alt="[Image collage of famous manga covers]" 
+                                 alt="[Εικόνα από κολάζ διάσημων εξωφύλλων manga]" 
                                  class="responsive-img shadow-md mx-auto"
                                  onerror="this.onerror=null; this.src='https://placehold.co/400x250/F8BBD0/333333?text=Famous+Manga';">
                     </div>
@@ -1038,7 +1036,7 @@
                 </div>
             </div>
             <div class="text-center mt-10">
-                <button id="exploreMangaBtn" class="gemini-button text-lg lang-text" data-lang-key="wom_explore_btn">✨ Εξερεύνησε Βαθύτερα τα Manga ✨</button>
+                <button id="exploreMangaBtn" class="gemini-button text-lg lang-text" data-lang-key="wom_explore_btn"></button>
             </div>
         </section>
 
@@ -1049,7 +1047,7 @@
             <div class="manga-panel fade-in-panel panel-color-3">
                 <h3 class="manga-panel-title lang-text" data-lang-key="aot_translator_role_title"></h3>
                 <img src="https://www.japan.go.jp/kizuna/_src/7997194/manga_translation_service_01.jpg?v=1743005535161" 
-                                 alt="[Image symbolizing manga translation as a bridge of cultures]" 
+                                 alt="[Εικόνα που συμβολίζει τη μετάφραση manga ως γέφυρα πολιτισμών]" 
                                  class="responsive-img shadow-md img-centered-block max-w-xl" 
                                  onerror="this.onerror=null; this.src='https://placehold.co/500x350/A0D2DB/333333?text=Bridge+of+Cultures';">
                 <div class="text-content mt-6">
@@ -1060,13 +1058,13 @@
                         <p class="lang-text" data-lang-key="aot_translator_role_p2"></p>
                     </div>
                 </div>
-                    <div class="clear-both"></div>
+                <div class="clear-both"></div>
             </div>
 
             <div class="manga-panel fade-in-panel panel-color-4 mt-10">
                 <h3 class="manga-panel-title lang-text" data-lang-key="aot_scanlation_title"></h3>
                 <img src="https://www.insidescanlation.com/images/spotlight/speedscan_onb.png" 
-                                 alt="[Image depicting the scanlation process on a computer]" 
+                                 alt="[Εικόνα που απεικονίζει τη διαδικασία scanlation σε υπολογιστή]" 
                                  class="responsive-img shadow-md mb-6 mx-auto block max-w-lg scanlation-image" 
                                  onerror="this.onerror=null; this.src='https://placehold.co/500x350/FEEAFA/333333?text=Scanlation+Process';">
                 <div class="text-content">
@@ -1127,7 +1125,7 @@
             <div class="manga-panel fade-in-panel panel-color-2">
                 <h3 class="manga-panel-title lang-text" data-lang-key="rm_aims_questions_title"></h3>
                 <img src="https://www.ssbm.ch/wp-content/uploads/2021/11/5f3504fc6ea38f001ec0f8b5.jpg" 
-                                 alt="[Image of research methodology chart]" 
+                                 alt="[Εικόνα από διάγραμμα μεθοδολογίας έρευνας]" 
                                  class="responsive-img shadow-md img-centered-block max-w-lg" 
                                  onerror="this.onerror=null; this.src='https://placehold.co/500x300/B9E4C9/333333?text=Research+Methodology';">
                 <div class="text-content mt-6">
@@ -1166,7 +1164,7 @@
             <div class="manga-panel fade-in-panel panel-color-4">
                 <h3 class="manga-panel-title lang-text" data-lang-key="rd_main_challenges_title"></h3>
                 <img src="https://atlasti.com/media/pages/research-hub/finding-research-topic/031ca917f7-1739281450/research-topic.png" 
-                                 alt="[Image symbolizing finding and analyzing research findings]" 
+                                 alt="[Εικόνα που συμβολίζει την εύρεση και ανάλυση ερευνητικών ευρημάτων]" 
                                  class="responsive-img shadow-md md:w-2/5 mb-6 md:mb-0 img-wrap-right"
                                  onerror="this.onerror=null; this.src='https://placehold.co/500x300/F7C5CC/333333?text=Questionnaire+Results';">
                 <div class="text-content">
@@ -1234,7 +1232,7 @@
             </div>
              <div class="manga-panel fade-in-panel panel-color-2">
                 <img src="https://news.cnrs.fr/sites/default/files/styles/asset_image_full/public/assets/images/sipa_00563641_000007_72dpi.jpg?itok=UjnyU9SS" 
-                                 alt="[Image of people reading and discussing, symbolizing knowledge and culture dissemination]" 
+                                 alt="[Εικόνα ανθρώπων που διαβάζουν και συζητούν, συμβολίζοντας τη διάδοση γνώσης και πολιτισμού]" 
                                  class="responsive-img shadow-lg img-centered-block max-w-xl"  
                                  onerror="this.onerror=null; this.src='https://placehold.co/600x400/D8BFD8/333333?text=Future+of+Greek+Manga';">
                 <div class="text-content text-lg leading-relaxed mt-8">
@@ -1248,7 +1246,7 @@
                         <p class="lang-text" data-lang-key="conclusion_p3"></p>
                     </div>
                 </div>
-                    <div class="clear-both"></div>
+                <div class="clear-both"></div>
             </div>
         </section>
 
@@ -1262,19 +1260,20 @@
                     <p class="lang-text" data-lang-key="full_thesis_description"></p>
                     <a href="https://pergamos.lib.uoa.gr/uoa/dl/object/2975715/file.pdf" target="_blank" 
                        class="gemini-button inline-flex items-center justify-center mt-6 px-8 py-3 text-lg font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out"
-                       id="pdfButton"> </a>
+                       id="pdfButton">
+                       </a>
                 </div>
             </div>
         </section>
 
         <section id="author" class="pt-16"> <div class="text-center">
-                    <h2 class="section-title mb-12 lang-text" data-lang-key="section_title_author"></h2>
+                <h2 class="section-title mb-12 lang-text" data-lang-key="section_title_author"></h2>
             </div>
             <div class="manga-panel fade-in-panel panel-color-3 text-center">
                 <img src="https://media.licdn.com/dms/image/v2/D4D03AQFphUNkDWbSww/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1722348904690?e=2147483647&v=beta&t=ah_Y3JVxe84iCQpZqq59YXuVJSu9Dfrq9PhrwQu3dTM" 
-                    alt="[Image of Athanasios Vasileiadis's portrait]" 
-                    class="responsive-img mx-auto rounded-full w-48 h-48 mb-8 shadow-xl border-4 border-white" 
-                    onerror="this.onerror=null; this.src='https://placehold.co/200x200/B2DFDB/333333?text=Athanasios+Vasileiadis';">
+                     alt="[Εικόνα από πορτρέτο του Αθανασίου Βασιλειάδη]" 
+                     class="responsive-img mx-auto rounded-full w-48 h-48 mb-8 shadow-xl border-4 border-white" 
+                     onerror="this.onerror=null; this.src='https://placehold.co/200x200/B2DFDB/333333?text=Athanasios+Vasileiadis';">
                 <h3 class="font-shippori text-3xl mb-3 lang-text" data-lang-key="author_name"></h3>
                 <p class="text-content text-xl leading-relaxed max-w-3xl mx-auto lang-text" data-lang-key="author_bio"></p>
             </div>
@@ -1286,7 +1285,7 @@
             <span class="close-button" id="closeExploreModal">&times;</span>
             <h3 class="manga-panel-title mb-4 lang-text" data-lang-key="modal_explore_title"></h3>
             <p class="text-content text-sm mb-3 lang-text" data-lang-key="modal_explore_prompt"></p>
-            <input type="text" id="mangaKeywordInput" class="w-full p-2 border border-gray-300 rounded-md mb-3" placeholder="">
+            <input type="text" id="mangaKeywordInput" class="w-full p-2 border border-gray-300 rounded-md mb-3 lang-text-placeholder" data-lang-key-placeholder="modal_explore_input_placeholder">
             <button id="submitMangaKeyword" class="gemini-button lang-text" data-lang-key="modal_explore_submit_btn"></button>
             <div id="geminiResponseLoading" class="loading-spinner"></div>
             <div id="geminiResponseArea" class="text-content"></div> 
@@ -1301,7 +1300,6 @@
             <div id="infoModalResponseArea" class="text-content"></div> 
         </div>
     </div>
-
 
     <footer class="bg-gray-900 text-gray-300 py-10 mt-20">
         <div class="container mx-auto px-6 text-center">
@@ -1373,17 +1371,17 @@
                 "aot_scanlation_p2": "Παρά τα ζητήματα **πνευματικών δικαιωμάτων**, τα **scanlations** είναι εξαιρετικά **δημοφιλή** και συχνά αποτελούν την **πρώτη** (ή και μοναδική) **επαφή** πολλών αναγνωστών εκτός Ιαπωνίας με συγκεκριμένους τίτλους. Οι λόγοι της δημοτικότητάς τους περιλαμβάνουν την **ταχύτητα κυκλοφορίας** (συχνά πολύ πιο γρήγορα από τις επίσημες εκδόσεις), την **ευρεία διαθεσιμότητα** και την **κάλυψη τίτλων** που δεν αδειοδοτούνται επίσημα. Η **βιομηχανία των manga**, αν και θεωρεί παράνομη τη δραστηριότητα, συχνά την **ανέχεται** ή την χρησιμοποιεί ως **δείκτη δημοτικότητας** για πιθανές **επίσημες αδειοδοτήσεις** (Lee 2009).",
                 "aot_challenges_title": "Πρακτικά Ζητήματα και Προκλήσεις στη Μετάφραση Manga",
                 "aot_challenges_intro": "Η **μετάφραση manga** παρουσιάζει ιδιαίτερες **προκλήσεις** λόγω της **σύνθετης σημειωτικής τους δομής** (Jüngst 2008) και των **πολιτισμικών τους ιδιαιτεροτήτων**. Ορισμένα βασικά ζητήματα περιλαμβάνουν:",
-                "aot_challenge_reading_direction": "Κατεύθυνση Ανάγνωσης & Διάταξη",
+                "aot_challenge_reading_direction_title": "Κατεύθυνση Ανάγνωσης & Διάταξη",
                 "aot_challenge_reading_direction_desc": "Η **ανάγνωση από δεξιά προς τα αριστερά** και η **κάθετη γραφή** στα ιαπωνικά επηρεάζουν τη **διάταξη των καρέ** και των **πλαισίων ομιλίας**. Η προσαρμογή σε **οριζόντιο κείμενο** και η τοποθέτηση στα συχνά στενά πλαίσια απαιτεί **προσοχή**.",
-                "aot_challenge_typography": "Τυπογραφία (Typeface)",
+                "aot_challenge_typography_title": "Τυπογραφία (Typeface)",
                 "aot_challenge_typography_desc": "Η **επιλογή γραμματοσειράς** είναι σημαντική. Μεγαλύτερες, **έντονες γραμματοσειρές** χρησιμοποιούνται συχνά για να δηλώσουν **ένταση φωνής** (Forceville et al. 2010).",
-                "aot_challenge_onomatopoeia": "Ονοματοποιίες & Μιμητικές Λέξεις",
+                "aot_challenge_onomatopoeia_title": "Ονοματοποιίες & Μιμητικές Λέξεις",
                 "aot_challenge_onomatopoeia_desc": "Η **ιαπωνική γλώσσα** διαθέτει πληθώρα **ονοματοποιητικών** (**giseigo**, **giongo**) και **μιμητικών λέξεων** (**gitaigo**). Αυτές συχνά ενσωματώνονται καλλιτεχνικά στο σχέδιο. Η **μετάφρασή** τους είναι **δύσκολη**.",
-                "aot_challenge_cultural_elements": "Πολιτισμικά Στοιχεία",
+                "aot_challenge_cultural_elements_title": "Πολιτισμικά Στοιχεία",
                 "aot_challenge_cultural_elements_desc": "Οι **τιμητικές προσφωνήσεις** (**-san**, **-kun**) δηλώνουν σχέσεις. Άλλα στοιχεία (**φαγητά**, **έθιμα**) μπορεί να χρειάζονται **επεξήγηση**.",
-                "aot_challenge_translation_notes": "Μεταφραστικές Σημειώσεις",
+                "aot_challenge_translation_notes_title": "Μεταφραστικές Σημειώσεις",
                 "aot_challenge_translation_notes_desc": "Συχνά χρησιμοποιούνται για **επεξήγηση πολιτισμικών αναφορών** ή **γλωσσικών ιδιωματισμών**. Οι αναγνώστες **scanlations** τις εκτιμούν (Fabbretti 2016).",
-                "aot_challenge_strategies": "Στρατηγικές Μετάφρασης",
+                "aot_challenge_strategies_title": "Στρατηγικές Μετάφρασης",
                 "aot_challenge_strategies_desc": "Οι **μεταφραστές** επιλέγουν μεταξύ **ξενισμού** (**foreignization**) και **οικειοποίησης** (**domestication**). Στα **manga**, οι φαν συχνά προτιμούν τον **ξενισμό** (Sell 2011).",
                 "aot_analyze_btn": "✨ Ανάλυση",
                 "section_title_research_methodology": "研究方法 - Η Έρευνα: Μεθοδολογικά Ζητήματα",
@@ -1431,6 +1429,7 @@
                 "modal_explore_title": "Εξερεύνησε Βαθύτερα τα Manga ✨",
                 "modal_explore_prompt": "Εισάγετε έναν όρο σχετικό με manga (π.χ. \"shonen\", \"ukiyo-e\", ένα όνομα mangaka ή τίτλο manga) για να μάθετε περισσότερα.",
                 "modal_explore_input_placeholder": "Π.χ. shojo, Akira Toriyama, cultural impact...",
+                "modal_explore_submit_btn": "Υποβολή",
                 "modal_explore_input_empty": "Παρακαλώ εισάγετε έναν όρο για αναζήτηση.",
                 "modal_api_error_message": "Παρουσιάστηκε σφάλμα: ",
                 "modal_api_no_response": "Δεν ήταν δυνατή η λήψη απάντησης ή η απάντηση ήταν κενή. Δοκιμάστε ξανά.",
@@ -1440,7 +1439,7 @@
             },
             "en": {
                 "page_title": "Japanese Popular Culture and Western Audiences: Translating English Scanlated Manga into Greek",
-                "nav_title_main": "研究", // Keep Japanese for style, or "Research"
+                "nav_title_main": "研究", 
                 "nav_introduction": "Introduction",
                 "nav_world_of_manga": "Manga",
                 "nav_art_of_translation": "Translation",
@@ -1498,17 +1497,17 @@
                 "aot_scanlation_p2": "Despite **copyright issues**, **scanlations** are extremely **popular** and often constitute the **first** (or only) **contact** many readers outside Japan have with specific titles. Reasons for their popularity include **speed of release** (often much faster than official versions), **wide availability**, and **coverage of titles** not officially licensed. The **manga industry**, while deeming the activity illegal, often **tolerates** it or even uses it as an **indicator of popularity** for potential **official licensing** (Lee 2009).",
                 "aot_challenges_title": "Practical Issues and Challenges in Manga Translation",
                 "aot_challenges_intro": "**Manga translation** presents unique **challenges** due to their **complex semiotic structure** (Jüngst 2008) and **cultural specificities**. Some key issues include:",
-                "aot_challenge_reading_direction": "Reading Direction & Layout",
+                "aot_challenge_reading_direction_title": "Reading Direction & Layout",
                 "aot_challenge_reading_direction_desc": "**Right-to-left reading** and **vertical Japanese script** affect **panel** and **speech bubble layout**. Adapting to **horizontal text** and fitting it into often narrow bubbles requires **care**.",
-                "aot_challenge_typography": "Typography (Typeface)",
+                "aot_challenge_typography_title": "Typography (Typeface)",
                 "aot_challenge_typography_desc": "**Font choice** is significant. Larger, **bold fonts** are often used to indicate **loudness** (Forceville et al. 2010).",
-                "aot_challenge_onomatopoeia": "Onomatopoeia & Mimetic Words",
+                "aot_challenge_onomatopoeia_title": "Onomatopoeia & Mimetic Words",
                 "aot_challenge_onomatopoeia_desc": "**Japanese** has a wealth of **onomatopoeic** (**giseigo**, **giongo**) and **mimetic** (**gitaigo**) words. These are often artistically integrated into the artwork. Their **translation** is **difficult**.",
-                "aot_challenge_cultural_elements": "Cultural Elements",
+                "aot_challenge_cultural_elements_title": "Cultural Elements",
                 "aot_challenge_cultural_elements_desc": "**Honorifics** (**-san**, **-kun**) denote relationships. Other elements (**food**, **customs**) may need **explanation**.",
-                "aot_challenge_translation_notes": "Translation Notes",
+                "aot_challenge_translation_notes_title": "Translation Notes",
                 "aot_challenge_translation_notes_desc": "Often used to **explain cultural references** or **linguistic idioms**. **Scanlation readers** often appreciate them (Fabbretti 2016).",
-                "aot_challenge_strategies": "Translation Strategies",
+                "aot_challenge_strategies_title": "Translation Strategies",
                 "aot_challenge_strategies_desc": "**Translators** choose between **foreignization** (**foreignization**) and **domestication** (**domestication**). In **manga**, **fans** often prefer **foreignization** (Sell 2011).",
                 "aot_analyze_btn": "✨ Analyze",
                 "section_title_research_methodology": "研究方法 - Research: Methodological Issues",
@@ -1556,6 +1555,7 @@
                 "modal_explore_title": "Explore Manga Deeper ✨",
                 "modal_explore_prompt": "Enter a manga-related term (e.g., \"shonen\", \"ukiyo-e\", a mangaka's name, or manga title) to learn more.",
                 "modal_explore_input_placeholder": "E.g. shojo, Akira Toriyama, cultural impact...",
+                "modal_explore_submit_btn": "Submit",
                 "modal_explore_input_empty": "Please enter a term to search.",
                 "modal_api_error_message": "API error: ",
                 "modal_api_no_response": "Could not retrieve a response or the response was empty. Please try again.",
@@ -1623,17 +1623,17 @@
                 "aot_scanlation_p2": "**著作権の問題**にもかかわらず、**スキャンレーション**は非常に**人気**があり、日本国外の多くの読者が特定のタイトルに**初めて**（または唯一）**触れる機会**となることがよくあります。その人気の理由には、**リリースの速さ**（公式版よりはるかに速いことが多い）、**広範な入手可能性**、**公式にライセンスされていないタイトルのカバー**が含まれます。**漫画業界**は、この活動を違法と見なしているものの、しばしばそれを**容認**したり、潜在的な**公式ライセンス**のための**人気指標**として利用したりします（Lee 2009）。",
                 "aot_challenges_title": "漫画翻訳における実際的な問題と課題",
                 "aot_challenges_intro": "**漫画翻訳**は、その**複雑な記号論的構造**（Jüngst 2008）と**文化的特異性**のために、独特の**課題**を提示します。主な問題点には以下が含まれます。",
-                "aot_challenge_reading_direction": "読み方向とレイアウト",
+                "aot_challenge_reading_direction_title": "読み方向とレイアウト",
                 "aot_challenge_reading_direction_desc": "**右から左への読み方**と**日本語の縦書き**は、**コマ割り**や**吹き出しのレイアウト**に影響します。**横書きテキスト**への適応と、しばしば狭い吹き出しへの配置には**注意**が必要です。",
-                "aot_challenge_typography": "タイポグラフィ（書体）",
+                "aot_challenge_typography_title": "タイポグラフィ（書体）",
                 "aot_challenge_typography_desc": "**フォントの選択**は重要です。より大きく**太いフォント**が**声の大きさ**を表現するためによく使われます（Forceville et al. 2010）。",
-                "aot_challenge_onomatopoeia": "オノマトペと擬態語",
+                "aot_challenge_onomatopoeia_title": "オノマトペと擬態語",
                 "aot_challenge_onomatopoeia_desc": "**日本語**には豊富な**オノマトペ**（**擬声語**、**擬音語**）と**擬態語**があります。これらはしばしば芸術的にデザインに組み込まれます。その**翻訳**は**困難**です。",
-                "aot_challenge_cultural_elements": "文化的要素",
+                "aot_challenge_cultural_elements_title": "文化的要素",
                 "aot_challenge_cultural_elements_desc": "**敬称**（～さん、～君）は関係性を示します。その他の要素（**食べ物**、**習慣**）には**説明**が必要な場合があります。",
-                "aot_challenge_translation_notes": "翻訳ノート",
+                "aot_challenge_translation_notes_title": "翻訳ノート",
                 "aot_challenge_translation_notes_desc": "**文化的参照**や**言語的イディオム**の**説明**によく使われます。**スキャンレーションの読者**はしばしばそれらを高く評価します（Fabbretti 2016）。",
-                "aot_challenge_strategies": "翻訳戦略",
+                "aot_challenge_strategies_title": "翻訳戦略",
                 "aot_challenge_strategies_desc": "**翻訳者**は**異化**（外国文化の要素を保持する）と**自国化**（ターゲット文化の規範にテキストを適応させる）の間で選択します。**漫画**では、**ファン**はしばしば**異化**を好みます（Sell 2011）。",
                 "aot_analyze_btn": "✨ 分析",
                 "section_title_research_methodology": "研究方法",
@@ -1641,12 +1641,12 @@
                 "rm_aims_intro": "本**研究**は、英語**スキャンレーション漫画**をギリシャ語に**翻訳**する際の主な**翻訳課題**を**特定**し、それらに対処するための**方法**を**提案**することを目的としていました。主な**研究課題**は以下の通りです。",
                 "rm_question1": "英語**スキャンレーション漫画**をギリシャ語に**翻訳**する際の**課題**の主な**テーマ別カテゴリー**は何ですか？",
                 "rm_question2": "これらの**課題**を克服するためにどのような**方法**が使用できますか？",
-                "rm_question3": "これらの**方法**はギリशाの読者層に**評価**されていますか、そしてその理由は何ですか？",
-                "rm_question4": "ギリशा語**スキャンレーション漫画**の**制作**は読者の**関心**を引くことができますか？",
+                "rm_question3": "これらの**方法**はギリシャの読者層に**評価**されていますか、そしてその理由は何ですか？",
+                "rm_question4": "ギリシャ語**スキャンレーション漫画**の**制作**は読者の**関心**を引くことができますか？",
                 "rm_question5": "この**制作**は読者が**漫画**をさらに**探求**することを**奨励**しますか？",
                 "rm_procedure_analysis_title": "研究手順とデータ分析",
-                "rm_procedure_p1": "**研究**のために、異なる読者層をカバーする**5つの漫画の抜粋**が選ばれ、ギリशा語に**翻訳**されました：<em>ドラえもん</em> (**子供向け**)、<em>鬼滅の刃</em> (**少年**)、<em>フルーツバスケット</em> (**少女**)、<em>MONSTER</em> (**青年**)、そして<em>NANA</em> (**女性**)。**画像の編集**とギリशा語**翻訳の植字**は**Adobe Photoshop**を使用して行われました。",
-                "rm_procedure_p2": "**翻訳課題**の**分析**は、**主題分析法**に基づいて行われました。**課題**は、**言語的問題**と**文化的問題**という2つの広範な**テーマ**に分類されました。読者の**意見**を収集するために、**翻訳された抜粋**を最初に読んだ**38人のギリशा人読者**に**匿名**の**オンラインアンケート**（Googleフォーム経由）が配布されました。彼らの**回答**は**量的**に**分析**されました。",
+                "rm_procedure_p1": "**研究**のために、異なる読者層をカバーする**5つの漫画の抜粋**が選ばれ、ギリシャ語に**翻訳**されました：<em>ドラえもん</em> (**子供向け**)、<em>鬼滅の刃</em> (**少年**)、<em>フルーツバスケット</em> (**少女**)、<em>MONSTER</em> (**青年**)、そして<em>NANA</em> (**女性**)。**画像の編集**とギリシャ語**翻訳の植字**は**Adobe Photoshop**を使用して行われました。",
+                "rm_procedure_p2": "**翻訳課題**の**分析**は、**主題分析法**に基づいて行われました。**課題**は、**言語的問題**と**文化的問題**という2つの広範な**テーマ**に分類されました。読者の**意見**を収集するために、**翻訳された抜粋**を最初に読んだ**38人のギリシャ人読者**に**匿名**の**オンラインアンケート**（Googleフォーム経由）が配布されました。彼らの**回答**は**量的**に**分析**されました。",
                 "section_title_results_discussion": "結果と考察",
                 "rd_main_challenges_title": "特定された主な翻訳課題",
                 "rd_main_challenges_intro": "翻訳プロセスでは、以下のように分類される特定の課題が浮き彫りになりました。",
@@ -1656,21 +1656,21 @@
                 "rd_linguistic_issue3": "**吹き出し外のテキスト：****内なる思考**、**ささやき**、または**物語のコメント**を通常の対話と区別すること。しばしば**異なるフォント**や**小さいサイズ**を使用します。",
                 "rd_cultural_issues_title": "文化的問題：",
                 "rd_cultural_issue1": "**敬称**（～さん、～君）は関係性を示します。その他の要素（**食べ物**、**習慣**）には**説明**が必要な場合があります。",
-                "rd_cultural_issue2": "**文化固有の項目（リアリア）：**ギリशाの読者になじみのない**習慣**、**物**、**食べ物**、**通貨単位**（例：円）、または**社会的慣行**の表現または説明。解決策は**翻訳ノート**の使用でした。論文の例には、「**鬼**」の概念、「**日本の羽根突き**」、**円の価値**、家庭の祭壇での**祈り**の描写が含まれます。",
-                "rd_survey_findings_title": "アンケート調査結果：ギリशा人読者の視点",
+                "rd_cultural_issue2": "**文化固有の項目（リアリア）：**ギリシャの読者になじみのない**習慣**、**物**、**食べ物**、**通貨単位**（例：円）、または**社会的慣行**の表現または説明。解決策は**翻訳ノート**の使用でした。論文の例には、「**鬼**」の概念、「**日本の羽根突き**」、**円の価値**、家庭の祭壇での**祈り**の描写が含まれます。",
+                "rd_survey_findings_title": "アンケート調査結果：ギリシャ人読者の視点",
                 "rd_survey_findings_intro": "**38人のアンケート参加者**の**回答**は、**翻訳選択**の**受容**に関する**貴重な洞察**を提供しました。",
                 "rd_survey_finding1": "**強調のためのタイポグラフィ：****大多数**（**38人中30人**）が、感情的な場面を理解する上で、**太字**や**大きなフォントサイズ**の使用が**役立つ**と判断しました。",
                 "rd_survey_finding2": "**未翻訳のオノマトペ：**かなりの数の読者が、**未翻訳の日本の効果音**を**理解**するだけでなく、それらを**漫画の真正な要素**と見なして**保持**することを**好む**と述べました。",
-                "rd_survey_finding3": "**敬称：****大多数**が、**敬称**をギリशा語に**音訳**することを支持し、それが**日本文化の理解**を助け、テキストに**真正性**を加えると**評価**しました。",
+                "rd_survey_finding3": "**敬称：****大多数**が、**敬称**をギリシャ語に**音訳**することを支持し、それが**日本文化の理解**を助け、テキストに**真正性**を加えると**評価**しました。",
                 "rd_survey_finding4": "**翻訳ノート：**ノートは、**敬称**と、そうでなければ不明瞭なままになる他の**文化固有の要素**の両方を理解する上で、**非常に役立つ**か**不可欠**であると見なされました。",
-                "rd_survey_finding5": "**翻訳の流れと自然さ：**ほとんどの参加者は、**翻訳**がギリशा語で**自然な流れ**を持っていると特徴づけました。しかし、かなりの割合が、それが**翻訳されたテキスト**であることを認識しており、おそらく漫画の**強い文化的刻印**が完全に排除するのが難しいからです。",
+                "rd_survey_finding5": "**翻訳の流れと自然さ：**ほとんどの参加者は、**翻訳**がギリシャ語で**自然な流れ**を持っていると特徴づけました。しかし、かなりの割合が、それが**翻訳されたテキスト**であることを認識しており、おそらく漫画の**強い文化的刻印**が完全に排除するのが難しいからです。",
                 "rd_survey_finding6": "**続きへの関心：**読んだ物語の**続き**を知りたいという読者の**関心**は**高く**、質の高い**翻訳**が読者の**エンゲージメント**と**投資**を生み出すことができることを示唆しています。",
-                "rd_survey_finding7": "**ギリशा語漫画へのアクセス：**ほぼ**全員**（**38人中35人**）が、**ギリशा語に翻訳された漫画**への**アクセス**が**難しい**という意見でした。",
-                "rd_survey_finding8": "**より多くの出版物への要望：****圧倒的多数**（**38人中34人**）が、**より多くの出版社**がギリशा語に**翻訳された漫画**を出版することを見たいと**表明**しました。",
+                "rd_survey_finding7": "**ギリシャ語漫画へのアクセス：**ほぼ**全員**（**38人中35人**）が、**ギリシャ語に翻訳された漫画**への**アクセス**が**難しい**という意見でした。",
+                "rd_survey_finding8": "**より多くの出版物への要望：****圧倒的多数**（**38人中34人**）が、**より多くの出版社**がギリシャ語に**翻訳された漫画**を出版することを見たいと**表明**しました。",
                 "section_title_conclusion": "結論",
-                "conclusion_p1": "本修士論文は、英語**スキャンレーション漫画**をギリशा語に**翻訳**することが特定の**言語的**および**文化的課題**を伴うことを示しました。しかし、これらの**課題**は、**強調のためのタイポグラフィの慎重な使用**、**敬称の保持**（注釈による必要な説明付き）、**文化固有の項目に関する明確な翻訳ノートの提供**など、適切な**翻訳戦略**の適用を通じて**効果的に対処**できます。これらの**アプローチ**は、**研究**に参加したギリशाの**読者層**から**肯定的に評価**されました。",
-                "conclusion_p2": "**日本のオノマトペ**を**保持**することを好む読者の傾向は、**メディアの起源**を尊重する**真正な読書体験**への**欲求**を強調しています。**研究結果**は、**質の高いギリशा語漫画翻訳**の作成が**実現可能**であるだけでなく、ギリशाの**読者層**の**重要**かつ**熱心な部分**によって**望まれている**ことを強く裏付けています。",
-                "conclusion_p3": "**アクセス可能なギリशा語版**の**著しい不足**は、**出版社**からの**より多くの努力**に対する**明確な需要**と相まって、**重要な機会**を浮き彫りにしています。結論として、**ギリशा語**への**丁寧**で**文化的に配慮した漫画翻訳**への**投資**は、**市場の既存のギャップ**を埋め、**現在のファン**を**満足**させ、**新しい読者**を**引き付け**、最終的にはこの**魅力的**で**多層的な日本の文化的産物**のギリशाでの**より広範な普及**と**理解**に**貢献**することができます。",
+                "conclusion_p1": "本修士論文は、英語**スキャンレーション漫画**をギリシャ語に**翻訳**することが特定の**言語的**および**文化的課題**を伴うことを示しました。しかし、これらの**課題**は、**強調のためのタイポグラフィの慎重な使用**、**敬称の保持**（注釈による必要な説明付き）、**文化固有の項目に関する明確な翻訳ノートの提供**など、適切な**翻訳戦略**の適用を通じて**効果的に対処**できます。これらの**アプローチ**は、**研究**に参加したギリシャの**読者層**から**肯定的に評価**されました。",
+                "conclusion_p2": "**日本のオノマトペ**を**保持**することを好む読者の傾向は、**メディアの起源**を尊重する**真正な読書体験**への**欲求**を強調しています。**研究結果**は、**質の高いギリシャ語漫画翻訳**の作成が**実現可能**であるだけでなく、ギリシャの**読者層**の**重要**かつ**熱心な部分**によって**望まれている**ことを強く裏付けています。",
+                "conclusion_p3": "**アクセス可能なギリシャ語版**の**著しい不足**は、**出版社**からの**より多くの努力**に対する**明確な需要**と相まって、**重要な機会**を浮き彫りにしています。結論として、**ギリシャ語**への**丁寧**で**文化的に配慮した漫画翻訳**への**投資**は、**市場の既存のギャップ**を埋め、**現在のファン**を**満足**させ、**新しい読者**を**引き付け**、最終的にはこの**魅力的**で**多層的な日本の文化的産物**のギリシャでの**より広範な普及**と**理解**に**貢献**することができます。",
                 "section_title_full_thesis": "完全な論文",
                 "full_thesis_title": "完全な論文を読む",
                 "full_thesis_description": "**研究**、**方法論**、および**完全な結果**の**包括的な理解**のために、**PDF形式**の**完全な修士論文**を**表示**できます。",
@@ -1678,6 +1678,14 @@
                 "section_title_author": "著者について",
                 "author_name": "アタナシオス・ヴァシレイアディス",
                 "author_bio": "アタナシオス・ヴァシレイアディスは、アテネ国立カポディストリアス大学で翻訳・通訳の修士号を取得し、英語英文学の学士号を取得しています。彼は日本文化、アニメ、漫画に特別な愛情を持っており、これらが本修士論文のインスピレーションとなりました。",
+                "modal_explore_title": "漫画をもっと深く探る ✨",
+                "modal_explore_prompt": "漫画関連の用語（例：「少年漫画」、「浮世絵」、漫画家の名前、漫画のタイトル）を入力して、詳細をご覧ください。",
+                "modal_explore_input_placeholder": "例：少女漫画、鳥山明、文化的影響...",
+                "modal_explore_submit_btn": "送信",
+                "modal_explore_input_empty": "検索する用語を入力してください。",
+                "modal_api_error_message": "APIエラー：",
+                "modal_api_no_response": "応答を取得できませんでした、または応答が空でした。もう一度お試しください。",
+                "modal_info_title_prefix": "分析：",
                 "footer_copyright": "&copy; 2022 アタナシオス・ヴァシレイアディス。無断複写・転載を禁じます。",
                 "footer_design_note": "日本文化に触発されてデザインされたウェブサイト。"
             }
@@ -1697,36 +1705,49 @@
             });
         }
 
-        // Function to update modal content based on the current language
-        function updateModalContent() {
+        // Function to update modal content and placeholders based on the current language
+        function updateModalAndPlaceholders() {
             // Explore Manga Modal
             const exploreModalTitle = document.querySelector('#exploreMangaModal .manga-panel-title');
             const exploreModalPrompt = document.querySelector('#exploreMangaModal .text-sm');
             const exploreModalInput = document.getElementById('mangaKeywordInput');
             const exploreModalButton = document.getElementById('submitMangaKeyword');
 
-            if (exploreModalTitle) exploreModalTitle.innerHTML = translations[currentLanguage]['modal_explore_title'] || translations['el']['modal_explore_title'];
-            if (exploreModalPrompt) exploreModalPrompt.innerHTML = translations[currentLanguage]['modal_explore_prompt'] || translations['el']['modal_explore_prompt'];
-            if (exploreModalInput) exploreModalInput.placeholder = translations[currentLanguage]['modal_explore_input_placeholder'] || translations['el']['modal_explore_input_placeholder'];
-            if (exploreModalButton) exploreModalButton.innerHTML = translations[currentLanguage]['modal_explore_submit_btn'] || translations['el']['modal_explore_submit_btn'];
+            if (exploreModalTitle) exploreModalTitle.innerHTML = markdownToHtmlSimple(translations[currentLanguage]['modal_explore_title'] || translations['el']['modal_explore_title']);
+            if (exploreModalPrompt) exploreModalPrompt.innerHTML = markdownToHtmlSimple(translations[currentLanguage]['modal_explore_prompt'] || translations['el']['modal_explore_prompt']);
+            
+            // Update placeholder for mangaKeywordInput
+            const placeholderKey = exploreModalInput.dataset.langKeyPlaceholder;
+            if (placeholderKey && translations[currentLanguage] && translations[currentLanguage][placeholderKey]) {
+                exploreModalInput.placeholder = translations[currentLanguage][placeholderKey];
+            } else if (placeholderKey && translations['el'][placeholderKey]) {
+                exploreModalInput.placeholder = translations['el'][placeholderKey]; // Fallback to Greek
+            }
 
-            // Update the PDF button text directly
-            const pdfButton = document.getElementById('pdfButton'); // Get by ID
+            if (exploreModalButton) exploreModalButton.innerHTML = markdownToHtmlSimple(translations[currentLanguage]['modal_explore_submit_btn'] || translations['el']['modal_explore_submit_btn']);
+
+            // Update the PDF button text and SVG icon
+            const pdfButton = document.getElementById('pdfButton');
             if (pdfButton) {
-                pdfButton.innerHTML = translations[currentLanguage]['full_thesis_button_text'] || translations['el']['full_thesis_button_text'];
-                // Re-add SVG icon
+                const buttonTextKey = 'full_thesis_button_text';
+                const translatedButtonText = translations[currentLanguage]?.[buttonTextKey] || translations['el']?.[buttonTextKey] || 'View PDF (Fallback)';
+                
+                pdfButton.innerHTML = ''; // Clear previous content
+
                 const svgIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
                 svgIcon.setAttribute("fill", "none");
                 svgIcon.setAttribute("viewBox", "0 0 24 24");
                 svgIcon.setAttribute("stroke-width", "2");
                 svgIcon.setAttribute("stroke", "currentColor");
                 svgIcon.classList.add("w-6", "h-6", "mr-2");
+                
                 const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
                 path.setAttribute("stroke-linecap", "round");
                 path.setAttribute("stroke-linejoin", "round");
                 path.setAttribute("d", "M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m.75 12 3 3m0 0 3-3m-3 3V12m-8.25 6.75H12");
                 svgIcon.appendChild(path);
                 pdfButton.prepend(svgIcon); // Add SVG before the text
+                pdfButton.appendChild(document.createTextNode(translatedButtonText)); // Add text after SVG
             }
         }
 
@@ -1756,12 +1777,11 @@
                 if (langCode === 'ja' && key.startsWith('section_title_')) {
                     translatedText = translatedText.split(' - ')[0]; // Split and take only the Japanese part
                 }
-
-                // Apply markdown conversion to all translated text
+                
                 element.innerHTML = markdownToHtmlSimple(translatedText);
             });
             updateLanguageButtonStates();
-            updateModalContent(); // Update modal content after language switch
+            updateModalAndPlaceholders(); // CORRECTED: Was updateModalContent()
         }
         
         // Function to convert simple Markdown to HTML
@@ -1769,7 +1789,7 @@
             if (!markdownText) return '';
             let htmlText = markdownText;
 
-            // Headers
+            // Headers (example, can be expanded)
             htmlText = htmlText.replace(/^###### (.*$)/gim, '<h6 class="text-lg font-shippori mt-2 mb-1">$1</h6>');
             htmlText = htmlText.replace(/^##### (.*$)/gim, '<h5 class="text-xl font-shippori mt-3 mb-1">$1</h5>');
             htmlText = htmlText.replace(/^#### (.*$)/gim, '<h4 class="text-2xl font-shippori mt-4 mb-2">$1</h4>');
@@ -1778,12 +1798,12 @@
             htmlText = htmlText.replace(/^# (.*$)/gim, '<h1 class="text-5xl font-shippori mt-6 mb-4">$1</h1>');
 
             // Bold and Italic
-            htmlText = htmlText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            htmlText = htmlText.replace(/__(.*?)__/g, '<strong>$1</strong>');
-            htmlText = htmlText.replace(/\*(.*?)\*/g, '<em>$1</em>');
-            htmlText = htmlText.replace(/_(.*?)_/g, '<em>$1</em>');
+            htmlText = htmlText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Bold
+            htmlText = htmlText.replace(/__(.*?)__/g, '<strong>$1</strong>'); // Bold (alternative)
+            htmlText = htmlText.replace(/\*(.*?)\*/g, '<em>$1</em>');   // Italic
+            htmlText = htmlText.replace(/_(.*?)_/g, '<em>$1</em>');    // Italic (alternative)
             
-            // Line breaks
+            // Line breaks (simple conversion, might need refinement for paragraphs)
             htmlText = htmlText.replace(/\n/g, '<br>');
 
             return htmlText;
@@ -1896,9 +1916,9 @@
 
             let chatHistory = [{ role: "user", parts: [{ text: promptText }] }];
             const payload = { contents: chatHistory };
-            const workerBaseUrl = 'https://gemini-proxy.nvasedis-cc5.workers.dev';
-            const geminiModelPath = '/v1beta/models/gemini-2.0-flash:generateContent';
-            const apiUrl = `${workerBaseUrl}${geminiModelPath}`;
+            // IMPORTANT: Replace with your actual API key or proxy setup
+            const apiKey = ""; // If you want to use models other than gemini-2.0-flash or imagen-3.0-generate-002, provide an API key here. Otherwise, leave this as-is.
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
             
             try {
                 const response = await fetch(apiUrl, {
@@ -1923,6 +1943,7 @@
                 }
             } catch (error) {
                 responseAreaElement.innerHTML = `${translations[currentLanguage]['modal_api_error_message'] || translations['el']['modal_api_error_message']}${error.message}.`;
+                console.error("API Call Error:", error); // Log the full error for debugging
             } finally {
                 loadingElement.style.display = 'none';
             }
@@ -1932,7 +1953,7 @@
         if (exploreMangaBtn) {
             exploreMangaBtn.onclick = function() {
                 exploreMangaModal.style.display = "flex";
-                updateModalContent(); // Ensure modal content is updated when opened
+                updateModalAndPlaceholders(); // Ensure modal content is updated when opened
             }
         }
         // Event listener for closing "Explore Manga" modal
