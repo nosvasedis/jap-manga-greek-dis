@@ -15,6 +15,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Shippori+Mincho:wght@400;700;800&family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        html {
+            background-color: #F8F9FA; /* Default light background for the entire page */
+        }
         body {
             font-family: 'Inter', sans-serif; 
             background-color: #F8F9FA; 
@@ -133,6 +136,14 @@
             .nav-title { font-size: 1.5rem; }
           }
 
+        .nav-links-container {
+            display: flex;
+            align-items: center;
+            /* Hide by default on mobile, show with JS toggle */
+            flex-direction: row; /* Default for larger screens */
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+
         .nav-link {
             font-family: 'M PLUS Rounded 1c', sans-serif; 
             transition: color 0.3s ease, transform 0.2s ease, background-color 0.3s ease;
@@ -140,6 +151,7 @@
             padding: 0.5rem 0.75rem;
             border-radius: 0.375rem;
             color: #4A5568; 
+            white-space: nowrap; /* Prevent links from breaking */
         }
         .nav-link:hover {
             color: #FFFFFF; 
@@ -173,6 +185,35 @@
              #navbar .container { /* Allow space for lang switcher on mobile */
                padding-right: 70px; /* Adjust if needed */
              }
+             .nav-links-container {
+                display: none; /* Hide nav links by default on mobile */
+                width: 100%;
+                flex-direction: column;
+                align-items: flex-start;
+                background-color: #FFFFFF; /* Match navbar background */
+                position: absolute;
+                top: 70px; /* Below navbar */
+                left: 0;
+                box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+                padding: 1rem 0;
+             }
+             .nav-links-container.active {
+                display: flex; /* Show when active */
+             }
+             .nav-link {
+                width: 100%;
+                padding: 0.75rem 1.5rem;
+                text-align: left;
+             }
+             .hamburger-menu {
+                display: block; /* Show hamburger on mobile */
+                cursor: pointer;
+                z-index: 60; /* Above nav links */
+                margin-left: 1rem;
+             }
+        }
+        .hamburger-menu {
+            display: none; /* Hide hamburger on desktop */
         }
 
 
@@ -367,7 +408,7 @@
             padding: 1rem; /* Slightly reduced padding */
             margin-bottom: 1rem; /* Space between blocks */
             box-shadow: 0 1px 4px rgba(0,0,0,0.02); /* Very subtle shadow */
-            font-size: 0.95rem; /* Smaller font size for survey findings */
+            font-size: 1rem; /* Increased font size for survey findings */
             line-height: 1.6;
             color: #343A40;
             transition: all 0.2s ease-in-out;
@@ -614,6 +655,9 @@
 
         /* --- Dark Mode Styles --- */
         @media (prefers-color-scheme: dark) {
+            html {
+                background-color: #1A202C; /* Dark background for the entire page */
+            }
             body {
                 background-color: #1A202C; /* Dark background */
                 color: #E2E8F0; /* Light text */
@@ -786,6 +830,9 @@
                     <a href="#full-thesis-link" class="nav-link lang-text" data-lang-key="nav_full_thesis"></a>
                     <a href="#author" class="nav-link lang-text" data-lang-key="nav_author"></a>
                 </div>
+                <div class="hamburger-menu" id="hamburgerBtn">
+                    <svg class="w-8 h-8 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </div>
                 <div class="lang-switcher ml-2 md:ml-4">
                     <button data-lang="el" class="active">GR</button>
                     <button data-lang="en">EN</button>
@@ -917,7 +964,7 @@
                                      onerror="this.onerror=null; this.src='https://placehold.co/400x300/C9C9FF/333333?text=Ukiyo-e+Inspiration';">
                         </div>
                         <div class="history-image-card" data-history-key="wom_history_p3_desc" data-history-title-key="wom_history_era3_title">
-                            <img src="https://timesofindia.indiatimes.com/blogs/wp-content/uploads/backup2/between-panels/comics1.png" 
+                            <img src="https://i.ebayimg.com/images/g/bXQAAOSw3hBgKd0L/s-l400.jpg" 
                                      alt="[Image of early Western comics influence]" 
                                      onerror="this.onerror=null; this.src='https://placehold.co/400x300/A0A0A0/333333?text=Western+Comics+Influence';">
                         </div>
@@ -1037,32 +1084,32 @@
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="sub-panel">
                         <h4 class="sub-panel-title lang-text" data-lang-key="aot_challenge_reading_direction"></h4>
-                        <p class="text-content text-sm lang-text" data-lang-key="aot_challenge_reading_direction_desc"></p>
+                        <p class="text-content text-base lang-text" data-lang-key="aot_challenge_reading_direction_desc"></p>
                         <button class="gemini-button text-xs mt-2 analyze-challenge-btn lang-text" data-lang-key="aot_analyze_btn" data-challenge="reading_direction"></button>
                     </div>
                      <div class="sub-panel">
                         <h4 class="sub-panel-title lang-text" data-lang-key="aot_challenge_typography"></h4>
-                        <p class="text-content text-sm lang-text" data-lang-key="aot_challenge_typography_desc"></p>
+                        <p class="text-content text-base lang-text" data-lang-key="aot_challenge_typography_desc"></p>
                         <button class="gemini-button text-xs mt-2 analyze-challenge-btn lang-text" data-lang-key="aot_analyze_btn" data-challenge="typography"></button>
                     </div>
                     <div class="sub-panel">
                         <h4 class="sub-panel-title lang-text" data-lang-key="aot_challenge_onomatopoeia"></h4>
-                        <p class="text-content text-sm lang-text" data-lang-key="aot_challenge_onomatopoeia_desc"></p>
+                        <p class="text-content text-base lang-text" data-lang-key="aot_challenge_onomatopoeia_desc"></p>
                         <button class="gemini-button text-xs mt-2 analyze-challenge-btn lang-text" data-lang-key="aot_analyze_btn" data-challenge="onomatopoeia"></button>
                     </div>
                     <div class="sub-panel">
                         <h4 class="sub-panel-title lang-text" data-lang-key="aot_challenge_cultural_elements"></h4>
-                        <p class="text-content text-sm lang-text" data-lang-key="aot_challenge_cultural_elements_desc"></p>
+                        <p class="text-content text-base lang-text" data-lang-key="aot_challenge_cultural_elements_desc"></p>
                         <button class="gemini-button text-xs mt-2 analyze-challenge-btn lang-text" data-lang-key="aot_analyze_btn" data-challenge="cultural_elements"></button>
                     </div>
                     <div class="sub-panel">
                         <h4 class="sub-panel-title lang-text" data-lang-key="aot_challenge_translation_notes"></h4>
-                        <p class="text-content text-sm lang-text" data-lang-key="aot_challenge_translation_notes_desc"></p>
+                        <p class="text-content text-base lang-text" data-lang-key="aot_challenge_translation_notes_desc"></p>
                         <button class="gemini-button text-xs mt-2 analyze-challenge-btn lang-text" data-lang-key="aot_analyze_btn" data-challenge="translation_notes"></button>
                     </div>
                     <div class="sub-panel">
                         <h4 class="sub-panel-title lang-text" data-lang-key="aot_challenge_strategies"></h4>
-                        <p class="text-content text-sm lang-text" data-lang-key="aot_challenge_strategies_desc"></p>
+                        <p class="text-content text-base lang-text" data-lang-key="aot_challenge_strategies_desc"></p>
                         <button class="gemini-button text-xs mt-2 analyze-challenge-btn lang-text" data-lang-key="aot_analyze_btn" data-challenge="strategies"></button>
                     </div>
                 </div>
@@ -1124,7 +1171,7 @@
                     </div>
                     <div class="sub-panel mb-4">
                         <h4 class="sub-panel-title lang-text" data-lang-key="rd_linguistic_issues_title"></h4>
-                        <ul class="list-disc space-y-1 text-sm">
+                        <ul class="list-disc space-y-1 text-base">
                             <li class="lang-text" data-lang-key="rd_linguistic_issue1"></li>
                             <li class="lang-text" data-lang-key="rd_linguistic_issue2"></li>
                             <li class="lang-text" data-lang-key="rd_linguistic_issue3"></li>
@@ -1132,7 +1179,7 @@
                     </div>
                     <div class="sub-panel">
                         <h4 class="sub-panel-title lang-text" data-lang-key="rd_cultural_issues_title"></h4>
-                        <ul class="list-disc space-y-1 text-sm">
+                        <ul class="list-disc space-y-1 text-base">
                             <li class="lang-text" data-lang-key="rd_cultural_issue1"></li>
                             <li class="lang-text" data-lang-key="rd_cultural_issue2"></li>
                         </ul>
@@ -1309,9 +1356,9 @@
                 "wom_demographics_josei_title": "Josei (女性)",
                 "wom_demographics_josei_desc": "Για **νεαρές γυναίκες** (18+) (π.χ., <em>Nodame Cantabile</em> της Tomoko Ninomiya, <em>Paradise Kiss</em> της Ai Yazawa, <em>NANA</em> της Ai Yazawa). Εξερευνούν **ρεαλιστικές σχέσεις**, την **καθημερινότητα** και τις **επαγγελματικές φιλοδοξίες**.",
                 "wom_reception_title": "Πρόσληψη των Manga στην Ελλάδα και Διεθνώς",
-                "wom_reception_p1": "Τα **manga** έχουν κατακτήσει μια σημαντική θέση στην **παγκόσμια ποπ κουλτούρα**, με την **αγορά των anime** να παίζει καθοριστικό ρόλο στη διάδοσή τους. Σε χώρες της Ευρώπης όπως η **Ιταλία**, η **Γαλλία** και η **Γερμανία**, υπάρχει μια **ανεπτυγμένη αγορά επίσημων μεταφράσεων manga**. Αντίθετα, στην **Ελλάδα**, παρά το αυξανόμενο ενδιαφέρον, παρατηρείται ένα **σημαντικό κενό** τόσο στις **επίσημες εκδόσεις** όσο και στις **ανεπίσημες μεταφράσεις από φαν** (**scanlations**).",
+                "wom_reception_p1": "Τα **manga** (漫画), τα **ιαπωνικά κόμικς**, έχουν εξελιχθεί σε ένα **παγκόσμιο πολιτιστικό φαινόμενο**, γοητεύοντας κοινό πέρα από τα σύνορα της Ιαπωνίας. Η παρούσα διπλωματική εργασία εμβαθύνει στον συναρπαστικό κόσμο των manga και την πορεία τους προς το **δυτικό κοινό**, με ιδιαίτερη έμφαση στις **προκλήσεις** και τις ιδιαιτερότητες της **μετάφρασης** των αγγλικών \"**scanlations**\" (ανεπίσημες μεταφράσεις από φαν) στην ελληνική γλώσσα.",
                 "wom_reception_p2": "Οι ελάχιστες προσπάθειες που γίνονται συχνά χαρακτηρίζονται από **ασυνέχεια** και **περιορισμένη διαθεσιμότητα**. Αυτή η **έλλειψη ελληνικού μεταφρασμένου περιεχομένου** και η **περιορισμένη έρευνα** πάνω στις **μεταφραστικές προκλήσεις** από τα Ιαπωνικά (μέσω Αγγλικών) στα Ελληνικά αποτέλεσαν βασικό κίνητρο για την παρούσα διπλωματική εργασία.",
-                "wom_reception_p3": "Ωστόπου, το **αυξανόμενο ενδιαφέρον** του ελληνικού κοινού για τα manga, όπως φάνηκε και από την έρευνα, υποδηλώνει μια **σημαντική ευκαιρία** για την ανάπτυξη της αγοράς και την κάλυψη αυτού του κενού με **ποιοτικές μεταφράσεις**.",
+                "wom_reception_p3": "Ωστόσο, το **αυξανόμενο ενδιαφέρον** του ελληνικού κοινού για τα manga, όπως φάνηκε και από την έρευνα, υποδηλώνει μια **σημαντική ευκαιρία** για την ανάπτυξη της αγοράς και την κάλυψη αυτού του κενού με **ποιοτικές μεταφράσεις**.",
                 "wom_explore_btn": "✨ Εξερεύνησε Βαθύτερα τα Manga ✨",
                 "section_title_art_of_translation": "翻訳の技術 - Η Τέχνη της Μετάφρασης",
                 "aot_translator_role_title": "Ο Μεταφραστής ως Πολιτισμικός Διαμεσολαβητής",
@@ -1434,7 +1481,7 @@
                 "wom_demographics_josei_title": "Josei (女性)",
                 "wom_demographics_josei_desc": "For **young women** (18+) (e.g., <em>Nodame Cantabile</em> by Tomoko Ninomiya, <em>Paradise Kiss</em> by Ai Yazawa, <em>NANA</em> by Ai Yazawa). Explore **realistic relationships**, **daily life**, and **professional ambitions**.",
                 "wom_reception_title": "Reception of Manga in Greece and Internationally",
-                "wom_reception_p1": "**Manga** have secured a significant place in **global pop culture**, with the **anime market** playing a crucial role in their dissemination. In European countries like **Italy**, **France**, and **Germany**, there is a **developed market for official manga translations**. In contrast, in **Greece**, despite growing interest, a **significant gap** is observed in both **official publications** and **fan translations** (**scanlations**).",
+                "wom_reception_p1": "**Manga** (漫画), **Japanese comics**, have secured a significant place in **global pop culture**, with the **anime market** playing a crucial role in their dissemination. In European countries like **Italy**, **France**, and **Germany**, there is a **developed market for official manga translations**. In contrast, in **Greece**, despite growing interest, a **significant gap** is observed in both **official publications** and **fan translations** (**scanlations**).",
                 "wom_reception_p2": "The few efforts made are often characterized by **discontinuity** and **limited availability**. This **lack of Greek translated content** and **limited research** on the **translation challenges** from Japanese (via English) to Greek were primary motivations for this thesis.",
                 "wom_reception_p3": "However, the **growing interest** of the Greek audience in manga, as also shown by the research, indicates a **significant opportunity** for market development and filling this gap with **quality translations**.",
                 "wom_explore_btn": "✨ Explore Manga Deeper ✨",
@@ -1505,7 +1552,6 @@
                 "modal_explore_title": "Explore Manga Deeper ✨",
                 "modal_explore_prompt": "Enter a manga-related term (e.g., \"shonen\", \"ukiyo-e\", a mangaka's name, or manga title) to learn more.",
                 "modal_explore_input_placeholder": "E.g. shojo, Akira Toriyama, cultural impact...",
-                "modal_explore_input_empty": "Please enter a term to search.",
                 "modal_api_error_message": "API error: ",
                 "modal_api_no_response": "Could not retrieve a response or the response was empty. Please try again.",
                 "modal_info_title_prefix": "Analysis: ",
@@ -1910,7 +1956,8 @@
                 const challengeTitleKey = `aot_challenge_${challengeKey}_title`;
                 const challengeText = translations[currentLanguage][challengeTitleKey] || translations['el'][challengeTitleKey] || challengeKey;
                 
-                infoModalTitle.innerHTML = `${translations[currentLanguage]['modal_info_title_prefix'] || translations['el']['modal_info_title_prefix']}${challengeText}`; 
+                // Set the modal title directly from the translated challenge text
+                infoModalTitle.innerHTML = challengeText; 
                 infoModal.style.display = "flex"; 
                 
                 // Refined prompt for Gemini API
@@ -2000,6 +2047,16 @@
                 this.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.4)'; // Reset to initial shadow
             });
         });
+
+        // Mobile Navbar Toggle
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const navLinksContainer = document.querySelector('.nav-links-container');
+
+        if (hamburgerBtn && navLinksContainer) {
+            hamburgerBtn.addEventListener('click', () => {
+                navLinksContainer.classList.toggle('active');
+            });
+        }
 
     </script>
 </body>
