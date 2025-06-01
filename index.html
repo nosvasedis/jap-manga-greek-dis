@@ -1917,10 +1917,11 @@
             let chatHistory = [{ role: "user", parts: [{ text: promptText }] }];
             const payload = { contents: chatHistory };
             // IMPORTANT: Replace with your actual API key or proxy setup
-            const apiKey = ""; // If you want to use models other than gemini-2.0-flash or imagen-3.0-generate-002, provide an API key here. Otherwise, leave this as-is.
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-            
-            try {
+            const workerBaseUrl = 'https://gemini-proxy.nvasedis-cc5.workers.dev';
+            const geminiModelPath = '/v1beta/models/gemini-2.0-flash:generateContent';
+            const apiUrl = `${workerBaseUrl}${geminiModelPath}`;
+
+                try {
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
