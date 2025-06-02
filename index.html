@@ -233,14 +233,19 @@
             height: 100%;
             pointer-events: none; 
             overflow: hidden; 
+            /* Ensure visibility on all screen sizes unless specifically hidden by other logic */
+            display: block !important; 
+            opacity: 1 !important;
         }
         #hero .sakura-petal {
             position: absolute;
             background-color: rgba(255, 192, 203, 0.8); /* Light pink matching sakura */
             border-radius: 50% 0 50% 0; 
             animation: fall linear infinite;
-            opacity: 0;
+            opacity: 0; /* Initial opacity set to 0, animation handles fade-in */
             box-shadow: 0 0 5px rgba(255, 192, 203, 0.5);
+             /* Ensure visibility on all screen sizes unless specifically hidden by other logic */
+            display: block !important;
         }
 
         @keyframes fall {
@@ -387,8 +392,33 @@
             .section-title { font-size: 2rem; margin-bottom: 2rem;}
             .manga-panel-title { font-size: 1.5rem; }
             .text-content { font-size: 1rem; } 
-            @keyframes fall { /* Sakura fall animation adjustment for smaller screens if needed */
-                100% { transform: translateY(80vh) translateX(var(--sway)) rotate(var(--rotation)); opacity: 0; } /* Fall less than full viewport height */
+
+            /* Sakura fall animation adjustment for smaller screens */
+            /* This ensures petals are visible and fall a shorter distance on mobile */
+            @keyframes fall { 
+                0% {
+                    transform: translateY(-20px) translateX(0px) rotate(0deg);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 1;
+                }
+                90% {
+                    opacity: 0.8;
+                }
+                100% { 
+                    transform: translateY(80vh) translateX(var(--sway)) rotate(var(--rotation)); 
+                    opacity: 0; 
+                }
+            }
+             /* Hero image adjustments for mobile */
+            .parallax-bg {
+                background-attachment: scroll !important; /* Disable parallax on mobile for performance and compatibility */
+            }
+            #hero {
+                background-size: contain; /* Show the whole image, might leave empty space */
+                background-repeat: no-repeat; /* Prevent tiling */
+                min-height: 60vh; /* Adjust height for mobile to better fit 'contain' */
             }
         }
         /* Styles for text blocks within panels */
@@ -1405,7 +1435,7 @@
                 "rd_linguistic_issue3": "**Κείμενο εκτός πλαισίων ομιλίας:** Η **διάκριση εσωτερικών σκέψεων**, **ψιθύρων** ή **αφηγηματικών σχολίων** από τον κανονικό διάλογο, συχνά μέσω **διαφορετικής γραμματοσειράς** ή **μικρότερου μεγέθους**.",
                 "rd_cultural_issues_title": "Πολιτισμικά Ζητήματα:",
                 "rd_cultural_issue1": "**Τιμητικές προσφωνήσεις (Keigo):** Η **διαχείριση** των **ιαπωνικών επιθημάτων** (**-san**, **-kun**, **-chan**, **-sama** κ.λπ.) που δηλώνουν την **κοινωνική σχέση** μεταξύ των ομιλητών. Η **στρατηγική** που επιλέχθηκε ήταν η **μεταγραφή** τους στα ελληνικά και η παροχή **επεξηγηματικής σημείωσης** στην πρώτη τους εμφάνιση.",
-                "rd_cultural_issue2": "**Πολιτισμικά Ειδικά Στοιχεία (Real-ia):** Η **απόδοση** ή **επεξήγηση** άγνωστων στο ελληνικό κοινό **εθίμων**, **αντικειμένων**, **φαγητών**, **νομισματικών μονάδων** (π.χ. γιεν) ή **κοινωνικών πρακτικών**. Η λύση ήταν η **χρήση μεταφραστικών σημειώσεων**. Παραδείγματα από την εργασία περιλαμβάνουν την έννοια του \"**oni**\", το \"**Japanese battledore**\", την **αξία του γιεν**, και την απεικόνιση της **προσευχής** σε οικιακό βωμό.",
+                "rd_cultural_issue2": "**Πολιτισμικά Ειδικά Στοιχεία: ** Η **απόδοση** ή **επεξήγηση** άγνωστων στο ελληνικό κοινό **εθίμων**, **αντικειμένων**, **φαγητών**, **νομισματικών μονάδων** (π.χ. γιεν) ή **κοινωνικών πρακτικών**. Η λύση ήταν η **χρήση μεταφραστικών σημειώσεων**. Παραδείγματα από την εργασία περιλαμβάνουν την έννοια του \"**oni**\", το \"**Japanese battledore**\", την **αξία του γιεν**, και την απεικόνιση της **προσευχής** σε οικιακό βωμό.",
                 "rd_survey_findings_title": "Ευρήματα Ερωτηματολογίου: Η Οπτική των Ελλήνων Αναγνωστών",
                 "rd_survey_findings_intro": "Οι **απαντήσεις** των **38 συμμετεχόντων** στο **ερωτηματολόγιο** έδωσαν σημαντικές **ενδείξεις** για την **πρόσληψη** των **μεταφραστικών επιλογών**:",
                 "rd_survey_finding1": "**Τυπογραφία για Ένταση:** Η **συντριπτική πλειοψηφία** (**30 από 38 άτομα**) έκρινε ότι η **χρήση έντονης γραφής** και **μεγαλύτερου μεγέθους γραμμάτων** ήταν **χρήσιμη** για την **κατανόηση σκηνών** με **έντονη συναισθηματική φόρτιση**.",
@@ -1531,7 +1561,7 @@
                 "rd_linguistic_issue3": "**Text Outside Speech Bubbles:** Differentiating **internal thoughts**, **whispers**, or **narrative comments** from regular dialogue, often through **different fonts** or **smaller sizes**.",
                 "rd_cultural_issues_title": "Cultural Issues:",
                 "rd_cultural_issue1": "**Honorifics (Keigo):** Managing **Japanese suffixes** (**-san**, **-kun**, etc.) that indicate **social relationships**. The chosen **strategy** was **transliteration** into Greek and providing an **explanatory note** on their first appearance.",
-                "rd_cultural_issue2": "**Culture-Specific Items (Real-ia):** Rendering or **explaining customs**, **objects**, **foods**, **currency** (e.g., yen), or **social practices** unfamiliar to the Greek audience. The solution was the **use of translation notes**. Examples from the thesis include the concept of \"**oni**,\" \"**Japanese battledore**,\" the **value of yen**, and praying at a home altar.",
+                "rd_cultural_issue2": "**Culture-Specific Items:** Rendering or **explaining customs**, **objects**, **foods**, **currency** (e.g., yen), or **social practices** unfamiliar to the Greek audience. The solution was the **use of translation notes**. Examples from the thesis include the concept of \"**oni**,\" \"**Japanese battledore**,\" the **value of yen**, and praying at a home altar.",
                 "rd_survey_findings_title": "Questionnaire Findings: The Greek Readers' Perspective",
                 "rd_survey_findings_intro": "The **responses** of the **38 questionnaire participants** provided valuable **insights** into the **reception** of the **translation choices**:",
                 "rd_survey_finding1": "**Typography for Intensity:** The **vast majority** (**30 out of 38**) found **bold type** and **larger font sizes** helpful for **understanding scenes** with **high emotional charge**.",
@@ -1656,8 +1686,8 @@
                 "rd_linguistic_issue2": "**オノマトペと効果音（SFX）：****日本の擬音語・擬態語**は、しばしば英語の**スキャンレーター**によって**未翻訳**のままにされます。本研究は同じ**戦略**（日本のSFXを翻訳しない）に従い、それらを**真正性**と**漫画の視覚的美学**の不可欠な部分と見なしました。",
                 "rd_linguistic_issue3": "**吹き出し外のテキスト：****内なる思考**、**ささやき**、または**物語のコメント**を通常の対話と区別すること。しばしば**異なるフォント**や**小さいサイズ**を使用します。",
                 "rd_cultural_issues_title": "文化的問題：",
-                "rd_cultural_issue1": "**敬称**（～さん、～君）は関係性を示します。その他の要素（**食べ物**、**習慣**）には**説明**が必要な場合があります。",
-                "rd_cultural_issue2": "**文化固有の項目（リアリア）：**ギリシャの読者になじみのない**習慣**、**物**、**食べ物**、**通貨単位**（例：円）、または**社会的慣行**の表現または説明。解決策は**翻訳ノート**の使用でした。論文の例には、「**鬼**」の概念、「**日本の羽根突き**」、**円の価値**、家庭の祭壇での**祈り**の描写が含まれます。",
+                "rd_cultural_issue1": "**敬称（敬語）：**話者間の**社会的関係**を示す**日本語の接尾辞**（～さん、～君、～ちゃん、～様など）の**管理**。選択された**戦略**は、ギリシャ語への**音訳**と、最初の出現時に**説明ノート**を提供することでした。",
+                "rd_cultural_issue2": "**文化固有の項目：** ギリシャの読者になじみのない**習慣**、**物**、**食べ物**、**通貨単位**（例：円）、または**社会的慣行**の表現または説明。解決策は**翻訳ノート**の使用でした。論文の例には、「**鬼**」の概念、「**日本の羽根突き**」、**円の価値**、家庭の祭壇での**祈り**の描写が含まれます。",
                 "rd_survey_findings_title": "アンケート調査結果：ギリシャ人読者の視点",
                 "rd_survey_findings_intro": "**38人のアンケート参加者**の**回答**は、**翻訳選択**の**受容**に関する**貴重な洞察**を提供しました。",
                 "rd_survey_finding1": "**強調のためのタイポグラフィ：****大多数**（**38人中30人**）が、感情的な場面を理解する上で、**太字**や**大きなフォントサイズ**の使用が**役立つ**と判断しました。",
@@ -1782,7 +1812,7 @@
                 element.innerHTML = markdownToHtmlSimple(translatedText);
             });
             updateLanguageButtonStates();
-            updateModalAndPlaceholders(); // CORRECTED: Was updateModalContent()
+            updateModalAndPlaceholders(); 
         }
         
         // Function to convert simple Markdown to HTML
@@ -1917,12 +1947,12 @@
 
             let chatHistory = [{ role: "user", parts: [{ text: promptText }] }];
             const payload = { contents: chatHistory };
-            // IMPORTANT: Replace with your actual API key or proxy setup
-            const workerBaseUrl = 'https://gemini-proxy.nvasedis-cc5.workers.dev';
-            const geminiModelPath = '/v1beta/models/gemini-2.0-flash:generateContent';
-            const apiUrl = `${workerBaseUrl}${geminiModelPath}`;
+            
+            const apiKey = ""; // API key will be injected by the environment if needed
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
-                try {
+
+            try {
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -1930,7 +1960,8 @@
                 });
 
                 if (!response.ok) {
-                    throw new Error(`${translations[currentLanguage]['modal_api_error_message'] || translations['el']['modal_api_error_message']}${response.status} ${response.statusText}`);
+                     const errorBody = await response.text(); // Read error body for more details
+                    throw new Error(`${translations[currentLanguage]['modal_api_error_message'] || translations['el']['modal_api_error_message']}${response.status} ${response.statusText}. Response: ${errorBody}`);
                 }
 
                 const result = await response.json();
@@ -1941,11 +1972,18 @@
                     const rawText = result.candidates[0].content.parts[0].text;
                     responseAreaElement.innerHTML = markdownToHtmlSimple(rawText); 
                 } else {
-                    responseAreaElement.innerHTML = translations[currentLanguage]['modal_api_no_response'] || translations['el']['modal_api_no_response'];
+                    // Check for specific error messages from Gemini API if available
+                    let detailedError = translations[currentLanguage]['modal_api_no_response'] || translations['el']['modal_api_no_response'];
+                    if (result.promptFeedback && result.promptFeedback.blockReason) {
+                        detailedError += ` (Reason: ${result.promptFeedback.blockReason})`;
+                    } else if (result.error) {
+                        detailedError += ` (API Error: ${result.error.message})`;
+                    }
+                    responseAreaElement.innerHTML = detailedError;
                 }
             } catch (error) {
                 responseAreaElement.innerHTML = `${translations[currentLanguage]['modal_api_error_message'] || translations['el']['modal_api_error_message']}${error.message}.`;
-                console.error("API Call Error:", error); // Log the full error for debugging
+                console.error("API Call Error:", error); 
             } finally {
                 loadingElement.style.display = 'none';
             }
@@ -1955,7 +1993,7 @@
         if (exploreMangaBtn) {
             exploreMangaBtn.onclick = function() {
                 exploreMangaModal.style.display = "flex";
-                updateModalAndPlaceholders(); // Ensure modal content is updated when opened
+                updateModalAndPlaceholders(); 
             }
         }
         // Event listener for closing "Explore Manga" modal
