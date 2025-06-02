@@ -417,9 +417,10 @@
                 background-attachment: scroll !important; /* Disable parallax on mobile for performance and compatibility */
             }
             #hero {
-                background-size: contain; /* Show the whole image, might leave empty space */
-                background-repeat: no-repeat; /* Prevent tiling */
-                min-height: 60vh; /* Adjust height for mobile to better fit 'contain' */
+                background-size: cover; /* Changed from contain to cover */
+                background-position: center center; /* Ensure image is centered with cover */
+                background-repeat: no-repeat; 
+                min-height: 80vh; /* Increased height for mobile */
             }
         }
         /* Styles for text blocks within panels */
