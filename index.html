@@ -1950,10 +1950,10 @@
             let chatHistory = [{ role: "user", parts: [{ text: promptText }] }];
             const payload = { contents: chatHistory };
             
-            const apiKey = ""; // API key will be injected by the environment if needed
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-
+           const workerBaseUrl = 'https://gemini-proxy.nvasedis-cc5.workers.dev';
+           const geminiModelPath = '/v1beta/models/gemini-2.0-flash:generateContent';
+           const apiUrl = `${workerBaseUrl}${geminiModelPath}`;
+            
             try {
                 const response = await fetch(apiUrl, {
                     method: 'POST',
